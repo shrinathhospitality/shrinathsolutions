@@ -1,0 +1,20 @@
+Options -Indexes
+DirectoryIndex index.php
+
+# Overrides the "Require all denied" set by the parent api/seo-toolkit/.htaccess —
+# this is the one directory in the toolkit that must stay reachable.
+Require all granted
+
+# router.php is only used by PHP's built-in dev server
+# (php -S localhost:8080 -t api/public api/public/router.php) and must never
+# be reachable over HTTP in production.
+<Files "router.php">
+    Require all denied
+</Files>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ index.php [L]
+</IfModule>

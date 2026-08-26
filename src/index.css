@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ink: #060a17;
+  --paper: #e9efff;
+  --blue: #3b6bff;
+  --purple: #7b5cff;
+  --cyan: #22d3ee;
+  --ember: #ff7a2f;
+  --glass: rgba(255, 255, 255, 0.055);
+  --glass-border: rgba(255, 255, 255, 0.11);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--ink); }
+body {
+  font-family: Manrope, system-ui, sans-serif;
+  color: var(--paper);
+  font-size: 17px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { color: #7dd3fc; text-decoration: none; }
+a:hover { color: #ff8a45; }
+::selection { background: rgba(255, 122, 47, 0.35); }
+:focus-visible { outline: 2px solid var(--ember); outline-offset: 3px; border-radius: 6px; }
+
+h1, h2, h3 { font-family: Sora, sans-serif; letter-spacing: -0.02em; text-wrap: balance; }
+p { text-wrap: pretty; }
+
+/* Sanitized rich-text content (blog posts, portfolio detail, SEO landing pages). Matches the
+   Services-page body typography (plain bold headings, no icon/number gadgetry) plus a light
+   touch of card styling for lists/quotes, applied via pure CSS so imported markdown content
+   doesn't need per-page restructuring. */
+.rich-content { max-width: 760px; font-size: 17.4px; color: rgba(226, 234, 255, .76); }
+.rich-content > * + * { margin-top: 1.1em; }
+.rich-content > p:first-of-type { font-size: 19px; line-height: 1.65; color: rgba(237, 243, 255, .88); }
+.rich-content h2 {
+  font-family: Sora, sans-serif; font-weight: 700; font-size: clamp(23px, 2.6vw, 30px); line-height: 1.2; color: var(--paper);
+  margin-top: 2em; padding-top: 1.5em; border-top: 1px solid rgba(255, 255, 255, .08);
+  scroll-margin-top: 110px;
+}
+.rich-content h2:first-child { margin-top: 0; padding-top: 0; border-top: none; }
+.rich-content h3 { font-family: Sora, sans-serif; font-weight: 700; font-size: 20px; color: var(--paper); margin-top: 1.4em; scroll-margin-top: 110px; }
+.rich-content ol { padding-left: 1.4em; display: grid; gap: 0.5em; }
+.rich-content ul { list-style: none; padding: 0; display: grid; gap: 0.65em; }
+.rich-content ul li { position: relative; padding-left: 2em; }
+.rich-content ul li::before {
+  content: '✓'; position: absolute; left: 0; top: 0.05em;
+  width: 1.35em; height: 1.35em; display: grid; place-items: center; border-radius: 7px;
+  font-size: 12px; font-weight: 800; color: #22d3ee; background: rgba(34, 211, 238, .14);
+}
+.rich-content ol li { padding-left: 0.2em; }
+.rich-content a { text-decoration: underline; }
+.rich-content strong { color: var(--paper); font-weight: 700; }
+.rich-content blockquote {
+  border: 1px solid rgba(255, 255, 255, .11); border-left: 3px solid var(--cyan);
+  background: rgba(255, 255, 255, .035); border-radius: 16px; padding: 1.1em 1.3em;
+  color: rgba(226, 234, 255, .82); font-style: normal;
+}
+
+@keyframes drift {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  33% { transform: translate3d(6%, -5%, 0) scale(1.08); }
+  66% { transform: translate3d(-5%, 4%, 0) scale(0.96); }
+}
+@keyframes floatY { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes topbarSheen { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+@keyframes pulseDot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: .55; transform: scale(.82); } }
+@keyframes footerPanelGlow { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(1.35); } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

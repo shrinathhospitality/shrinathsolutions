@@ -1,0 +1,78 @@
+name: Deploy to Hostinger
+
+# Builds the Vite frontend and syncs it, plus the PHP api/ source, to public_html over FTP.
+#
+# Deliberately NEVER touches on the server (see the `exclude` list below):
+#   - api/config/config.php   — the real DB credentials, created once by hand on the server,
+#                                never checked into this repo (see api/config/config.example.php).
+#   - api/uploads/**           — user-uploaded media from the admin Media Library.
+#   - api/seo-toolkit/storage/** (except the tracked .gitkeep placeholders) — generated
+#                                audit/report/log/rate-limit files.
+# If any of those three ever need to be recreated from scratch, do it manually via
+# Hostinger's File Manager — see DEPLOYMENT.md.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build frontend
+        run: npm run build
+
+      - name: Assemble deploy directory
+        run: |
+          set -e
+          rm -rf deploy
+          mkdir -p deploy
+
+          # Frontend build output goes at the web root.
+          cp -r dist/. deploy/
+
+          # SPA/API rewrite rules.
+          cp .htaccess deploy/.htaccess
+
+          # PHP backend source, minus anything that's local-only or server-owned runtime state.
+          mkdir -p deploy/api
+          cp -r api/. deploy/api/
+          rm -f deploy/api/dev-router.php
+          rm -f deploy/api/config/config.php
+          rm -rf deploy/api/uploads
+          find deploy/api/seo-toolkit/storage -mindepth 2 -type f ! -name '.gitkeep' -delete
+
+      - name: Deploy over FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: 21
+          protocol: ftp
+          local-dir: ./deploy/
+          server-dir: ./public_html/
+          dangerous-clean-slate: false
+          exclude: |
+            **/.git*
+            **/.github/**
+            **/node_modules/**
+            **/api/config/config.php
+            **/api/uploads/**
+            **/api/seo-toolkit/storage/audits/*.json
+            **/api/seo-toolkit/storage/logs/*.log
+            **/api/seo-toolkit/storage/rate-limits/*.json
+            **/api/seo-toolkit/storage/reports/*.pdf

@@ -1,0 +1,6 @@
+# Blocks direct access to everything under api/seo-toolkit/ except public/
+# (which has its own .htaccess re-granting access — the same pattern the
+# vendor's own README recommends for a standalone deployment, adapted here
+# since the whole toolkit now lives inside the main site's already-served
+# api/ tree instead of getting its own private docroot).
+Require all denied

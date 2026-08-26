@@ -1,0 +1,27 @@
+node_modules
+dist
+.DS_Store
+*.local
+tsconfig.tsbuildinfo
+
+# Local Claude Code tooling config — not app source
+.claude
+
+# PHP API credentials — never commit real config
+api/config/config.php
+api/.env
+api/seo-toolkit/.env
+
+# PHP uploaded media
+api/uploads/*
+!api/uploads/.gitkeep
+
+# SEO toolkit runtime data (generated audits/logs/reports) — not source, not deployed
+api/seo-toolkit/storage/audits/*
+!api/seo-toolkit/storage/audits/.gitkeep
+api/seo-toolkit/storage/logs/*
+!api/seo-toolkit/storage/logs/.gitkeep
+api/seo-toolkit/storage/rate-limits/*
+!api/seo-toolkit/storage/rate-limits/.gitkeep
+api/seo-toolkit/storage/reports/*
+!api/seo-toolkit/storage/reports/.gitkeep

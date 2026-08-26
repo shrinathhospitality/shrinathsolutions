@@ -1,0 +1,2 @@
+# Config files are require()'d by PHP, never requested directly. Block direct access outright.
+Require all denied

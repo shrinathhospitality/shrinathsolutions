@@ -1,0 +1,14 @@
+# Defense in depth: storage/ is already outside api/public (the only
+# web-servable path — see the root .htaccess), so it shouldn't be reachable
+# at all. This file blocks it anyway in case of a misconfigured docroot.
+Require all denied
+
+<IfModule mod_php.c>
+    php_flag engine off
+</IfModule>
+
+<FilesMatch "\.php$">
+    Require all denied
+</FilesMatch>
+
+Options -Indexes
