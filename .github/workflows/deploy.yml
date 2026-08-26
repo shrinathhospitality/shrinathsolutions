@@ -2,6 +2,10 @@ name: Deploy to Hostinger
 
 # Builds the Vite frontend and syncs it, plus the PHP api/ source, to public_html over FTP.
 #
+# The FTP account's login directory (/) IS public_html itself — Hostinger's File Manager just
+# labels it "public_html" in its UI. server-dir is therefore "./", NOT "./public_html/"; the
+# latter was tried once and created a stray nested public_html/ folder one level too deep.
+#
 # Deliberately NEVER touches on the server (see the `exclude` list below):
 #   - api/config/config.php   — the real DB credentials, created once by hand on the server,
 #                                never checked into this repo (see api/config/config.example.php).
@@ -64,7 +68,7 @@ jobs:
           port: 21
           protocol: ftp
           local-dir: ./deploy/
-          server-dir: ./public_html/
+          server-dir: ./
           dangerous-clean-slate: false
           exclude: |
             **/.git*
