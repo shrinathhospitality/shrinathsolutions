@@ -1,26 +1,25 @@
 import { Monitor, Search, Megaphone, TrendingUp, Building2, type LucideIcon } from 'lucide-react';
 
-const CATEGORY_STYLE: Record<string, { icon: LucideIcon; base: string }> = {
-  'Website Design': { icon: Monitor, base: 'radial-gradient(circle at 30% 20%, rgba(59,107,255,.5), transparent 60%), #0b1226' },
-  SEO: { icon: Search, base: 'radial-gradient(circle at 30% 20%, rgba(34,211,238,.45), transparent 60%), #0b1226' },
-  'Hotel Marketing': { icon: Megaphone, base: 'radial-gradient(circle at 30% 20%, rgba(255,122,47,.42), transparent 60%), #0b1226' },
-  'Paid Ads': { icon: TrendingUp, base: 'radial-gradient(circle at 30% 20%, rgba(123,92,255,.48), transparent 60%), #0b1226' },
-  'Hotel Technology': { icon: Building2, base: 'radial-gradient(circle at 30% 20%, rgba(46,214,175,.4), transparent 60%), #0b1226' },
+const CATEGORY_STYLE: Record<string, { icon: LucideIcon; base: string; iconColor: string }> = {
+  'Website Design': { icon: Monitor, base: 'radial-gradient(circle at 30% 20%, rgba(49,87,229,.16), transparent 60%), #eef4ff', iconColor: '#3157e5' },
+  SEO: { icon: Search, base: 'radial-gradient(circle at 30% 20%, rgba(34,211,238,.16), transparent 60%), #eafbfd', iconColor: '#0891b2' },
+  'Hotel Marketing': { icon: Megaphone, base: 'radial-gradient(circle at 30% 20%, rgba(255,122,61,.16), transparent 60%), #fff7f1', iconColor: '#f06424' },
+  'Paid Ads': { icon: TrendingUp, base: 'radial-gradient(circle at 30% 20%, rgba(115,71,232,.16), transparent 60%), #f4f0ff', iconColor: '#7347e8' },
+  'Hotel Technology': { icon: Building2, base: 'radial-gradient(circle at 30% 20%, rgba(15,159,117,.16), transparent 60%), #eafbf4', iconColor: '#0f9f75' },
 };
 
-const DEFAULT_STYLE = { icon: Monitor, base: 'radial-gradient(circle at 30% 20%, rgba(59,107,255,.4), transparent 60%), #0b1226' };
+const DEFAULT_STYLE = { icon: Monitor, base: 'radial-gradient(circle at 30% 20%, rgba(49,87,229,.14), transparent 60%), #eef4ff', iconColor: '#3157e5' };
 
 /** Article thumbnail placeholder — no real photography exists per post, so this renders a
- *  category-tinted 16:9 panel (icon + base radial glow) with a subtle blue-purple gradient
- *  overlay on top, rather than an empty box. Swap for a real `src` once photos are available. */
+ *  category-tinted 16:9 panel (icon + base radial glow), rather than an empty box. Swap for a
+ *  real `src` once photos are available. */
 export default function BlogThumb({ category, className = '' }: { category: string | null; className?: string }) {
-  const { icon: Icon, base } = (category && CATEGORY_STYLE[category]) || DEFAULT_STYLE;
+  const { icon: Icon, base, iconColor } = (category && CATEGORY_STYLE[category]) || DEFAULT_STYLE;
 
   return (
-    <div className={`relative overflow-hidden ${className}`} style={{ aspectRatio: '16/9', background: base }}>
-      <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, rgba(59,107,255,.22), rgba(123,92,255,.16) 55%, transparent)' }} aria-hidden="true" />
+    <div className={`relative overflow-hidden ${className}`} style={{ aspectRatio: '16/9', background: base, border: '1px solid var(--color-border)' }}>
       <div className="absolute inset-0 grid place-items-center">
-        <Icon size={38} color="rgba(233,239,255,.35)" strokeWidth={1.5} aria-hidden="true" />
+        <Icon size={38} color={iconColor} strokeWidth={1.5} opacity={0.6} aria-hidden="true" />
       </div>
     </div>
   );

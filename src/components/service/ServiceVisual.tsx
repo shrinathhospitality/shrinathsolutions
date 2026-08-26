@@ -22,11 +22,11 @@ function visualKindFor(category?: string | null): VisualKind {
 function Frame({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="rounded-[24px] overflow-hidden" style={{ ...glassStrong, animation: 'floatY 10s ease-in-out infinite' }}>
-      <div className="flex items-center gap-2 px-4 py-3" style={{ borderBottom: '1px solid rgba(255,255,255,.1)', background: 'rgba(255,255,255,.05)' }}>
-        {['#ff6a1f', '#fbbf24', '#34d399'].map((c) => (
+      <div className="flex items-center gap-2 px-4 py-3" style={{ borderBottom: '1px solid var(--color-border)', background: 'var(--color-surface-alt)' }}>
+        {['#ff7a3d', '#fbbf24', '#0f9f75'].map((c) => (
           <span key={c} className="rounded-full" aria-hidden="true" style={{ width: 10, height: 10, background: c }} />
         ))}
-        <span className="ml-2 text-[12.5px] px-3 py-1 rounded-full truncate" style={{ color: 'rgba(226,234,255,.6)', background: 'rgba(0,0,0,.25)' }}>{label}</span>
+        <span className="ml-2 text-[12.5px] px-3 py-1 rounded-full truncate" style={{ color: 'var(--color-heading)', background: 'var(--color-surface)', border: '1px solid var(--color-border)' }}>{label}</span>
       </div>
       <div className="p-6">{children}</div>
     </div>
@@ -37,12 +37,12 @@ function Row({ icon: Icon, label, active }: { icon: LucideIcon; label: string; a
   return (
     <div
       className="flex items-center gap-3 p-3.5 rounded-2xl"
-      style={{ border: '1px solid rgba(255,255,255,.1)', background: active ? 'rgba(59,107,255,.16)' : 'rgba(255,255,255,.04)' }}
+      style={{ border: '1px solid var(--color-border)', background: active ? 'var(--color-surface-alt)' : 'var(--color-surface)' }}
     >
-      <span className="grid place-items-center shrink-0" style={{ width: 32, height: 32, borderRadius: 10, background: 'rgba(255,255,255,.08)' }}>
-        <Icon size={16} color={active ? '#7dd3fc' : '#aab6ce'} aria-hidden="true" />
+      <span className="grid place-items-center shrink-0" style={{ width: 32, height: 32, borderRadius: 10, background: active ? '#fff' : 'var(--color-surface-alt)' }}>
+        <Icon size={16} color={active ? 'var(--color-primary)' : 'var(--color-muted)'} aria-hidden="true" />
       </span>
-      <span className="text-[14.5px] font-medium" style={{ color: active ? '#e9efff' : 'rgba(226,234,255,.7)' }}>{label}</span>
+      <span className="text-[14.5px] font-medium" style={{ color: active ? 'var(--color-heading)' : 'var(--color-body)' }}>{label}</span>
     </div>
   );
 }
@@ -51,13 +51,13 @@ function WebsiteVisual() {
   return (
     <Frame label="yoursite.com">
       <div className="grid gap-2.5">
-        <div className="h-8 rounded-lg" style={{ background: 'linear-gradient(90deg, rgba(59,107,255,.3), rgba(123,92,255,.18))' }} />
+        <div className="h-8 rounded-lg" style={{ background: 'linear-gradient(90deg, rgba(49,87,229,.22), rgba(115,71,232,.14))' }} />
         <div className="grid grid-cols-3 gap-2">
-          {[0, 1, 2].map((i) => <div key={i} className="h-16 rounded-lg" style={{ background: 'rgba(255,255,255,.05)', border: '1px solid rgba(255,255,255,.08)' }} />)}
+          {[0, 1, 2].map((i) => <div key={i} className="h-16 rounded-lg" style={{ background: 'var(--color-surface-alt)', border: '1px solid var(--color-border)' }} />)}
         </div>
         <div className="flex items-center gap-2 mt-1">
-          <Smartphone size={16} color="#6ee7b7" aria-hidden="true" />
-          <span className="text-[13px]" style={{ color: 'rgba(226,234,255,.6)' }}>Responsive on every device</span>
+          <Smartphone size={16} color="var(--color-success)" aria-hidden="true" />
+          <span className="text-[13px]" style={{ color: 'var(--color-body)' }}>Responsive on every device</span>
         </div>
       </div>
     </Frame>
@@ -68,9 +68,9 @@ function SeoVisual() {
   return (
     <Frame label="Search visibility">
       <div className="grid gap-2.5">
-        <div className="flex items-center gap-2 px-3.5 py-3 rounded-full" style={{ border: '1px solid rgba(255,255,255,.14)', background: 'rgba(0,0,0,.25)' }}>
-          <Search size={15} color="#7dd3fc" aria-hidden="true" />
-          <span className="text-[13.5px]" style={{ color: 'rgba(226,234,255,.55)' }}>hotels near Jaisalmer…</span>
+        <div className="flex items-center gap-2 px-3.5 py-3 rounded-full" style={{ border: '1px solid var(--color-border)', background: 'var(--color-surface-alt)' }}>
+          <Search size={15} color="var(--color-primary)" aria-hidden="true" />
+          <span className="text-[13.5px]" style={{ color: 'var(--color-body)' }}>hotels near Jaisalmer…</span>
         </div>
         <Row icon={MapPin} label="Google Business Profile" active />
         <Row icon={Star} label="Reviews &amp; local ranking factors" />
@@ -87,7 +87,7 @@ function AdsVisual() {
         <Row icon={Search} label="Search campaigns" active />
         <Row icon={Megaphone} label="Performance Max" />
         <Row icon={TrendingUp} label="Cost-per-enquiry target" />
-        <div className="text-[12.5px] mt-1" style={{ color: 'rgba(226,234,255,.45)' }}>Structured around a target you set, not impressions.</div>
+        <div className="text-[12.5px] mt-1" style={{ color: 'var(--color-muted)' }}>Structured around a target you set, not impressions.</div>
       </div>
     </Frame>
   );
@@ -111,8 +111,8 @@ function SocialVisual() {
     <Frame label="Content calendar">
       <div className="grid grid-cols-3 gap-2">
         {[0, 1, 2, 3, 4, 5].map((i) => (
-          <div key={i} className="aspect-square rounded-lg grid place-items-center" style={{ background: 'rgba(255,255,255,.05)', border: '1px solid rgba(255,255,255,.08)' }}>
-            <Share2 size={15} color="rgba(226,234,255,.4)" aria-hidden="true" />
+          <div key={i} className="aspect-square rounded-lg grid place-items-center" style={{ background: 'var(--color-surface-alt)', border: '1px solid var(--color-border)' }}>
+            <Share2 size={15} color="var(--color-muted)" aria-hidden="true" />
           </div>
         ))}
       </div>

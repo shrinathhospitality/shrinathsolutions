@@ -109,7 +109,7 @@ export default function Header() {
 
   return (
     <>
-      <div className="relative hidden sm:block" style={{ background: 'linear-gradient(90deg, rgba(15,23,45,.96), rgba(20,26,54,.96) 50%, rgba(15,23,45,.96))', borderBottom: '1px solid rgba(255,255,255,.06)' }}>
+      <div className="relative hidden sm:block" style={{ background: 'linear-gradient(90deg, #061029, #0b1c3b 50%, #061029)', borderBottom: '1px solid rgba(255,255,255,.06)' }}>
         <div className="mx-auto max-w-shell px-[22px] py-[7px] flex flex-wrap items-center justify-between gap-3 text-[13.5px] font-medium">
           <span style={{ color: 'rgba(226,234,255,.7)' }}>{topbarMessage}</span>
           <span className="flex items-center gap-5">
@@ -136,9 +136,9 @@ export default function Header() {
         style={{
           backdropFilter: 'blur(22px) saturate(160%)',
           WebkitBackdropFilter: 'blur(22px) saturate(160%)',
-          background: scrolled ? 'rgba(6,10,23,.9)' : 'rgba(9,14,32,.62)',
-          borderBottom: '1px solid rgba(255,255,255,.09)',
-          boxShadow: scrolled ? '0 12px 34px rgba(2,6,23,.5)' : 'none',
+          background: scrolled ? 'rgba(7,20,46,.96)' : 'rgba(7,20,46,.82)',
+          borderBottom: '1px solid rgba(255,255,255,.1)',
+          boxShadow: scrolled ? '0 12px 34px rgba(2,6,23,.3)' : 'none',
         }}
         onMouseLeave={() => setActiveMega(null)}
       >
@@ -180,7 +180,7 @@ export default function Header() {
             ))}
             <Link
               to={ctaUrl}
-              className="ml-2 px-5 py-3 rounded-full font-heading font-bold text-[15px] transition-shadow hover:brightness-105"
+              className="ml-2 px-5 py-3 rounded-full font-heading font-bold text-[15px] transition hover:brightness-95"
               style={{ ...emberBtn, boxShadow: '0 0 0 1px rgba(255,154,83,.3), 0 10px 26px rgba(255,122,47,.4)' }}
             >
               {ctaText}

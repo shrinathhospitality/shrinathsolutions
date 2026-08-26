@@ -11,11 +11,11 @@ function StepCard({ s, i }: { s: Step; i: number }) {
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 0.45, delay: (i % 6) * 0.06 }}
       className="p-5 rounded-[20px] h-full"
-      style={{ border: '1px solid rgba(255,255,255,.1)', background: 'rgba(255,255,255,.04)' }}
+      style={{ border: '1px solid var(--color-border)', background: 'var(--color-surface)', boxShadow: 'var(--shadow-card)' }}
     >
       <span
         className="grid place-items-center rounded-full font-heading font-extrabold text-[14px] shrink-0"
-        style={{ width: 38, height: 38, background: 'linear-gradient(140deg,#3b6bff,#7b5cff 55%,#22d3ee)', color: '#fff' }}
+        style={{ width: 38, height: 38, background: 'linear-gradient(140deg,#3157e5,#7347e8 55%,#22d3ee)', color: '#fff' }}
       >
         {s.num}
       </span>

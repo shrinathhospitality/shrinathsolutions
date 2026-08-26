@@ -114,7 +114,7 @@ export default function DynamicSeoPage() {
       <section className="mx-auto max-w-shell px-[22px] pt-9 grid gap-11 items-stretch lg:grid-cols-[1.08fr_0.92fr]">
         <div>
           {(page.target_location || page.primary_keyword) && (
-            <div className="text-[13px] font-bold uppercase tracking-[.18em]" style={{ color: '#7dd3fc' }}>
+            <div className="text-[13px] font-bold uppercase tracking-[.18em]" style={{ color: 'var(--color-primary)' }}>
               {page.target_location ?? page.primary_keyword}
             </div>
           )}
@@ -122,7 +122,7 @@ export default function DynamicSeoPage() {
             {page.h1}
           </h1>
           {page.hero_content && (
-            <p className="text-[18px] mt-5 max-w-[560px]" style={{ color: 'rgba(226,234,255,.74)' }}>{page.hero_content}</p>
+            <p className="text-[18px] mt-5 max-w-[560px]" style={{ color: 'var(--color-body)' }}>{page.hero_content}</p>
           )}
           <div className="flex flex-wrap gap-3.5 mt-7">
             <Link to="/contact" className="px-7 py-4 rounded-full font-heading font-bold text-[16px]" style={emberBtn}>

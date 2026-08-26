@@ -25,8 +25,9 @@ export default function ServiceGrowthJourney({ heading, body, items }: { heading
               transition={{ duration: 0.45, delay: i * 0.08 }}
               className="w-full p-5 rounded-[20px] text-center"
               style={{
-                border: '1px solid ' + (i === items.length - 1 ? 'rgba(255,154,83,.4)' : 'rgba(255,255,255,.11)'),
-                background: i === items.length - 1 ? 'linear-gradient(160deg, rgba(255,122,47,.16), rgba(255,122,47,.04))' : 'rgba(255,255,255,.04)',
+                border: '1px solid ' + (i === items.length - 1 ? 'rgba(255,122,61,.4)' : 'var(--color-border)'),
+                background: i === items.length - 1 ? 'var(--color-surface-warm)' : 'var(--color-surface)',
+                boxShadow: 'var(--shadow-card)',
               }}
             >
               {it.glyph && <span className="text-[22px]" aria-hidden="true">{it.glyph}</span>}
@@ -34,7 +35,7 @@ export default function ServiceGrowthJourney({ heading, body, items }: { heading
               {it.body && <p className="m-0 mt-1.5 text-[13.5px]" style={{ color: muted }}>{it.body}</p>}
             </motion.div>
             {i < items.length - 1 && (
-              <span className="shrink-0 my-2 lg:my-0 lg:mx-3" aria-hidden="true" style={{ color: 'rgba(226,234,255,.35)' }}>
+              <span className="shrink-0 my-2 lg:my-0 lg:mx-3" aria-hidden="true" style={{ color: 'var(--color-border-strong)' }}>
                 <ArrowDown size={18} className="lg:hidden" />
                 <ArrowRight size={18} className="hidden lg:block" />
               </span>

@@ -14,9 +14,9 @@ type Post = {
 
 function Panel({ title, icon: Icon, children }: { title: string; icon: LucideIcon; children: ReactNode }) {
   return (
-    <div className="p-5 rounded-[20px]" style={{ border: '1px solid rgba(255,255,255,.1)', background: 'rgba(255,255,255,.035)' }}>
+    <div className="p-5 rounded-[20px]" style={{ border: '1px solid var(--color-border)', background: 'var(--color-surface)', boxShadow: 'var(--shadow-card)' }}>
       <h3 className="flex items-center gap-2 font-heading font-bold text-[14.5px] m-0 mb-4">
-        <Icon size={16} style={{ color: '#7dd3fc' }} aria-hidden="true" /> {title}
+        <Icon size={16} style={{ color: 'var(--color-primary)' }} aria-hidden="true" /> {title}
       </h3>
       {children}
     </div>
@@ -25,8 +25,8 @@ function Panel({ title, icon: Icon, children }: { title: string; icon: LucideIco
 
 function PostRow({ post }: { post: Post }) {
   return (
-    <Link to={`/blog/${post.slug}`} className="group flex flex-col gap-1.5 py-3 !text-paper">
-      <span className="font-heading font-semibold text-[14px] leading-snug line-clamp-2 transition-colors group-hover:text-[#7dd3fc]">
+    <Link to={`/blog/${post.slug}`} className="group flex flex-col gap-1.5 py-3 !text-heading">
+      <span className="font-heading font-semibold text-[14px] leading-snug line-clamp-2 transition-colors group-hover:!text-[var(--color-primary)]">
         {post.title}
       </span>
       {post.reading_time_minutes && (
@@ -81,14 +81,14 @@ export default function BlogSidebar({ excludeSlug }: { excludeSlug?: string }) {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Search articles…"
-            className="min-w-0 flex-1 rounded-full px-4 py-2.5 text-[14px] !text-paper outline-none"
-            style={{ border: '1px solid rgba(255,255,255,.14)', background: 'rgba(255,255,255,.04)' }}
+            className="min-w-0 flex-1 rounded-full px-4 py-2.5 text-[14px] !text-heading outline-none transition-colors"
+            style={{ border: '1px solid var(--color-border-strong)', background: 'var(--color-surface)' }}
           />
           <button
             type="submit"
             aria-label="Search"
             className="grid place-items-center rounded-full shrink-0"
-            style={{ width: 40, height: 40, background: 'linear-gradient(135deg,#3b6bff,#7b5cff)' }}
+            style={{ width: 40, height: 40, background: 'linear-gradient(135deg,#3157e5,#7347e8)' }}
           >
             <Search size={16} color="#fff" aria-hidden="true" />
           </button>
@@ -97,7 +97,7 @@ export default function BlogSidebar({ excludeSlug }: { excludeSlug?: string }) {
 
       {topPosts.length > 0 && (
         <Panel title="Top Posts" icon={Flame}>
-          <div className="divide-y divide-white/[.07]">
+          <div className="divide-y divide-[var(--color-border)]">
             {topPosts.map((p) => <PostRow key={p.slug} post={p} />)}
           </div>
         </Panel>
@@ -109,10 +109,10 @@ export default function BlogSidebar({ excludeSlug }: { excludeSlug?: string }) {
             <Link
               key={c}
               to={`/blog?category=${encodeURIComponent(c)}`}
-              className="group flex items-center justify-between py-2.5 text-[14px] !text-paper"
-              style={{ borderBottom: '1px solid rgba(255,255,255,.07)' }}
+              className="group flex items-center justify-between py-2.5 text-[14px] !text-heading"
+              style={{ borderBottom: '1px solid var(--color-border)' }}
             >
-              <span className="transition-colors group-hover:text-[#7dd3fc]">{c}</span>
+              <span className="transition-colors group-hover:!text-[var(--color-primary)]">{c}</span>
               <span className="text-[12.5px]" style={{ color: muted }}>{counts.get(c)}</span>
             </Link>
           ))}

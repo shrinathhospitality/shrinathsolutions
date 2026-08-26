@@ -100,36 +100,36 @@ function DesertIllustration() {
 function DashboardVisual() {
   return (
     <div className="rounded-[22px] overflow-hidden" style={{ ...glass, animation: 'floatY 10s ease-in-out infinite' }}>
-      <div className="flex items-center gap-2 px-4 py-3" style={{ borderBottom: '1px solid rgba(255,255,255,.1)', background: 'rgba(255,255,255,.05)' }}>
-        <Search size={13} color="#7dd3fc" aria-hidden="true" />
-        <span className="text-[12.5px]" style={{ color: 'rgba(226,234,255,.6)' }}>Jaisalmer hotels</span>
+      <div className="flex items-center gap-2 px-4 py-3" style={{ borderBottom: '1px solid var(--color-border)', background: 'var(--color-surface-alt)' }}>
+        <Search size={13} color="var(--color-primary)" aria-hidden="true" />
+        <span className="text-[12.5px]" style={{ color: 'var(--color-heading)' }}>Jaisalmer hotels</span>
       </div>
       <div className="p-4 grid gap-3">
-        <div className="p-3.5 rounded-[16px]" style={{ border: '1px solid rgba(255,255,255,.1)', background: 'rgba(255,255,255,.04)' }}>
+        <div className="p-3.5 rounded-[16px]" style={{ border: '1px solid var(--color-border)', background: 'var(--color-surface)', boxShadow: 'var(--shadow-card)' }}>
           <div className="flex items-center justify-between">
-            <span className="text-[12px] uppercase tracking-[.08em]" style={{ color: 'rgba(226,234,255,.5)' }}>Organic Traffic</span>
-            <span className="font-heading font-bold text-[15px]" style={{ color: '#6ee7b7' }}>+156%</span>
+            <span className="text-[12px] uppercase tracking-[.08em]" style={{ color: 'var(--color-muted)' }}>Organic Traffic</span>
+            <span className="font-heading font-bold text-[15px]" style={{ color: 'var(--color-success)' }}>+156%</span>
           </div>
           <svg viewBox="0 0 220 50" className="w-full h-[42px] mt-1.5" preserveAspectRatio="none">
-            <polyline points="0,42 30,38 60,30 90,32 120,20 150,22 180,10 220,6" fill="none" stroke="#7dd3fc" strokeWidth="2" />
+            <polyline points="0,42 30,38 60,30 90,32 120,20 150,22 180,10 220,6" fill="none" stroke="var(--color-primary)" strokeWidth="2" />
           </svg>
         </div>
-        <div className="p-3.5 rounded-[16px]" style={{ border: '1px solid rgba(255,255,255,.1)', background: 'rgba(255,255,255,.04)' }}>
-          <div className="text-[12px] uppercase tracking-[.08em] mb-2" style={{ color: 'rgba(226,234,255,.5)' }}>Local Rankings</div>
+        <div className="p-3.5 rounded-[16px]" style={{ border: '1px solid var(--color-border)', background: 'var(--color-surface)', boxShadow: 'var(--shadow-card)' }}>
+          <div className="text-[12px] uppercase tracking-[.08em] mb-2" style={{ color: 'var(--color-muted)' }}>Local Rankings</div>
           <div className="grid gap-1.5">
             {[['Jaisalmer Hotels', '#1'], ['Desert Safari Jaisalmer', '#2'], ['Jaisalmer Resort', '#3']].map(([label, rank]) => (
               <div key={label} className="flex items-center justify-between text-[13px]">
-                <span style={{ color: 'rgba(226,234,255,.75)' }}>{label}</span>
-                <span className="font-bold" style={{ color: '#ffb182' }}>{rank}</span>
+                <span style={{ color: 'var(--color-heading)' }}>{label}</span>
+                <span className="font-bold" style={{ color: 'var(--color-accent-hover)' }}>{rank}</span>
               </div>
             ))}
           </div>
         </div>
-        <div className="flex items-center gap-2.5 p-3 rounded-[16px]" style={{ border: '1px solid rgba(255,255,255,.1)', background: 'rgba(255,255,255,.04)' }}>
-          <span className="grid place-items-center rounded-full shrink-0" style={{ width: 30, height: 30, background: 'rgba(255,122,47,.18)' }}>
-            <MapPin size={14} color="#ff9a53" aria-hidden="true" />
+        <div className="flex items-center gap-2.5 p-3 rounded-[16px]" style={{ border: '1px solid var(--color-border)', background: 'var(--color-surface)', boxShadow: 'var(--shadow-card)' }}>
+          <span className="grid place-items-center rounded-full shrink-0" style={{ width: 30, height: 30, background: 'var(--color-surface-warm)' }}>
+            <MapPin size={14} color="var(--color-accent-hover)" aria-hidden="true" />
           </span>
-          <span className="text-[12.5px]" style={{ color: 'rgba(226,234,255,.65)' }}>Jaisalmer, Rajasthan, India</span>
+          <span className="text-[12.5px]" style={{ color: 'var(--color-body)' }}>Jaisalmer, Rajasthan, India</span>
         </div>
       </div>
     </div>
@@ -225,14 +225,14 @@ export default function SeoCompanyJaisalmer() {
         jsonLd={schema}
       />
 
-      <nav aria-label="Breadcrumb" className="mx-auto max-w-shell px-[22px] pt-6 flex flex-wrap items-center gap-1.5 text-sm" style={{ color: 'rgba(226,234,255,.5)' }}>
+      <nav aria-label="Breadcrumb" className="mx-auto max-w-shell px-[22px] pt-6 flex flex-wrap items-center gap-1.5 text-sm" style={{ color: 'var(--color-muted)' }}>
         {crumbs.map((c, i) => (
           <span key={c.path} className="flex items-center gap-1.5">
             {i > 0 && <ChevronRight size={13} aria-hidden="true" />}
             {i === crumbs.length - 1 ? (
-              <span aria-current="page" style={{ color: '#cfe0ff' }}>{c.name}</span>
+              <span aria-current="page" style={{ color: 'var(--color-heading)' }}>{c.name}</span>
             ) : (
-              <Link to={c.path} style={{ color: 'rgba(226,234,255,.62)' }}>{c.name}</Link>
+              <Link to={c.path} style={{ color: 'var(--color-muted)' }}>{c.name}</Link>
             )}
           </span>
         ))}
@@ -241,11 +241,11 @@ export default function SeoCompanyJaisalmer() {
       {/* Hero */}
       <section className="mx-auto max-w-shell px-[22px] pt-6 grid gap-11 items-center lg:grid-cols-[1.1fr_0.9fr]">
         <div>
-          <div className="text-[13px] font-bold uppercase tracking-[.18em]" style={{ color: '#7dd3fc' }}>SEO Services in Jaisalmer</div>
+          <div className="text-[13px] font-bold uppercase tracking-[.18em]" style={{ color: 'var(--color-primary)' }}>SEO Services in Jaisalmer</div>
           <h1 className="font-heading font-extrabold text-[clamp(32px,4.4vw,52px)] leading-[1.08] mt-3 mb-0 max-w-[600px]" style={{ letterSpacing: '-0.03em' }}>
             SEO Company in Jaisalmer
           </h1>
-          <p className="text-[17.5px] mt-5 max-w-[560px]" style={{ color: 'rgba(226,234,255,.74)' }}>
+          <p className="text-[17.5px] mt-5 max-w-[560px]" style={{ color: 'var(--color-body)' }}>
             {heroIntro || 'We help businesses rank higher on Google, get more website traffic, and turn visitors into customers.'}
           </p>
           <div className="flex flex-wrap gap-3.5 mt-7">
@@ -256,10 +256,10 @@ export default function SeoCompanyJaisalmer() {
               <MessageCircle size={16} aria-hidden="true" /> Chat on WhatsApp
             </a>
           </div>
-          <div className="flex flex-wrap items-center gap-x-7 gap-y-3 mt-8 text-[14.5px]" style={{ color: 'rgba(214,225,255,.68)' }}>
+          <div className="flex flex-wrap items-center gap-x-7 gap-y-3 mt-8 text-[14.5px]" style={{ color: 'var(--color-body)' }}>
             <span className="flex items-center gap-1.5">
               <span className="flex" aria-hidden="true">{Array.from({ length: 5 }).map((_, i) => <Star key={i} size={14} color="#f59e0b" fill="#f59e0b" />)}</span>
-              4.9/5 <span style={{ color: 'rgba(226,234,255,.45)' }}>(58+ Reviews)</span>
+              4.9/5 <span style={{ color: 'var(--color-muted)' }}>(58+ Reviews)</span>
             </span>
             <span>120+ Projects Completed</span>
             <span>5+ Years SEO Experience</span>
@@ -269,14 +269,14 @@ export default function SeoCompanyJaisalmer() {
       </section>
 
       {/* Sticky tab nav */}
-      <div className="sticky z-30 mt-11" style={{ top: 0, background: 'rgba(6,10,23,.9)', backdropFilter: 'blur(16px)', borderTop: '1px solid rgba(255,255,255,.08)', borderBottom: '1px solid rgba(255,255,255,.08)' }}>
+      <div className="sticky z-30 mt-11" style={{ top: 0, background: 'rgba(247,249,252,.92)', backdropFilter: 'blur(16px)', borderTop: '1px solid var(--color-border)', borderBottom: '1px solid var(--color-border)' }}>
         <nav aria-label="Page sections" className="mx-auto max-w-shell px-[22px] flex gap-1 overflow-x-auto">
           {TABS.map((t) => (
             <a
               key={t.id}
               href={`#${t.id}`}
               className="shrink-0 px-4 py-3.5 text-[14.5px] font-semibold whitespace-nowrap"
-              style={{ color: active === t.id ? '#fff' : 'rgba(226,234,255,.55)', borderBottom: '2px solid ' + (active === t.id ? '#3b6bff' : 'transparent') }}
+              style={{ color: active === t.id ? 'var(--color-heading)' : 'var(--color-muted)', borderBottom: '2px solid ' + (active === t.id ? 'var(--color-primary)' : 'transparent') }}
             >
               {t.label}
             </a>
@@ -295,7 +295,7 @@ export default function SeoCompanyJaisalmer() {
         <div className="p-6 rounded-[22px] grid grid-cols-2 gap-4" style={glass}>
           {glanceStats.map((s) => (
             <div key={s.label}>
-              <div className="font-heading font-extrabold text-[26px]" style={{ color: '#ffb182' }}>{s.value}</div>
+              <div className="font-heading font-extrabold text-[26px]" style={{ color: 'var(--color-accent-hover)' }}>{s.value}</div>
               <div className="text-[13px] mt-1" style={{ color: muted }}>{s.label}</div>
             </div>
           ))}
@@ -308,13 +308,13 @@ export default function SeoCompanyJaisalmer() {
         <div className="grid gap-4 mt-7 sm:grid-cols-2 lg:grid-cols-3">
           {SERVICE_CARDS.map((s, i) => (
             <motion.div key={s.title} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.4, delay: (i % 6) * 0.05 }}>
-              <Link to={s.to} className="group block h-full p-6 rounded-[20px] !text-paper transition-all hover:-translate-y-0.5" style={glass}>
-                <span className="grid place-items-center" style={{ width: 42, height: 42, borderRadius: 13, background: 'rgba(59,107,255,.2)', border: '1px solid rgba(255,255,255,.16)' }}>
-                  <s.icon size={19} color="#7dd3fc" aria-hidden="true" />
+              <Link to={s.to} className="group block h-full p-6 rounded-[20px] !text-heading transition-all hover:-translate-y-0.5" style={glass}>
+                <span className="grid place-items-center" style={{ width: 42, height: 42, borderRadius: 13, background: 'var(--color-surface-alt)', border: '1px solid var(--color-border)' }}>
+                  <s.icon size={19} color="var(--color-primary)" aria-hidden="true" />
                 </span>
                 <h3 className="font-heading font-bold text-[17.5px] mt-3.5 mb-1.5">{s.title}</h3>
                 <p className="m-0 text-[14.5px]" style={{ color: muted }}>{s.body}</p>
-                <span className="inline-flex items-center gap-1 mt-3.5 font-bold text-[13.5px]" style={{ color: '#7dd3fc' }}>
+                <span className="inline-flex items-center gap-1 mt-3.5 font-bold text-[13.5px]" style={{ color: 'var(--color-primary)' }}>
                   Learn more <ArrowRight size={13} className="transition-transform group-hover:translate-x-1" aria-hidden="true" />
                 </span>
               </Link>
@@ -332,8 +332,8 @@ export default function SeoCompanyJaisalmer() {
           </div>
           <div className="grid grid-cols-2 gap-4">
             {BENEFIT_CARDS.map((b) => (
-              <div key={b.title} className="p-5 rounded-[18px]" style={{ border: '1px solid rgba(255,255,255,.1)', background: 'rgba(255,255,255,.035)' }}>
-                <b.icon size={20} color="#6ee7b7" aria-hidden="true" />
+              <div key={b.title} className="p-5 rounded-[18px]" style={{ border: '1px solid var(--color-border)', background: 'var(--color-surface)', boxShadow: 'var(--shadow-card)' }}>
+                <b.icon size={20} color="var(--color-success)" aria-hidden="true" />
                 <div className="font-heading font-bold text-[15px] mt-2.5 mb-1">{b.title}</div>
                 <p className="m-0 text-[13.5px]" style={{ color: muted }}>{b.body}</p>
               </div>
@@ -344,7 +344,7 @@ export default function SeoCompanyJaisalmer() {
 
       {/* Hotels & tourism */}
       <section className="mx-auto max-w-shell px-[22px] pt-16">
-        <div className="grid gap-8 lg:grid-cols-2 items-center p-7 md:p-9 rounded-[26px]" style={{ border: '1px solid rgba(255,255,255,.1)', background: 'rgba(255,255,255,.03)' }}>
+        <div className="grid gap-8 lg:grid-cols-2 items-center p-7 md:p-9 rounded-[26px]" style={{ border: '1px solid var(--color-border)', background: 'var(--color-surface)', boxShadow: 'var(--shadow-card)' }}>
           <div>
             <h2 className="font-heading font-bold text-[clamp(24px,2.6vw,32px)] leading-[1.15] m-0">SEO for Hotels &amp; Tourism Businesses</h2>
             <div className="grid gap-3.5 mt-4">
@@ -352,11 +352,11 @@ export default function SeoCompanyJaisalmer() {
             </div>
             <div className="flex flex-wrap gap-2 mt-5">
               {TOURISM_TAGS.map((t) => (
-                <span key={t} className="text-[13px] font-semibold px-3.5 py-1.5 rounded-full" style={{ background: 'rgba(255,255,255,.06)', border: '1px solid rgba(255,255,255,.14)', color: 'rgba(226,234,255,.72)' }}>{t}</span>
+                <span key={t} className="text-[13px] font-semibold px-3.5 py-1.5 rounded-full" style={{ background: 'var(--color-surface-alt)', border: '1px solid var(--color-border)', color: 'var(--color-heading)' }}>{t}</span>
               ))}
             </div>
           </div>
-          <div className="rounded-[20px] overflow-hidden" style={{ border: '1px solid rgba(255,255,255,.1)' }}>
+          <div className="rounded-[20px] overflow-hidden" style={{ border: '1px solid var(--color-border)' }}>
             <DesertIllustration />
           </div>
         </div>
@@ -370,7 +370,7 @@ export default function SeoCompanyJaisalmer() {
           <div className="grid gap-4" style={{ gridTemplateColumns: `repeat(${processSteps.length || 6}, 1fr)` }}>
             {processSteps.map((s) => (
               <div key={s.num} className="text-center px-2">
-                <span className="grid place-items-center mx-auto rounded-full font-heading font-extrabold text-[14px]" style={{ width: 46, height: 46, background: 'linear-gradient(140deg,#3b6bff,#7b5cff 55%,#22d3ee)', color: '#fff', boxShadow: '0 0 0 6px #060a17' }}>
+                <span className="grid place-items-center mx-auto rounded-full font-heading font-extrabold text-[14px]" style={{ width: 46, height: 46, background: 'linear-gradient(140deg,#3157e5,#7347e8 55%,#22d3ee)', color: '#fff', boxShadow: '0 0 0 6px var(--color-page)' }}>
                   {s.num}
                 </span>
                 <h3 className="font-heading font-bold text-[15.5px] mt-3 mb-1.5">{s.title}</h3>
@@ -405,7 +405,7 @@ export default function SeoCompanyJaisalmer() {
             <div className="grid gap-2.5">
               {WHY_CHOOSE.map((w) => (
                 <div key={w} className="flex items-center gap-2.5 text-[15px] font-medium">
-                  <CheckCircle2 size={17} color="#6ee7b7" className="shrink-0" aria-hidden="true" />
+                  <CheckCircle2 size={17} color="var(--color-success)" className="shrink-0" aria-hidden="true" />
                   {w}
                 </div>
               ))}
@@ -413,29 +413,29 @@ export default function SeoCompanyJaisalmer() {
           </div>
 
           <div className="grid gap-4">
-            <div className="grid grid-cols-2 gap-3 p-5 rounded-[20px]" style={{ border: '1px solid rgba(255,255,255,.1)', background: 'rgba(255,255,255,.035)' }}>
+            <div className="grid grid-cols-2 gap-3 p-5 rounded-[20px]" style={{ border: '1px solid var(--color-border)', background: 'var(--color-surface)', boxShadow: 'var(--shadow-card)' }}>
               {resultStats.map((s) => (
                 <div key={s.label}>
-                  <div className="font-heading font-extrabold text-[20px]" style={{ color: '#ffb182' }}>{s.value}</div>
+                  <div className="font-heading font-extrabold text-[20px]" style={{ color: 'var(--color-accent-hover)' }}>{s.value}</div>
                   <div className="text-[12.5px] mt-0.5" style={{ color: muted }}>{s.label}</div>
                 </div>
               ))}
             </div>
 
-            <div className="p-6 rounded-[20px]" style={{ border: '1px solid rgba(255,255,255,.11)', background: 'linear-gradient(160deg, rgba(59,107,255,.14), rgba(123,92,255,.08))' }}>
-              <div className="text-[13px] font-bold uppercase tracking-[.1em] mb-3" style={{ color: '#7dd3fc' }}>{caseStudyTitle}</div>
+            <div className="p-6 rounded-[20px]" style={{ border: '1px solid var(--color-border)', background: 'var(--color-surface-alt)' }}>
+              <div className="text-[13px] font-bold uppercase tracking-[.1em] mb-3" style={{ color: 'var(--color-primary)' }}>{caseStudyTitle}</div>
               <div className="flex gap-5 flex-wrap mb-4">
                 {caseStudyStats.map((s) => (
                   <div key={s.label}>
-                    <div className="font-heading font-bold text-[19px]" style={{ color: '#6ee7b7' }}>{s.value}</div>
+                    <div className="font-heading font-bold text-[19px]" style={{ color: 'var(--color-success)' }}>{s.value}</div>
                     <div className="text-[12px]" style={{ color: muted }}>{s.label}</div>
                   </div>
                 ))}
               </div>
-              <div className="flex items-start gap-3 pt-4" style={{ borderTop: '1px solid rgba(255,255,255,.1)' }}>
-                <span className="grid place-items-center rounded-full font-heading font-bold shrink-0" style={{ width: 42, height: 42, background: 'linear-gradient(140deg,#3b6bff,#22d3ee)' }} aria-hidden="true">{caseStudyInitials}</span>
+              <div className="flex items-start gap-3 pt-4" style={{ borderTop: '1px solid var(--color-border)' }}>
+                <span className="grid place-items-center rounded-full font-heading font-bold shrink-0 text-white" style={{ width: 42, height: 42, background: 'linear-gradient(140deg,#3157e5,#22d3ee)' }} aria-hidden="true">{caseStudyInitials}</span>
                 <div>
-                  <p className="m-0 text-[14.5px] italic" style={{ color: 'rgba(226,234,255,.85)' }}>
+                  <p className="m-0 text-[14.5px] italic" style={{ color: 'var(--color-heading)' }}>
                     &ldquo;{caseStudyQuote}&rdquo;
                   </p>
                   <div className="flex items-center gap-2 mt-2">
@@ -451,17 +451,17 @@ export default function SeoCompanyJaisalmer() {
 
       {/* Mid CTA */}
       <section className="mx-auto max-w-shell px-[22px] pt-16">
-        <div className="flex flex-col md:flex-row items-center gap-6 justify-between p-7 md:p-8 rounded-[22px]" style={{ border: '1px solid rgba(255,255,255,.12)', background: 'linear-gradient(120deg, rgba(59,107,255,.22), rgba(123,92,255,.16))' }}>
+        <div className="flex flex-col md:flex-row items-center gap-6 justify-between p-7 md:p-8 rounded-[22px]" style={{ border: '1px solid var(--color-border)', background: 'linear-gradient(120deg, var(--color-surface-alt), var(--color-surface-warm))' }}>
           <div className="flex items-center gap-4">
-            <span className="grid place-items-center rounded-full shrink-0" style={{ width: 52, height: 52, background: 'rgba(255,255,255,.1)' }}>
-              <Target size={24} aria-hidden="true" />
+            <span className="grid place-items-center rounded-full shrink-0" style={{ width: 52, height: 52, background: 'var(--color-surface)', boxShadow: 'var(--shadow-card)' }}>
+              <Target size={24} color="var(--color-primary)" aria-hidden="true" />
             </span>
             <div>
               <div className="font-heading font-bold text-[19px]">{data?.page.cta_heading || 'Ready to Rank Higher in Jaisalmer?'}</div>
-              <p className="m-0 mt-1 text-[14.5px]" style={{ color: 'rgba(226,234,255,.72)' }}>{data?.page.cta_body || 'Get an SEO plan tailored to your business goals and budget. Let’s grow your business together.'}</p>
+              <p className="m-0 mt-1 text-[14.5px]" style={{ color: 'var(--color-body)' }}>{data?.page.cta_body || 'Get an SEO plan tailored to your business goals and budget. Let’s grow your business together.'}</p>
             </div>
           </div>
-          <button type="button" onClick={() => contactRef.current?.scrollIntoView({ behavior: 'smooth' })} className="shrink-0 inline-flex items-center gap-1.5 px-6 py-3.5 rounded-full font-heading font-bold text-[15px] whitespace-nowrap" style={emberBtn}>
+          <button type="button" onClick={() => contactRef.current?.scrollIntoView({ behavior: 'smooth' })} className="shrink-0 inline-flex items-center gap-1.5 px-6 py-3.5 rounded-full font-heading font-bold text-[15px] whitespace-nowrap transition hover:brightness-95" style={emberBtn}>
             Get a Custom SEO Plan <ArrowRight size={16} aria-hidden="true" />
           </button>
         </div>
@@ -485,28 +485,28 @@ export default function SeoCompanyJaisalmer() {
             )}
           </div>
           <p className="mt-5 text-[14.5px]" style={{ color: muted }}>
-            Have more questions? <Link to="/contact" style={{ color: '#7dd3fc', textDecoration: 'underline' }}>Contact us anytime.</Link>
+            Have more questions? <Link to="/contact" style={{ color: 'var(--color-primary)', textDecoration: 'underline' }}>Contact us anytime.</Link>
           </p>
         </section>
       )}
 
       {/* Contact */}
       <section ref={contactRef} className="mx-auto max-w-shell px-[22px] pt-16 pb-4">
-        <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] p-7 md:p-9 rounded-[26px]" style={{ border: '1px solid rgba(255,255,255,.12)', background: 'rgba(255,255,255,.04)' }}>
+        <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] p-7 md:p-9 rounded-[26px]" style={{ border: '1px solid var(--color-border)', background: 'var(--color-surface)', boxShadow: 'var(--shadow-card)' }}>
           <div>
             <h2 className="font-heading font-bold text-[26px] m-0">Let&rsquo;s Grow Your Business</h2>
             <p className="mt-2 mb-5 text-[15px]" style={{ color: muted }}>Have a project in mind? Get in touch with our SEO experts for a free consultation.</p>
             <div className="grid gap-3">
               <a href={wa()} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2.5 text-[14.5px] font-semibold">
-                <span className="grid place-items-center rounded-full" style={{ width: 34, height: 34, background: 'rgba(37,211,102,.16)' }}><MessageCircle size={15} color="#25d366" aria-hidden="true" /></span>
+                <span className="grid place-items-center rounded-full" style={{ width: 34, height: 34, background: 'rgba(37,211,102,.12)' }}><MessageCircle size={15} color="#25d366" aria-hidden="true" /></span>
                 WhatsApp Us <span style={{ color: muted, fontWeight: 500 }}>{site.phone}</span>
               </a>
               <a href={site.phoneHref} className="flex items-center gap-2.5 text-[14.5px] font-semibold">
-                <span className="grid place-items-center rounded-full" style={{ width: 34, height: 34, background: 'rgba(59,107,255,.18)' }}><Phone size={15} color="#7dd3fc" aria-hidden="true" /></span>
+                <span className="grid place-items-center rounded-full" style={{ width: 34, height: 34, background: 'var(--color-surface-alt)' }}><Phone size={15} color="var(--color-primary)" aria-hidden="true" /></span>
                 Call Us <span style={{ color: muted, fontWeight: 500 }}>{site.phone}</span>
               </a>
               <a href={`mailto:${site.email}`} className="flex items-center gap-2.5 text-[14.5px] font-semibold">
-                <span className="grid place-items-center rounded-full" style={{ width: 34, height: 34, background: 'rgba(123,92,255,.18)' }}><Mail size={15} color="#a78bfa" aria-hidden="true" /></span>
+                <span className="grid place-items-center rounded-full" style={{ width: 34, height: 34, background: 'rgba(115,71,232,.12)' }}><Mail size={15} color="var(--color-secondary)" aria-hidden="true" /></span>
                 Email Us <span style={{ color: muted, fontWeight: 500 }}>{site.email}</span>
               </a>
             </div>

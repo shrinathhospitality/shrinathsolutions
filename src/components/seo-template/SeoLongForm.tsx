@@ -26,7 +26,7 @@ export default function SeoLongForm({
               <h3 className="font-heading font-bold text-[19.5px] m-0">{sub.heading}</h3>
               <div className="grid gap-3.5 mt-3">
                 {sub.paragraphs.map((p, j) => (
-                  <p key={j} className="m-0 text-[16px]" style={{ color: 'rgba(226,234,255,.72)', lineHeight: 1.75 }}>{p}</p>
+                  <p key={j} className="m-0 text-[16px]" style={{ color: 'var(--color-body)', lineHeight: 1.75 }}>{p}</p>
                 ))}
               </div>
             </motion.div>

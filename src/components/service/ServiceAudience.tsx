@@ -11,7 +11,7 @@ export default function ServiceAudience({ heading, paragraphs, chips }: { headin
     <section className="mx-auto max-w-shell px-[22px] pt-[88px] md:pt-[104px]">
       <div className={hasChips ? 'grid gap-9 lg:grid-cols-[0.9fr_1.1fr] items-start' : ''}>
         <div>
-          <div className="text-[13px] font-bold uppercase tracking-[.16em]" style={{ color: '#7dd3fc' }}>Who this service is for</div>
+          <div className="text-[13px] font-bold uppercase tracking-[.16em]" style={{ color: 'var(--color-primary)' }}>Who this service is for</div>
           <h2 className={`font-heading font-bold text-[clamp(25px,2.8vw,34px)] leading-[1.15] mt-2.5 mb-0 ${hasChips ? 'max-w-[440px]' : 'max-w-[720px]'}`}>{heading}</h2>
           {paragraphs.length > 0 && (
             <div className={`grid gap-3.5 mt-4 ${hasChips ? 'max-w-[460px]' : 'grid-cols-1 md:grid-cols-2 gap-x-10 max-w-none'}`}>
@@ -32,9 +32,9 @@ export default function ServiceAudience({ heading, paragraphs, chips }: { headin
                 viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.4, delay: (i % 6) * 0.05 }}
                 className="flex items-center gap-2.5 p-4 rounded-[16px]"
-                style={{ border: '1px solid rgba(255,255,255,.1)', background: 'rgba(255,255,255,.035)' }}
+                style={{ border: '1px solid var(--color-border)', background: 'var(--color-surface)' }}
               >
-                <Building2 size={17} color="#7dd3fc" className="shrink-0" aria-hidden="true" />
+                <Building2 size={17} color="var(--color-primary)" className="shrink-0" aria-hidden="true" />
                 <span className="text-[14px] font-semibold">{c}</span>
               </motion.div>
             ))}

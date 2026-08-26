@@ -11,13 +11,13 @@ function AbstractPanel() {
       className="rounded-[24px] grid place-items-center"
       style={{
         aspectRatio: '6/7',
-        border: '1px solid rgba(255,255,255,.12)',
-        background: 'linear-gradient(155deg, rgba(59,107,255,.26), rgba(123,92,255,.16) 55%, rgba(34,211,238,.12))',
+        border: '1px solid var(--color-border)',
+        background: 'linear-gradient(155deg, rgba(49,87,229,.14), rgba(115,71,232,.08) 55%, rgba(34,211,238,.06))',
       }}
     >
       <span
         className="grid place-items-center font-heading font-extrabold text-[22px]"
-        style={{ width: 68, height: 68, borderRadius: 20, background: 'rgba(255,255,255,.1)', border: '1px solid rgba(255,255,255,.2)' }}
+        style={{ width: 68, height: 68, borderRadius: 20, background: 'var(--color-surface)', border: '1px solid var(--color-border)', color: 'var(--color-primary)', boxShadow: 'var(--shadow-card)' }}
         aria-hidden="true"
       >
         S
@@ -49,7 +49,7 @@ export default function ServiceAbout({
       <div className="grid gap-9 lg:grid-cols-[0.85fr_1.15fr] items-start">
         <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.25 }} transition={{ duration: 0.5 }}>
           {imgSrc ? (
-            <div className="rounded-[24px] overflow-hidden" style={{ border: '1px solid rgba(255,255,255,.12)' }}>
+            <div className="rounded-[24px] overflow-hidden" style={{ border: '1px solid var(--color-border)', boxShadow: 'var(--shadow-card)' }}>
               <img src={imgSrc} alt={heading} width={720} height={840} loading="lazy" className="w-full h-auto object-cover" style={{ aspectRatio: '6/7' }} />
             </div>
           ) : (
@@ -58,7 +58,7 @@ export default function ServiceAbout({
         </motion.div>
 
         <motion.div initial={{ opacity: 0, y: 18 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.25 }} transition={{ duration: 0.5, delay: 0.08 }} className="p-7 md:p-9 rounded-[24px]" style={glass}>
-          <div className="text-[13px] font-bold uppercase tracking-[.16em]" style={{ color: '#7dd3fc' }}>About this service</div>
+          <div className="text-[13px] font-bold uppercase tracking-[.16em]" style={{ color: 'var(--color-primary)' }}>About this service</div>
           <h2 className="font-heading font-bold text-[clamp(25px,2.8vw,34px)] leading-[1.15] mt-2.5 mb-4">{heading}</h2>
           <div className="grid gap-4 max-w-[680px]">
             {paragraphs.map((p, i) => (
@@ -70,7 +70,7 @@ export default function ServiceAbout({
             <div className="grid gap-2 mt-6">
               {highlights.map((h) => (
                 <div key={h} className="flex items-center gap-2.5 text-[15px] font-medium">
-                  <CheckCircle2 size={17} color="#6ee7b7" className="shrink-0" aria-hidden="true" />
+                  <CheckCircle2 size={17} color="var(--color-success)" className="shrink-0" aria-hidden="true" />
                   {h}
                 </div>
               ))}
@@ -78,7 +78,7 @@ export default function ServiceAbout({
           )}
 
           {ctaLabel && (
-            <Link to={ctaTo ?? '/contact'} className="inline-flex items-center gap-1.5 mt-7 font-bold text-[15px]" style={{ color: '#ffb182' }}>
+            <Link to={ctaTo ?? '/contact'} className="inline-flex items-center gap-1.5 mt-7 font-bold text-[15px]" style={{ color: 'var(--color-accent-hover)' }}>
               {ctaLabel} <ArrowRight size={16} aria-hidden="true" />
             </Link>
           )}

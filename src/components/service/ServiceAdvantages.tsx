@@ -31,7 +31,7 @@ export default function ServiceAdvantages({ heading, body, items }: { heading: s
             style={glass}
           >
             {it.glyph && (
-              <span className="grid place-items-center text-[18px]" style={{ width: 42, height: 42, borderRadius: 13, background: 'rgba(123,92,255,.2)', border: '1px solid rgba(255,255,255,.16)' }} aria-hidden="true">
+              <span className="grid place-items-center text-[18px]" style={{ width: 42, height: 42, borderRadius: 13, background: 'var(--color-surface-alt)', border: '1px solid var(--color-border)' }} aria-hidden="true">
                 {it.glyph}
               </span>
             )}

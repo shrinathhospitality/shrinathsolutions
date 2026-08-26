@@ -20,10 +20,10 @@ export default function Layout() {
 
 function MaintenanceNotice() {
   return (
-    <div className="min-h-screen grid place-items-center px-6 text-center" style={{ background: '#070a17', color: '#e9efff' }}>
+    <div className="min-h-screen grid place-items-center px-6 text-center" style={{ background: '#07142e', color: '#f8fafc' }}>
       <div>
-        <h1 className="font-heading font-extrabold text-[32px] mb-3">We'll be right back.</h1>
-        <p style={{ color: 'rgba(226,234,255,.7)' }}>This site is undergoing scheduled maintenance. Please check back shortly.</p>
+        <h1 className="font-heading font-extrabold text-[32px] mb-3" style={{ color: '#f8fafc' }}>We'll be right back.</h1>
+        <p style={{ color: 'rgba(248,250,252,.7)' }}>This site is undergoing scheduled maintenance. Please check back shortly.</p>
       </div>
     </div>
   );
@@ -42,7 +42,7 @@ function LayoutBody() {
       </a>
       <ScrollProgress />
       <Orbs />
-      <div className="relative z-10">
+      <div className="relative z-10 site-theme">
         <Header />
         <main id="main" className="pb-16 md:pb-0">
           <Outlet />

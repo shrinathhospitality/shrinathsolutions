@@ -19,25 +19,25 @@ export default function SeoProblemsSolutions({
     <section className="mx-auto max-w-shell px-[22px] pt-16">
       <h2 className="font-heading font-bold text-[clamp(25px,2.8vw,34px)] m-0">{heading}</h2>
       <div className="grid gap-5 mt-7 md:grid-cols-2">
-        <motion.div {...rise} transition={{ duration: 0.45 }} className="p-6 md:p-7 rounded-[22px]" style={{ border: '1px solid rgba(255,255,255,.1)', background: 'rgba(255,255,255,.03)' }}>
+        <motion.div {...rise} transition={{ duration: 0.45 }} className="p-6 md:p-7 rounded-[22px]" style={{ border: '1px solid var(--color-border)', background: 'var(--color-surface)', boxShadow: 'var(--shadow-card)' }}>
           <h3 className="font-heading font-bold text-[18px] m-0">Common challenges</h3>
           <div className="grid gap-3 mt-4">
             {problems.map((p) => (
               <div key={p} className="flex gap-2.5">
-                <AlertCircle size={17} color="#ff9a53" className="shrink-0 mt-0.5" aria-hidden="true" />
+                <AlertCircle size={17} color="var(--color-warning)" className="shrink-0 mt-0.5" aria-hidden="true" />
                 <span className="text-[15.3px]" style={{ color: muted, lineHeight: 1.6 }}>{p}</span>
               </div>
             ))}
           </div>
         </motion.div>
 
-        <motion.div {...rise} transition={{ duration: 0.45, delay: 0.08 }} className="p-6 md:p-7 rounded-[22px]" style={{ border: '1px solid rgba(255,255,255,.11)', background: 'linear-gradient(160deg, rgba(34,211,238,.08), rgba(59,107,255,.06))' }}>
+        <motion.div {...rise} transition={{ duration: 0.45, delay: 0.08 }} className="p-6 md:p-7 rounded-[22px]" style={{ border: '1px solid var(--color-border)', background: 'var(--color-surface-alt)' }}>
           <h3 className="font-heading font-bold text-[18px] m-0">How we solve it</h3>
           <div className="grid gap-3 mt-4">
             {solutions.map((s) => (
               <div key={s} className="flex gap-2.5">
-                <CheckCircle2 size={17} color="#6ee7b7" className="shrink-0 mt-0.5" aria-hidden="true" />
-                <span className="text-[15.3px]" style={{ color: 'rgba(226,234,255,.82)', lineHeight: 1.6 }}>{s}</span>
+                <CheckCircle2 size={17} color="var(--color-success)" className="shrink-0 mt-0.5" aria-hidden="true" />
+                <span className="text-[15.3px]" style={{ color: 'var(--color-heading)', lineHeight: 1.6 }}>{s}</span>
               </div>
             ))}
           </div>

@@ -25,7 +25,7 @@ export default function Pricing() {
     borderRadius: 999,
     fontWeight: 700,
     fontSize: 15,
-    ...(term === v ? emberBtn : { color: '#e9efff', background: 'transparent' }),
+    ...(term === v ? emberBtn : { color: 'var(--color-heading)', background: 'transparent' }),
   });
 
   return (
@@ -40,11 +40,11 @@ export default function Pricing() {
 
       <section className="mx-auto max-w-shell px-[22px] pt-10">
         <div className="max-w-[860px]">
-          <div className="text-[13px] uppercase tracking-[.18em]" style={{ color: '#7dd3fc' }}>Pricing</div>
+          <div className="text-[13px] uppercase tracking-[.18em]" style={{ color: 'var(--color-primary)' }}>Pricing</div>
           <h1 className="font-heading font-extrabold text-[clamp(33px,4.6vw,56px)] leading-[1.06] mt-4" style={{ letterSpacing: '-0.03em' }}>
             Channel manager and hotel PMS plans, priced for your property size.
           </h1>
-          <p className="text-[18.5px] mt-5 max-w-[720px]" style={{ color: 'rgba(226,234,255,.74)' }}>
+          <p className="text-[18.5px] mt-5 max-w-[720px]" style={{ color: 'var(--color-body)' }}>
             Three plans covering channel management through to full property operations. What you pay depends on room count, rate plans and how many channels you connect, so we share figures on enquiry.
           </p>
         </div>
@@ -52,7 +52,7 @@ export default function Pricing() {
 
       <section className="mx-auto max-w-shell px-[22px] pt-12">
         <div className="flex justify-center mb-7">
-          <div className="flex gap-1 p-1.5 rounded-full" style={{ border: '1px solid rgba(255,255,255,.14)', background: 'rgba(255,255,255,.06)' }}>
+          <div className="flex gap-1 p-1.5 rounded-full" style={{ border: '1px solid var(--color-border)', background: 'var(--color-surface)', boxShadow: 'var(--shadow-card)' }}>
             <button type="button" onClick={() => setTerm('monthly')} style={toggle('monthly')} aria-pressed={term === 'monthly'}>Monthly</button>
             <button type="button" onClick={() => setTerm('yearly')} style={toggle('yearly')} aria-pressed={term === 'yearly'}>Yearly</button>
           </div>
@@ -63,37 +63,36 @@ export default function Pricing() {
             <div
               key={p.name}
               className="relative p-7 rounded-[26px]"
-              style={{
-                border: '1px solid ' + (p.popular ? 'rgba(255,154,83,.5)' : 'rgba(255,255,255,.11)'),
-                background: p.popular ? 'linear-gradient(160deg, rgba(255,122,47,.16), rgba(255,255,255,.05))' : 'rgba(255,255,255,.05)',
-                backdropFilter: 'blur(18px)',
-                boxShadow: '0 22px 50px rgba(2,6,23,.35), inset 0 1px 0 rgba(255,255,255,.22)',
-              }}
+              style={
+                p.popular
+                  ? { background: 'linear-gradient(160deg,#3157e5,#2444be)', color: '#fff', boxShadow: '0 22px 50px rgba(49,87,229,.28)' }
+                  : { border: '1px solid var(--color-border)', background: 'var(--color-surface)', boxShadow: 'var(--shadow-card)' }
+              }
             >
               {p.popular && (
                 <span className="absolute -top-3 left-6 px-4 py-1.5 rounded-full text-[12.5px] font-bold whitespace-nowrap" style={emberBtn}>
                   Most Popular
                 </span>
               )}
-              <h2 className="font-heading font-bold text-[24px] m-0">{p.name}</h2>
-              <p className="text-[15.5px] mt-2 mb-4.5" style={{ color: 'rgba(226,234,255,.68)', marginBottom: 18 }}>{p.for}</p>
-              <div className="font-heading font-extrabold text-[26px]">Contact for Pricing</div>
-              <div className="text-[14px] mt-1" style={{ color: 'rgba(226,234,255,.5)' }}>
+              <h2 className="font-heading font-bold text-[24px] m-0" style={{ color: p.popular ? '#fff' : 'var(--color-heading)' }}>{p.name}</h2>
+              <p className="text-[15.5px] mt-2 mb-4.5" style={{ color: p.popular ? 'rgba(255,255,255,.8)' : 'var(--color-body)', marginBottom: 18 }}>{p.for}</p>
+              <div className="font-heading font-extrabold text-[26px]" style={{ color: p.popular ? '#fff' : 'var(--color-heading)' }}>Contact for Pricing</div>
+              <div className="text-[14px] mt-1" style={{ color: p.popular ? 'rgba(255,255,255,.65)' : 'var(--color-muted)' }}>
                 billed {term} · setup quoted separately
               </div>
               <a
                 href={wa('Hi Shrinath Solutions, please send pricing for the ' + p.name + ' (' + term + ' billing). Room count: ')}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block text-center my-5 py-3.5 rounded-full font-heading font-bold text-[15.5px]"
+                className="block text-center my-5 py-3.5 rounded-full font-heading font-bold text-[15.5px] transition hover:brightness-95"
                 style={emberBtn}
               >
                 Request a Demo
               </a>
               <div className="grid gap-2.5">
                 {p.features.map((f) => (
-                  <div key={f} className="flex gap-2.5 text-[15.4px]" style={{ color: 'rgba(233,239,255,.82)' }}>
-                    <span style={{ color: '#6ee7b7' }}>✓</span>
+                  <div key={f} className="flex gap-2.5 text-[15.4px]" style={{ color: p.popular ? 'rgba(255,255,255,.92)' : 'var(--color-heading)' }}>
+                    <span style={{ color: p.popular ? '#6ee7b7' : 'var(--color-success)' }}>✓</span>
                     {f}
                   </div>
                 ))}
@@ -108,13 +107,13 @@ export default function Pricing() {
       </Section>
 
       <Section heading="Feature comparison">
-        <div className="overflow-x-auto mt-6 rounded-[22px]" style={{ border: '1px solid rgba(255,255,255,.11)', background: 'rgba(255,255,255,.04)' }}>
+        <div className="overflow-x-auto mt-6 rounded-[22px]" style={{ border: '1px solid var(--color-border)', background: 'var(--color-surface)', boxShadow: 'var(--shadow-card)' }}>
           <table className="w-full border-collapse text-[15.5px]" style={{ minWidth: 640 }}>
             <thead>
               <tr>
-                <th className="text-left px-5 py-4 font-heading text-[14px] uppercase tracking-[.08em]" style={{ color: 'rgba(226,234,255,.65)', borderBottom: '1px solid rgba(255,255,255,.12)' }}>Feature</th>
+                <th className="text-left px-5 py-4 font-heading text-[14px] uppercase tracking-[.08em]" style={{ color: 'var(--color-muted)', background: 'var(--color-surface-alt)', borderBottom: '1px solid var(--color-border)' }}>Feature</th>
                 {plans.map((p) => (
-                  <th key={p.name} className="px-5 py-4 font-heading text-[14px]" style={{ color: 'rgba(226,234,255,.85)', borderBottom: '1px solid rgba(255,255,255,.12)' }}>
+                  <th key={p.name} className="px-5 py-4 font-heading text-[14px]" style={{ color: 'var(--color-heading)', background: 'var(--color-surface-alt)', borderBottom: '1px solid var(--color-border)' }}>
                     {p.name.replace(' Plan', '')}
                   </th>
                 ))}
@@ -127,7 +126,7 @@ export default function Pricing() {
                     <td
                       key={i}
                       className={'px-5 py-3 ' + (i === 0 ? '' : 'text-center')}
-                      style={{ borderBottom: '1px solid rgba(255,255,255,.07)', color: i === 0 ? 'rgba(233,239,255,.82)' : undefined }}
+                      style={{ borderBottom: '1px solid var(--color-border)', color: i === 0 ? 'var(--color-heading)' : 'var(--color-body)' }}
                     >
                       {cell}
                     </td>
@@ -137,7 +136,7 @@ export default function Pricing() {
             </tbody>
           </table>
         </div>
-        <p className="mt-3.5 text-[14px]" style={{ color: 'rgba(226,234,255,.45)' }}>
+        <p className="mt-3.5 text-[14px]" style={{ color: 'var(--color-muted)' }}>
           Plan names, features and any prices live in src/data/pricing.ts. Add confirmed figures there.
         </p>
       </Section>

@@ -23,7 +23,7 @@ export default function SeoHero({
     <section className="mx-auto max-w-shell px-[22px] pt-9 pb-2">
       <div className="max-w-[760px]">
         {eyebrow && (
-          <div className="text-[13px] font-bold uppercase tracking-[.18em]" style={{ color: '#7dd3fc' }}>{eyebrow}</div>
+          <div className="text-[13px] font-bold uppercase tracking-[.18em]" style={{ color: 'var(--color-primary)' }}>{eyebrow}</div>
         )}
         <motion.h1
           initial={{ opacity: 0, y: 18 }}
@@ -39,7 +39,7 @@ export default function SeoHero({
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.08 }}
           className="text-[17px] mt-4 mb-0 max-w-[620px]"
-          style={{ color: 'rgba(226,234,255,.74)', lineHeight: 1.6 }}
+          style={{ color: 'var(--color-body)', lineHeight: 1.7 }}
         >
           {intro}
         </motion.p>

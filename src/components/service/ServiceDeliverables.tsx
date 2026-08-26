@@ -22,9 +22,9 @@ export default function ServiceDeliverables({ heading, body, items }: { heading:
             className="group p-6 rounded-[22px] transition-all hover:-translate-y-0.5"
             style={{ ...glass, position: 'relative', overflow: 'hidden' }}
           >
-            <div aria-hidden="true" className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity" style={{ background: 'radial-gradient(circle at 85% 0%, rgba(125,211,252,.14), transparent 60%)' }} />
+            <div aria-hidden="true" className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity" style={{ background: 'radial-gradient(circle at 85% 0%, rgba(49,87,229,.06), transparent 60%)' }} />
             {it.glyph && (
-              <span className="grid place-items-center text-[19px] relative" style={{ width: 44, height: 44, borderRadius: 14, background: 'rgba(59,107,255,.2)', border: '1px solid rgba(255,255,255,.16)' }} aria-hidden="true">
+              <span className="grid place-items-center text-[19px] relative" style={{ width: 44, height: 44, borderRadius: 14, background: 'var(--color-surface-alt)', border: '1px solid var(--color-border)' }} aria-hidden="true">
                 {it.glyph}
               </span>
             )}

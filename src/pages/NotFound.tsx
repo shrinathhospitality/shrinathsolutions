@@ -43,11 +43,11 @@ export default function NotFound() {
       <meta name="robots" content="noindex" />
 
       <section className="mx-auto max-w-shell px-[22px] pt-16">
-        <div className="text-[13px] uppercase tracking-[.18em]" style={{ color: '#7dd3fc' }}>Error 404</div>
+        <div className="text-[13px] uppercase tracking-[.18em]" style={{ color: 'var(--color-primary)' }}>Error 404</div>
         <h1 className="font-heading font-extrabold text-[clamp(34px,5vw,60px)] leading-[1.06] mt-4" style={{ letterSpacing: '-0.03em' }}>
           That page has checked out.
         </h1>
-        <p className="text-[18.5px] mt-5 max-w-[640px]" style={{ color: 'rgba(226,234,255,.74)' }}>
+        <p className="text-[18.5px] mt-5 max-w-[640px]" style={{ color: 'var(--color-body)' }}>
           The link is broken or the page has moved. Try one of the routes below, or send us a message and we will point you to it.
         </p>
       </section>
@@ -55,9 +55,9 @@ export default function NotFound() {
       <Section heading="Popular pages">
         <div className="grid gap-4 mt-6" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))' }}>
           {popular.map((p) => (
-            <Link key={p.to} to={p.to} className="p-6 rounded-[22px] !text-paper" style={glass}>
+            <Link key={p.to} to={p.to} className="p-6 rounded-[22px] !text-heading" style={glass}>
               <div className="font-heading font-bold text-[18.5px] mb-1.5">{p.label}</div>
-              <div className="text-[15.6px]" style={{ color: 'rgba(226,234,255,.68)' }}>{p.body}</div>
+              <div className="text-[15.6px]" style={{ color: 'var(--color-body)' }}>{p.body}</div>
             </Link>
           ))}
         </div>

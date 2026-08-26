@@ -8,12 +8,14 @@ export type Field = { label: string; name: string; type: string; placeholder: st
 const input: React.CSSProperties = {
   padding: '14px 17px',
   borderRadius: 999,
-  border: '1px solid rgba(255,255,255,.16)',
-  background: 'rgba(4,8,20,.5)',
-  color: '#fff',
+  border: '1px solid var(--color-border-strong)',
+  background: 'var(--color-surface)',
+  color: 'var(--color-heading)',
   fontFamily: 'Manrope, sans-serif',
   fontSize: 16,
 };
+
+const fieldClassName = 'transition-colors outline-none hover:border-[var(--color-muted)] focus:!border-[var(--color-primary)] focus:shadow-[0_0_0_4px_rgba(49,87,229,.2)]';
 
 function utmParams(): Record<string, string> {
   const p = new URLSearchParams(window.location.search);
@@ -46,11 +48,11 @@ export default function EnquiryForm({
   if (status === 'success') {
     return (
       <div className="grid gap-3 p-2 text-center">
-        <span className="mx-auto grid place-items-center rounded-full" style={{ width: 52, height: 52, background: 'rgba(52,211,153,.16)', border: '1px solid rgba(52,211,153,.4)' }}>
-          <CheckCircle2 size={26} color="#6ee7b7" aria-hidden="true" />
+        <span className="mx-auto grid place-items-center rounded-full" style={{ width: 52, height: 52, background: 'rgba(15,159,117,.12)', border: '1px solid rgba(15,159,117,.35)' }}>
+          <CheckCircle2 size={26} color="var(--color-success)" aria-hidden="true" />
         </span>
         <div className="font-heading font-bold text-[18px]">Thank you. Our team will review your details and contact you shortly.</div>
-        <button type="button" onClick={() => setStatus('idle')} className="text-[14px] font-semibold underline mx-auto" style={{ color: 'rgba(226,234,255,.6)' }}>
+        <button type="button" onClick={() => setStatus('idle')} className="text-[14px] font-semibold underline mx-auto" style={{ color: 'var(--color-muted)' }}>
           Send another enquiry
         </button>
       </div>
@@ -109,36 +111,36 @@ export default function EnquiryForm({
     >
       <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="sr-only" />
       {fields.map((f) => (
-        <label key={f.name} className="grid gap-1.5 text-[14.5px] font-semibold" style={{ color: 'rgba(226,234,255,.82)' }}>
+        <label key={f.name} className="grid gap-1.5 text-[14.5px] font-semibold" style={{ color: 'var(--color-heading)' }}>
           {f.label}
-          <input type={f.type} name={f.name} placeholder={f.placeholder} required={f.required} style={input} />
+          <input type={f.type} name={f.name} placeholder={f.placeholder} required={f.required} style={input} className={fieldClassName} />
         </label>
       ))}
-      <label className="grid gap-1.5 text-[14.5px] font-semibold" style={{ color: 'rgba(226,234,255,.82)' }}>
+      <label className="grid gap-1.5 text-[14.5px] font-semibold" style={{ color: 'var(--color-heading)' }}>
         Service Required
-        <select name="service" style={input}>
+        <select name="service" style={input} className={fieldClassName}>
           {services.map((s) => (
             <option key={s} value={s} style={{ color: '#0b1020' }}>{s}</option>
           ))}
         </select>
       </label>
-      <label className="grid gap-1.5 text-[14.5px] font-semibold" style={{ color: 'rgba(226,234,255,.82)' }}>
+      <label className="grid gap-1.5 text-[14.5px] font-semibold" style={{ color: 'var(--color-heading)' }}>
         Short Message
-        <textarea name="message" rows={3} placeholder="Tell us about your property or business" style={{ ...input, borderRadius: 20, resize: 'vertical' }} />
+        <textarea name="message" rows={3} placeholder="Tell us about your property or business" style={{ ...input, borderRadius: 20, resize: 'vertical' }} className={fieldClassName} />
       </label>
 
-      <button type="submit" disabled={status === 'loading'} className="py-4 rounded-full font-heading font-bold text-[16.5px] flex items-center justify-center gap-2" style={{ ...emberBtn, opacity: status === 'loading' ? 0.75 : 1 }}>
+      <button type="submit" disabled={status === 'loading'} className="py-4 rounded-full font-heading font-bold text-[16.5px] flex items-center justify-center gap-2 transition hover:brightness-95" style={{ ...emberBtn, opacity: status === 'loading' ? 0.75 : 1 }}>
         {status === 'loading' && <Loader2 size={18} className="animate-spin" aria-hidden="true" />}
         {status === 'loading' ? 'Sending…' : autoOpenWhatsApp ? 'Send on WhatsApp' : 'Send enquiry'}
       </button>
 
       {status === 'error' && (
-        <span className="flex items-center gap-2 text-[13.5px]" style={{ color: '#fca5a5' }}>
+        <span className="flex items-center gap-2 text-[13.5px]" style={{ color: 'var(--color-error)' }}>
           <AlertCircle size={15} aria-hidden="true" /> Something went wrong. Please try again or message us on WhatsApp.
         </span>
       )}
       {autoOpenWhatsApp && status !== 'error' && (
-        <span className="text-[13.5px]" style={{ color: 'rgba(226,234,255,.45)' }}>
+        <span className="text-[13.5px]" style={{ color: 'var(--color-muted)' }}>
           Opens WhatsApp with your details so nothing gets lost.
         </span>
       )}

@@ -115,7 +115,7 @@ export default function BlogDetail() {
       <section className="mx-auto w-[90%] max-w-[1600px] pt-8">
         <div className="max-w-[780px]">
           {post.category_name && (
-            <span className="inline-block text-[12px] font-bold uppercase tracking-[.08em] px-3 py-1 rounded-full" style={{ color: '#7dd3fc', background: 'rgba(59,107,255,.14)', border: '1px solid rgba(125,211,252,.25)' }}>
+            <span className="inline-block text-[12px] font-bold uppercase tracking-[.08em] px-3 py-1 rounded-full" style={{ color: 'var(--color-primary)', background: 'var(--color-surface-alt)', border: '1px solid var(--color-border)' }}>
               {post.category_name}
             </span>
           )}
@@ -163,12 +163,12 @@ export default function BlogDetail() {
                   <Link
                     key={r.slug}
                     to={`/blog/${r.slug}`}
-                    className="group flex flex-col gap-2 p-5 rounded-[20px] !text-paper"
-                    style={{ border: '1px solid rgba(255,255,255,.1)', background: 'rgba(255,255,255,.035)' }}
+                    className="group flex flex-col gap-2 p-5 rounded-[20px] !text-heading"
+                    style={{ border: '1px solid var(--color-border)', background: 'var(--color-surface)' }}
                   >
-                    <span className="text-[12px] font-bold uppercase tracking-[.08em]" style={{ color: '#7dd3fc' }}>{r.category_name}</span>
+                    <span className="text-[12px] font-bold uppercase tracking-[.08em]" style={{ color: 'var(--color-primary)' }}>{r.category_name}</span>
                     <span className="font-heading font-bold text-[15.5px] leading-snug line-clamp-2">{r.title}</span>
-                    <span className="inline-flex items-center gap-1 mt-1 font-bold text-[13px]" style={{ color: '#7dd3fc' }}>
+                    <span className="inline-flex items-center gap-1 mt-1 font-bold text-[13px]" style={{ color: 'var(--color-accent-hover)' }}>
                       Read Article <ArrowRight size={12} className="transition-transform group-hover:translate-x-1" aria-hidden="true" />
                     </span>
                   </Link>

@@ -20,10 +20,10 @@ const STATUS_STYLE: Record<string, { color: string; Icon: typeof CheckCircle2 }>
 };
 
 const PRIORITY_STYLE: Record<Recommendation['priority'], { bg: string; border: string; text: string }> = {
-  critical: { bg: 'rgba(248,113,113,.14)', border: 'rgba(248,113,113,.35)', text: '#fca5a5' },
-  high: { bg: 'rgba(255,122,47,.14)', border: 'rgba(255,122,47,.35)', text: '#ffb182' },
-  medium: { bg: 'rgba(245,158,11,.14)', border: 'rgba(245,158,11,.35)', text: '#fcd34d' },
-  low: { bg: 'rgba(125,211,252,.14)', border: 'rgba(125,211,252,.35)', text: '#7dd3fc' },
+  critical: { bg: 'rgba(220,38,38,.08)', border: 'rgba(220,38,38,.3)', text: '#b91c1c' },
+  high: { bg: 'rgba(255,122,61,.1)', border: 'rgba(255,122,61,.35)', text: '#c2410c' },
+  medium: { bg: 'rgba(217,119,6,.1)', border: 'rgba(217,119,6,.3)', text: '#92400e' },
+  low: { bg: 'rgba(49,87,229,.08)', border: 'rgba(49,87,229,.25)', text: '#2444be' },
 };
 
 const CATEGORY_ICONS: Record<string, typeof Gauge> = {
@@ -40,7 +40,7 @@ function ScoreRing({ score }: { score: number }) {
   return (
     <div className="relative grid place-items-center shrink-0" style={{ width: 140, height: 140 }}>
       <svg width="140" height="140" viewBox="0 0 140 140" className="-rotate-90">
-        <circle cx="70" cy="70" r={r} fill="none" stroke="rgba(255,255,255,.1)" strokeWidth="10" />
+        <circle cx="70" cy="70" r={r} fill="none" stroke="var(--color-border)" strokeWidth="10" />
         <motion.circle
           cx="70" cy="70" r={r} fill="none" stroke={color} strokeWidth="10" strokeLinecap="round"
           strokeDasharray={c}
@@ -60,13 +60,13 @@ function ScoreRing({ score }: { score: number }) {
 function CategoryCard({ label, score, Icon }: { label: string; score: number; Icon: typeof Gauge }) {
   const color = score >= 80 ? '#6ee7b7' : score >= 50 ? '#f59e0b' : '#f87171';
   return (
-    <div className="p-4 rounded-[16px]" style={{ border: '1px solid rgba(255,255,255,.1)', background: 'rgba(255,255,255,.035)' }}>
+    <div className="p-4 rounded-[16px]" style={{ border: '1px solid var(--color-border)', background: 'var(--color-surface)', boxShadow: 'var(--shadow-card)' }}>
       <div className="flex items-center justify-between">
-        <Icon size={16} color="#7dd3fc" aria-hidden="true" />
+        <Icon size={16} color="var(--color-primary)" aria-hidden="true" />
         <span className="font-heading font-bold text-[18px]" style={{ color }}>{score}</span>
       </div>
-      <div className="text-[13px] font-semibold mt-2">{label}</div>
-      <div className="h-1.5 rounded-full mt-2 overflow-hidden" style={{ background: 'rgba(255,255,255,.08)' }}>
+      <div className="text-[13px] font-semibold mt-2" style={{ color: 'var(--color-heading)' }}>{label}</div>
+      <div className="h-1.5 rounded-full mt-2 overflow-hidden" style={{ background: 'var(--color-surface-alt)' }}>
         <div className="h-full rounded-full" style={{ width: `${score}%`, background: color }} />
       </div>
     </div>
@@ -76,8 +76,8 @@ function CategoryCard({ label, score, Icon }: { label: string; score: number; Ic
 function StatusRow({ label, status }: { label: string; status: string }) {
   const s = STATUS_STYLE[status] ?? STATUS_STYLE.warning;
   return (
-    <div className="flex items-center justify-between py-2.5" style={{ borderBottom: '1px solid rgba(255,255,255,.06)' }}>
-      <span className="text-[14.5px]" style={{ color: 'rgba(226,234,255,.8)' }}>{label}</span>
+    <div className="flex items-center justify-between py-2.5" style={{ borderBottom: '1px solid var(--color-border)' }}>
+      <span className="text-[14.5px]" style={{ color: 'var(--color-heading)' }}>{label}</span>
       <s.Icon size={16} color={s.color} aria-hidden="true" />
     </div>
   );
@@ -86,13 +86,13 @@ function StatusRow({ label, status }: { label: string; status: string }) {
 function RecommendationCard({ r }: { r: Recommendation }) {
   const p = PRIORITY_STYLE[r.priority];
   return (
-    <div className="p-5 rounded-[18px]" style={{ border: '1px solid rgba(255,255,255,.1)', background: 'rgba(255,255,255,.035)' }}>
+    <div className="p-5 rounded-[18px]" style={{ border: '1px solid var(--color-border)', background: 'var(--color-surface)', boxShadow: 'var(--shadow-card)' }}>
       <div className="flex flex-wrap items-center gap-2 mb-2.5">
         <span className="text-[11px] font-bold uppercase tracking-[.06em] px-2.5 py-1 rounded-full" style={{ background: p.bg, border: `1px solid ${p.border}`, color: p.text }}>
           {r.priority}
         </span>
         {r.quickWin && (
-          <span className="text-[11px] font-bold uppercase tracking-[.06em] px-2.5 py-1 rounded-full flex items-center gap-1" style={{ background: 'rgba(110,231,183,.14)', border: '1px solid rgba(110,231,183,.35)', color: '#6ee7b7' }}>
+          <span className="text-[11px] font-bold uppercase tracking-[.06em] px-2.5 py-1 rounded-full flex items-center gap-1" style={{ background: 'rgba(15,159,117,.1)', border: '1px solid rgba(15,159,117,.3)', color: 'var(--color-success)' }}>
             <Sparkles size={11} aria-hidden="true" /> Quick win
           </span>
         )}
@@ -158,7 +158,7 @@ export default function SeoAuditTool() {
 
       <section className="mx-auto max-w-shell px-[22px] pt-8">
         <div className="max-w-[720px]">
-          <div className="text-[13px] font-bold uppercase tracking-[.18em]" style={{ color: '#7dd3fc' }}>Free Tool</div>
+          <div className="text-[13px] font-bold uppercase tracking-[.18em]" style={{ color: 'var(--color-primary)' }}>Free Tool</div>
           <h1 className="font-heading font-extrabold text-[clamp(30px,4vw,46px)] leading-[1.1] mt-3 mb-0" style={{ letterSpacing: '-0.03em' }}>
             {copy?.h1 || 'Free SEO Audit Tool'}
           </h1>
@@ -168,12 +168,12 @@ export default function SeoAuditTool() {
         </div>
 
         <form onSubmit={onSubmit} className="mt-7 p-6 rounded-[22px]" style={glass}>
-          <label htmlFor="audit-url" className="block text-[13.5px] font-semibold mb-2" style={{ color: 'rgba(226,234,255,.75)' }}>
+          <label htmlFor="audit-url" className="block text-[13.5px] font-semibold mb-2" style={{ color: 'var(--color-heading)' }}>
             Website URL
           </label>
           <div className="flex flex-wrap gap-3">
             <div className="relative flex-1 min-w-[240px]">
-              <Search size={16} style={{ position: 'absolute', left: 16, top: 17 }} color={faint} aria-hidden="true" />
+              <Search size={16} style={{ position: 'absolute', left: 16, top: 17 }} color="var(--color-muted)" aria-hidden="true" />
               <input
                 id="audit-url"
                 type="text"
@@ -182,20 +182,20 @@ export default function SeoAuditTool() {
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
                 disabled={status === 'loading'}
-                className="w-full pl-11 pr-4 py-3.5 rounded-full text-[15.5px] text-white"
-                style={{ border: '1px solid rgba(255,255,255,.16)', background: 'rgba(4,8,20,.5)' }}
+                className="w-full pl-11 pr-4 py-3.5 rounded-full text-[15.5px] transition-colors outline-none focus:!border-[var(--color-primary)] focus:shadow-[0_0_0_4px_rgba(49,87,229,.2)]"
+                style={{ border: '1px solid var(--color-border-strong)', background: 'var(--color-surface)', color: 'var(--color-heading)' }}
               />
             </div>
-            <button type="submit" disabled={status === 'loading'} className="flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-heading font-bold text-[15.5px] disabled:opacity-70" style={emberBtn}>
+            <button type="submit" disabled={status === 'loading'} className="flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-heading font-bold text-[15.5px] disabled:opacity-70 transition hover:brightness-95" style={emberBtn}>
               {status === 'loading' ? <><Loader2 size={17} className="animate-spin" aria-hidden="true" /> Analysing…</> : 'Run Free Audit'}
             </button>
           </div>
           {status === 'error' && (
-            <div className="flex items-center gap-2 mt-3 text-[14px]" style={{ color: '#fca5a5' }}>
+            <div className="flex items-center gap-2 mt-3 text-[14px]" style={{ color: 'var(--color-error)' }}>
               <AlertCircle size={15} aria-hidden="true" /> {errorMsg}
             </div>
           )}
-          <p className="mt-3 mb-0 text-[13px]" style={{ color: faint }}>
+          <p className="mt-3 mb-0 text-[13px]" style={{ color: 'var(--color-muted)' }}>
             Free, no signup. Limited to a few audits per hour to keep this fair for everyone.
           </p>
         </form>
@@ -206,14 +206,14 @@ export default function SeoAuditTool() {
           <div className="grid gap-4 lg:grid-cols-[auto_1fr] items-center p-6 md:p-8 rounded-[24px] mb-8" style={glass}>
             <ScoreRing score={result.score} />
             <div>
-              <div className="text-[13px]" style={{ color: faint }}>Overall SEO score for</div>
+              <div className="text-[13px]" style={{ color: 'var(--color-muted)' }}>Overall SEO score for</div>
               <div className="font-heading font-bold text-[19px] break-all">{result.domain}</div>
               <p className="mt-2 mb-0 text-[14.5px] max-w-[520px]" style={{ color: muted }}>{result.seoInsights?.healthSummary?.summary}</p>
               {result.id && (
                 <a
                   href={`/api/seo-toolkit/audits/${result.id}/report`}
                   className="inline-flex items-center gap-1.5 mt-4 font-bold text-[14px]"
-                  style={{ color: '#7dd3fc' }}
+                  style={{ color: 'var(--color-primary)' }}
                 >
                   <Download size={15} aria-hidden="true" /> Download PDF Report
                 </a>
@@ -228,22 +228,22 @@ export default function SeoAuditTool() {
           </div>
 
           <div className="grid gap-6 lg:grid-cols-2 mb-10">
-            <div className="p-6 rounded-[20px]" style={{ border: '1px solid rgba(255,255,255,.1)', background: 'rgba(255,255,255,.03)' }}>
+            <div className="p-6 rounded-[20px]" style={{ border: '1px solid var(--color-border)', background: 'var(--color-surface)', boxShadow: 'var(--shadow-card)' }}>
               <h2 className="font-heading font-bold text-[18px] mt-0 mb-1">Meta &amp; Content</h2>
               <StatusRow label={`Title (${result.metrics.meta.titleLength} chars)`} status={result.metrics.meta.status} />
               <StatusRow label={`Description (${result.metrics.meta.descriptionLength} chars)`} status={result.metrics.meta.description ? 'pass' : 'fail'} />
               <StatusRow label={`H1 heading${result.metrics.headings.multipleH1 ? ' (multiple found)' : ''}`} status={result.metrics.headings.hasH1 && !result.metrics.headings.multipleH1 ? 'pass' : 'warning'} />
-              <div className="flex items-center justify-between pt-2.5 text-[14.5px]" style={{ color: 'rgba(226,234,255,.8)' }}>
+              <div className="flex items-center justify-between pt-2.5 text-[14.5px]" style={{ color: 'var(--color-heading)' }}>
                 <span className="flex items-center gap-1.5"><ImageIcon size={14} aria-hidden="true" /> Images without alt text</span>
                 <span>{result.metrics.images.missingAlt} / {result.metrics.images.totalImages}</span>
               </div>
-              <div className="flex items-center justify-between pt-2.5 text-[14.5px]" style={{ color: 'rgba(226,234,255,.8)' }}>
+              <div className="flex items-center justify-between pt-2.5 text-[14.5px]" style={{ color: 'var(--color-heading)' }}>
                 <span className="flex items-center gap-1.5"><Link2 size={14} aria-hidden="true" /> Internal / external links</span>
                 <span>{result.metrics.links.internalLinks} / {result.metrics.links.externalLinks}</span>
               </div>
             </div>
 
-            <div className="p-6 rounded-[20px]" style={{ border: '1px solid rgba(255,255,255,.1)', background: 'rgba(255,255,255,.03)' }}>
+            <div className="p-6 rounded-[20px]" style={{ border: '1px solid var(--color-border)', background: 'var(--color-surface)', boxShadow: 'var(--shadow-card)' }}>
               <h2 className="font-heading font-bold text-[18px] mt-0 mb-1">Technical &amp; Security</h2>
               <StatusRow label="HTTPS" status={result.metrics.technical.https ? 'pass' : 'fail'} />
               <StatusRow label="Sitemap.xml" status={result.metrics.technical.sitemap ? 'pass' : 'warning'} />
@@ -257,13 +257,13 @@ export default function SeoAuditTool() {
           {result.keywords?.length > 0 && (
             <div className="mb-10">
               <h2 className="font-heading font-bold text-[20px] mb-4">Top Keywords</h2>
-              <div className="rounded-[20px] overflow-hidden" style={{ border: '1px solid rgba(255,255,255,.1)' }}>
+              <div className="rounded-[20px] overflow-hidden" style={{ border: '1px solid var(--color-border)', background: 'var(--color-surface)' }}>
                 {result.keywords.slice(0, 10).map((k, i) => (
-                  <div key={k.keyword} className="flex items-center justify-between px-5 py-3 text-[14.5px]" style={{ background: i % 2 ? 'rgba(255,255,255,.02)' : 'transparent', borderBottom: i < 9 ? '1px solid rgba(255,255,255,.06)' : 'none' }}>
-                    <span style={{ color: 'rgba(226,234,255,.85)' }}>{k.keyword}</span>
+                  <div key={k.keyword} className="flex items-center justify-between px-5 py-3 text-[14.5px]" style={{ background: i % 2 ? 'var(--color-surface-alt)' : 'transparent', borderBottom: i < 9 ? '1px solid var(--color-border)' : 'none' }}>
+                    <span style={{ color: 'var(--color-heading)' }}>{k.keyword}</span>
                     <span className="flex items-center gap-4">
-                      <span style={{ color: faint }}>{k.count}×</span>
-                      <span className="font-semibold" style={{ color: '#7dd3fc' }}>{k.density}%</span>
+                      <span style={{ color: 'var(--color-muted)' }}>{k.count}×</span>
+                      <span className="font-semibold" style={{ color: 'var(--color-primary)' }}>{k.density}%</span>
                     </span>
                   </div>
                 ))}
@@ -283,16 +283,16 @@ export default function SeoAuditTool() {
             </div>
           )}
 
-          <div className="mt-12 p-7 md:p-8 rounded-[22px] flex flex-col md:flex-row items-center justify-between gap-5" style={{ border: '1px solid rgba(255,255,255,.12)', background: 'linear-gradient(120deg, rgba(59,107,255,.22), rgba(123,92,255,.16))' }}>
+          <div className="mt-12 p-7 md:p-8 rounded-[22px] flex flex-col md:flex-row items-center justify-between gap-5" style={{ border: '1px solid var(--color-border)', background: 'linear-gradient(120deg, var(--color-surface-alt), var(--color-surface-warm))' }}>
             <div>
               <div className="font-heading font-bold text-[19px]">{copy?.cta_heading || 'Want help fixing these?'}</div>
-              <p className="m-0 mt-1 text-[14.5px]" style={{ color: 'rgba(226,234,255,.72)' }}>{copy?.cta_body || 'Our SEO team can turn this report into a prioritised action plan for your business.'}</p>
+              <p className="m-0 mt-1 text-[14.5px]" style={{ color: 'var(--color-body)' }}>{copy?.cta_body || 'Our SEO team can turn this report into a prioritised action plan for your business.'}</p>
             </div>
             <div className="flex gap-3 shrink-0">
-              <Link to="/contact" className="inline-flex items-center gap-1.5 px-6 py-3.5 rounded-full font-heading font-bold text-[15px] whitespace-nowrap" style={emberBtn}>
+              <Link to="/contact" className="inline-flex items-center gap-1.5 px-6 py-3.5 rounded-full font-heading font-bold text-[15px] whitespace-nowrap transition hover:brightness-95" style={emberBtn}>
                 Get a Free Consultation <ArrowRight size={16} aria-hidden="true" />
               </Link>
-              <a href={wa('Hi Shrinath Solutions, I just ran a free SEO audit and would like help with the results.')} target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-6 py-3.5 rounded-full font-bold text-[15px] whitespace-nowrap" style={{ color: '#eaf1ff', border: '1px solid rgba(255,255,255,.25)' }}>
+              <a href={wa('Hi Shrinath Solutions, I just ran a free SEO audit and would like help with the results.')} target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-6 py-3.5 rounded-full font-bold text-[15px] whitespace-nowrap" style={{ color: 'var(--color-heading)', border: '1px solid var(--color-border-strong)', background: 'var(--color-surface)' }}>
                 WhatsApp Us
               </a>
             </div>

@@ -11,7 +11,7 @@ function Ecosystem() {
   const n = nodes[active];
   return (
     <Section heading="The hotel technology ecosystem" body="Each piece feeds the next. Select any node to see what it connects to and why.">
-      <div className="grid gap-6 mt-7 p-7 rounded-[28px]" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', border: '1px solid rgba(255,255,255,.1)', background: 'rgba(255,255,255,.04)', backdropFilter: 'blur(18px)' }}>
+      <div className="grid gap-6 mt-7 p-7 rounded-[28px]" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', border: '1px solid var(--color-border)', background: 'var(--color-surface)', boxShadow: 'var(--shadow-card)' }}>
         <div className="grid grid-cols-2 gap-3">
           {nodes.map((item, i) => (
             <button
@@ -21,9 +21,9 @@ function Ecosystem() {
               onClick={() => setActive(i)}
               className="text-left p-4 rounded-2xl font-semibold text-[15.5px] transition-transform hover:-translate-y-0.5"
               style={{
-                border: '1px solid ' + (active === i ? 'rgba(125,211,252,.6)' : 'rgba(255,255,255,.12)'),
-                background: active === i ? 'rgba(59,107,255,.24)' : 'rgba(255,255,255,.05)',
-                color: '#e9efff',
+                border: '1px solid ' + (active === i ? 'var(--color-primary)' : 'var(--color-border)'),
+                background: active === i ? 'var(--color-surface-alt)' : 'var(--color-surface)',
+                color: 'var(--color-heading)',
               }}
             >
               <span className="block text-[18px] mb-1.5">{item.glyph}</span>
@@ -31,12 +31,12 @@ function Ecosystem() {
             </button>
           ))}
         </div>
-        <div className="p-7 rounded-[24px]" style={{ background: 'radial-gradient(circle at 30% 20%, rgba(59,107,255,.28), rgba(6,10,23,.6) 70%)', border: '1px solid rgba(255,255,255,.14)' }}>
+        <div className="p-7 rounded-[24px]" style={{ background: 'linear-gradient(135deg, var(--color-surface-alt), var(--color-surface))', border: '1px solid var(--color-border)' }}>
           <h3 className="font-heading font-bold text-[25px] mt-0 mb-2.5">{n.name}</h3>
-          <p className="m-0 text-[16.5px]" style={{ color: 'rgba(226,234,255,.76)' }}>{n.body}</p>
+          <p className="m-0 text-[16.5px]" style={{ color: 'var(--color-body)' }}>{n.body}</p>
           <div className="flex flex-wrap gap-2 mt-4">
             {n.feeds.map((f) => (
-              <span key={f} className="text-[13.5px] px-3 py-1.5 rounded-full" style={{ background: 'rgba(255,255,255,.08)', border: '1px solid rgba(255,255,255,.15)', color: 'rgba(226,234,255,.78)' }}>
+              <span key={f} className="text-[13.5px] px-3 py-1.5 rounded-full" style={{ background: 'var(--color-surface)', border: '1px solid var(--color-border)', color: 'var(--color-heading)' }}>
                 connects to {f}
               </span>
             ))}

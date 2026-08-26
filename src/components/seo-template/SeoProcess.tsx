@@ -14,7 +14,7 @@ export default function SeoProcess({ heading, steps }: { heading: string; steps:
         <div className="grid gap-4" style={{ gridTemplateColumns: `repeat(${steps.length}, 1fr)` }}>
           {steps.map((s, i) => (
             <motion.div key={s.num} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.4 }} transition={{ duration: 0.4, delay: i * 0.08 }} className="text-center px-2">
-              <span className="grid place-items-center mx-auto rounded-full font-heading font-extrabold text-[14px]" style={{ width: 46, height: 46, background: 'linear-gradient(140deg,#3b6bff,#7b5cff 55%,#22d3ee)', color: '#fff', boxShadow: '0 0 0 6px #060a17' }}>
+              <span className="grid place-items-center mx-auto rounded-full font-heading font-extrabold text-[14px]" style={{ width: 46, height: 46, background: 'linear-gradient(140deg,#3157e5,#7347e8 55%,#22d3ee)', color: '#fff', boxShadow: '0 0 0 6px var(--color-page)' }}>
                 {s.num}
               </span>
               <h3 className="font-heading font-bold text-[15.5px] mt-3 mb-1.5">{s.title}</h3>

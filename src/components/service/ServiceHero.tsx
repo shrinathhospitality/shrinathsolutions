@@ -30,7 +30,7 @@ export default function ServiceHero({
     <section className="mx-auto max-w-shell px-[22px] pt-9 grid gap-11 items-center lg:grid-cols-[1.08fr_0.92fr]">
       <div>
         {kicker && (
-          <div className="text-[13px] font-bold uppercase tracking-[.18em]" style={{ color: '#7dd3fc' }}>{kicker}</div>
+          <div className="text-[13px] font-bold uppercase tracking-[.18em]" style={{ color: 'var(--color-primary)' }}>{kicker}</div>
         )}
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
@@ -42,21 +42,21 @@ export default function ServiceHero({
           {h1}
         </motion.h1>
         {intro && (
-          <p className="text-[17.5px] mt-5 max-w-[600px]" style={{ color: 'rgba(226,234,255,.74)' }}>{intro}</p>
+          <p className="text-[17.5px] mt-5 max-w-[600px]" style={{ color: 'var(--color-body)', lineHeight: 1.7 }}>{intro}</p>
         )}
         <div className="flex flex-wrap gap-3.5 mt-7">
-          <Link to="/contact" className="px-7 py-4 rounded-full font-heading font-bold text-[16px]" style={emberBtn}>{ctaLabel}</Link>
+          <Link to="/contact" className="px-7 py-4 rounded-full font-heading font-bold text-[16px] transition hover:brightness-95" style={emberBtn}>{ctaLabel}</Link>
           <a href={wa()} target="_blank" rel="noopener noreferrer" className="px-7 py-4 rounded-full font-bold text-[16px]" style={ghostBtn}>
             WhatsApp {site.phone}
           </a>
         </div>
         {notes && notes.length > 0 && (
-          <div className="flex flex-wrap gap-x-6 gap-y-2 mt-7 text-[14px] font-medium" style={{ color: 'rgba(214,225,255,.65)' }}>
+          <div className="flex flex-wrap gap-x-6 gap-y-2 mt-7 text-[14px] font-medium" style={{ color: 'var(--color-body)' }}>
             {notes.map((n, i) => {
               const Icon = TRUST_ICONS[i % TRUST_ICONS.length];
               return (
                 <span key={n} className="flex items-center gap-1.5">
-                  <Icon size={15} color="#6ee7b7" aria-hidden="true" /> {n}
+                  <Icon size={15} color="var(--color-success)" aria-hidden="true" /> {n}
                 </span>
               );
             })}
@@ -66,7 +66,7 @@ export default function ServiceHero({
 
       <div className="relative">
         {imgSrc ? (
-          <div className="rounded-[24px] overflow-hidden" style={{ border: '1px solid rgba(255,255,255,.12)' }}>
+          <div className="rounded-[24px] overflow-hidden" style={{ border: '1px solid var(--color-border)', boxShadow: 'var(--shadow-card)' }}>
             <img
               src={imgSrc}
               alt={h1}

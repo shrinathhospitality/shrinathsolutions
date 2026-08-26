@@ -8,7 +8,7 @@ export default function Breadcrumbs({ trail }: { trail: { name: string; path: st
         const last = i === trail.length - 1;
         return (
           <span key={t.path} className="flex gap-2">
-            {last ? <span aria-current="page" style={{ color: '#cfe0ff' }}>{t.name}</span> : <Link to={t.path} style={{ color: 'rgba(226,234,255,.62)' }}>{t.name}</Link>}
+            {last ? <span aria-current="page" style={{ color: 'var(--color-heading)' }}>{t.name}</span> : <Link to={t.path} style={{ color: 'var(--color-muted)' }}>{t.name}</Link>}
             {!last && <span>/</span>}
           </span>
         );

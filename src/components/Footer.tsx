@@ -67,7 +67,7 @@ function BrandProfile({
         </span>
       </Link>
 
-      <h2 className="font-heading font-extrabold leading-[1.1] mt-6 mb-0" style={{ fontSize: 'clamp(30px,3.4vw,42px)', letterSpacing: '-0.02em' }}>
+      <h2 className="font-heading font-extrabold leading-[1.1] mt-6 mb-0" style={{ fontSize: 'clamp(30px,3.4vw,42px)', letterSpacing: '-0.02em', color: '#f8fafc' }}>
         {statementLine1}
         {statementLine2 && (
           <>
@@ -160,7 +160,7 @@ function ProjectCTA({ heading, description, proposalLabel, whatsappLabel }: { he
   return (
     <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 px-7 py-6 md:px-8 md:py-7">
       <div className="min-w-0">
-        <h3 className="font-heading font-bold text-[clamp(21px,2.1vw,26px)] leading-[1.2] m-0">{heading}</h3>
+        <h3 className="font-heading font-bold text-[clamp(21px,2.1vw,26px)] leading-[1.2] m-0" style={{ color: '#f8fafc' }}>{heading}</h3>
         <p className="mt-2 mb-0 text-[14.5px] max-w-[360px]" style={{ color: 'rgba(226,234,255,.65)', lineHeight: 1.5 }}>
           {line1}{line2 && <><br />{line2}</>}
         </p>
@@ -286,7 +286,7 @@ function ProjectEnquiryPanel({
     >
       <div
         className="rounded-[24.5px] overflow-hidden relative"
-        style={{ background: 'radial-gradient(circle at 15% 15%, rgba(39,167,255,.1), transparent 55%), radial-gradient(circle at 90% 90%, rgba(154,85,255,.1), transparent 55%), #071329' }}
+        style={{ background: 'radial-gradient(circle at 15% 15%, rgba(39,167,255,.1), transparent 55%), radial-gradient(circle at 90% 90%, rgba(154,85,255,.1), transparent 55%), #0B1C3B' }}
       >
         <div aria-hidden="true" className="absolute inset-0 pointer-events-none" style={{ opacity: 0.4, backgroundImage: 'radial-gradient(rgba(139,166,215,.14) 1px, transparent 1px)', backgroundSize: '18px 18px' }} />
         <div className="relative">
@@ -441,7 +441,7 @@ export default function Footer() {
   return (
     <footer
       className="relative overflow-hidden mt-16 md:mt-24"
-      style={{ borderTop: '1px solid rgba(125,158,211,.16)', background: '#020817' }}
+      style={{ borderTop: '1px solid rgba(255,255,255,.12)', background: '#07142E' }}
     >
       <div aria-hidden="true" className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(circle at 8% 0%, rgba(39,167,255,.12), transparent 45%), radial-gradient(circle at 95% 30%, rgba(154,85,255,.1), transparent 45%)' }} />
 

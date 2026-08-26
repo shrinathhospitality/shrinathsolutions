@@ -52,9 +52,9 @@ export default function Legal({ kind }: { kind: 'privacy' | 'terms' }) {
 
       <section className="mx-auto max-w-shell px-[22px] pt-10">
         <div className="max-w-[820px]">
-          <div className="text-[13px] uppercase tracking-[.18em]" style={{ color: '#7dd3fc' }}>Legal</div>
+          <div className="text-[13px] uppercase tracking-[.18em]" style={{ color: 'var(--color-primary)' }}>Legal</div>
           <h1 className="font-heading font-extrabold text-[clamp(31px,4vw,50px)] leading-[1.08] mt-4" style={{ letterSpacing: '-0.03em' }}>{name}</h1>
-          <p className="text-[18px] mt-5" style={{ color: 'rgba(226,234,255,.72)' }}>
+          <p className="text-[18px] mt-5" style={{ color: 'var(--color-body)' }}>
             Placeholder wording. Have this reviewed by a professional before publishing.
           </p>
         </div>

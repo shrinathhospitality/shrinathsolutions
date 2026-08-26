@@ -6,7 +6,7 @@ import type { Heading } from '../lib/extractHeadings';
 
 function Panel({ children }: { children: React.ReactNode }) {
   return (
-    <div className="p-5 rounded-[20px]" style={{ border: '1px solid rgba(255,255,255,.1)', background: 'rgba(255,255,255,.035)' }}>
+    <div className="p-5 rounded-[20px]" style={{ border: '1px solid var(--color-border)', background: 'var(--color-surface)', boxShadow: 'var(--shadow-card)' }}>
       {children}
     </div>
   );
@@ -33,11 +33,11 @@ export default function SeoPageSidebar({ headings, targetLocation }: { headings:
       {headings.length > 1 && (
         <Panel>
           <h3 className="flex items-center gap-2 font-heading font-bold text-[14.5px] m-0 mb-3.5">
-            <List size={16} style={{ color: '#7dd3fc' }} aria-hidden="true" /> On this page
+            <List size={16} style={{ color: 'var(--color-primary)' }} aria-hidden="true" /> On this page
           </h3>
           <nav className="flex flex-col gap-2.5">
             {headings.map((h) => (
-              <a key={h.id} href={`#${h.id}`} className="text-[14px] leading-snug !text-[rgba(226,234,255,.72)] hover:!text-[#7dd3fc]">
+              <a key={h.id} href={`#${h.id}`} className="text-[14px] leading-snug !text-[var(--color-body)] hover:!text-[var(--color-primary)]">
                 {h.text}
               </a>
             ))}

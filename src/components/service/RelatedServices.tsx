@@ -33,14 +33,14 @@ export default function RelatedServices({ items, currentSlug }: { items: { label
           const slug = item.to.split('/').filter(Boolean).pop();
           const match = slug ? bySlug.get(slug) : undefined;
           return (
-            <Link key={item.to + item.label} to={item.to} className="group flex items-start gap-3.5 p-5 rounded-[20px] !text-paper transition-all hover:-translate-y-0.5" style={glass}>
-              <span className="grid place-items-center text-[17px] shrink-0" style={{ width: 40, height: 40, borderRadius: 12, background: 'rgba(59,107,255,.2)', border: '1px solid rgba(255,255,255,.16)' }} aria-hidden="true">
+            <Link key={item.to + item.label} to={item.to} className="group flex items-start gap-3.5 p-5 rounded-[20px] !text-heading transition-all hover:-translate-y-0.5" style={glass}>
+              <span className="grid place-items-center text-[17px] shrink-0" style={{ width: 40, height: 40, borderRadius: 12, background: 'var(--color-surface-alt)', border: '1px solid var(--color-border)' }} aria-hidden="true">
                 {match?.icon ?? <Layers size={17} />}
               </span>
               <div className="min-w-0">
                 <div className="font-heading font-bold text-[15.5px]">{item.label}</div>
                 {match?.category && <div className="text-[13px] mt-0.5" style={{ color: muted }}>{match.category}</div>}
-                <span className="inline-flex items-center gap-1 mt-2 font-bold text-[13px]" style={{ color: '#7dd3fc' }}>
+                <span className="inline-flex items-center gap-1 mt-2 font-bold text-[13px]" style={{ color: 'var(--color-primary)' }}>
                   View service <ArrowRight size={12} className="transition-transform group-hover:translate-x-1" aria-hidden="true" />
                 </span>
               </div>
