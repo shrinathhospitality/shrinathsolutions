@@ -99,7 +99,7 @@ export default function BlogDetail() {
 
       <section className="mx-auto w-[90%] max-w-[1600px] pt-7 grid lg:grid-cols-[1fr_320px] gap-10 items-start">
         <div className="min-w-0">
-          <BlogThumb category={post.category_name} className="w-full rounded-[26px]" />
+          <BlogThumb category={post.category_name} image={post.featured_image} title={post.title} className="w-full rounded-[26px]" />
 
           {post.content && (
             <div className="pt-12 max-w-[760px]">

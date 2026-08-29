@@ -15,6 +15,7 @@ type Post = {
   title: string;
   slug: string;
   excerpt: string;
+  featured_image: string | null;
   category_name: string | null;
   reading_time_minutes: number | null;
   published_at: string | null;
@@ -50,7 +51,7 @@ function FeaturedCard({ post }: { post: Post }) {
         className="group flex h-full flex-col overflow-hidden rounded-[26px] !text-heading"
         style={{ border: '1px solid var(--color-border)', background: 'var(--color-surface)', boxShadow: 'var(--shadow-card)' }}
       >
-        <BlogThumb category={post.category_name} className="w-full transition-transform duration-300 group-hover:scale-[1.02]" />
+        <BlogThumb category={post.category_name} image={post.featured_image} title={post.title} className="w-full transition-transform duration-300 group-hover:scale-[1.02]" />
         <div className="flex flex-1 flex-col p-7">
           <CategoryBadge name={post.category_name} />
           <h2 className="font-heading font-bold text-[clamp(22px,2.4vw,30px)] leading-[1.2] mt-4 mb-2.5">{post.title}</h2>
@@ -75,7 +76,7 @@ function CompactCard({ post }: { post: Post }) {
         className="group flex gap-4 rounded-[20px] p-3 !text-heading"
         style={{ border: '1px solid var(--color-border)', background: 'var(--color-surface)' }}
       >
-        <BlogThumb category={post.category_name} className="w-[130px] shrink-0 rounded-[14px]" />
+        <BlogThumb category={post.category_name} image={post.featured_image} title={post.title} className="w-[130px] shrink-0 rounded-[14px]" />
         <div className="min-w-0 flex flex-col justify-center py-1">
           <CategoryBadge name={post.category_name} />
           <h3 className="font-heading font-bold text-[15.5px] leading-snug mt-2 mb-1.5 line-clamp-2">{post.title}</h3>
@@ -98,7 +99,7 @@ function GridCard({ post, index }: { post: Post; index: number }) {
           className="group flex h-full flex-col overflow-hidden rounded-[22px] !text-heading"
           style={{ border: '1px solid var(--color-border)', background: 'var(--color-surface)', boxShadow: 'var(--shadow-card)' }}
         >
-          <BlogThumb category={post.category_name} className="w-full transition-transform duration-300 group-hover:scale-[1.03]" />
+          <BlogThumb category={post.category_name} image={post.featured_image} title={post.title} className="w-full transition-transform duration-300 group-hover:scale-[1.03]" />
           <div className="flex flex-1 flex-col p-5">
             <CategoryBadge name={post.category_name} />
             <h3 className="font-heading font-bold text-[17.5px] leading-snug mt-3 mb-2 line-clamp-2">{post.title}</h3>

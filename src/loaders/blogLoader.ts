@@ -4,6 +4,7 @@ import type { LoaderOptions, LoaderResult } from './types';
 export type BlogPost = {
   id: number;
   title: string; slug: string; excerpt: string | null; content: string | null;
+  featured_image: string | null;
   category_name: string | null; category_slug: string | null;
   reading_time_minutes: number | null; published_at: string | null;
 };

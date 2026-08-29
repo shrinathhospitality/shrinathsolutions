@@ -13,13 +13,9 @@ import BlogThumb from '../components/BlogThumb';
 import * as h from '../data/home';
 import { wa } from '../data/site';
 import { emberBtn, ghostBtn, glass, muted } from '../styles/theme';
+import { mediaUrl } from '../lib/media';
 
 const WHY_ICONS = [MapPinned, Sparkles, SearchCheck, Smartphone, MessageCircle, Headset];
-
-function mediaUrl(path?: string | null) {
-  if (!path) return null;
-  return path.startsWith('http') ? path : `/api/${path}`;
-}
 
 /* ---------------------------------- Hero visual ---------------------------------- */
 
@@ -467,7 +463,7 @@ function InsightsSection() {
             <div className="grid gap-5 mt-5 sm:grid-cols-2 lg:grid-cols-3">
               {gridRest.map((p) => (
                 <Link key={p.slug} to={`/blog/${p.slug}`} className="group block rounded-[20px] overflow-hidden !text-heading" style={{ border: '1px solid var(--color-border)', background: 'var(--color-surface)' }}>
-                  <BlogThumb category={p.category_name} className="w-full transition-transform duration-300 group-hover:scale-[1.03]" />
+                  <BlogThumb category={p.category_name} image={p.featured_image} title={p.title} className="w-full transition-transform duration-300 group-hover:scale-[1.03]" />
                   <div className="p-4">
                     <div className="text-[12px] uppercase tracking-[.1em] font-bold" style={{ color: 'var(--color-primary)' }}>{p.category_name ?? 'Blog'}</div>
                     <div className="font-heading font-bold text-[15.5px] mt-2 mb-1.5 leading-snug line-clamp-2">{p.title}</div>
