@@ -38,7 +38,7 @@ export default function Profile() {
   }
 
   return (
-    <div className="max-w-[480px]">
+    <div className="w-full">
       <div style={adminCard} className="p-6">
         <form className="grid gap-4" onSubmit={onSubmit}>
           <label className="grid gap-1.5 text-[13.5px] font-semibold" style={{ color: adminColors.textMuted }}>

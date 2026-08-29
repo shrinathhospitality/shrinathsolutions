@@ -43,6 +43,8 @@ function auth_login(PDO $pdo): void
             'role'                 => $user['role'],
             'must_change_password' => (bool) $user['must_change_password'],
         ],
+        'seo_capabilities' => seo_role_permissions((string) $user['role']),
+        'venture_capabilities' => venture_role_permissions((string) $user['role']),
         'csrf_token' => $csrfToken,
     ]);
 }
@@ -65,9 +67,11 @@ function auth_session(PDO $pdo): void
     }
 
     json_success([
-        'authenticated' => true,
-        'user'          => $ctx['user'],
-        'csrf_token'    => $ctx['session']['csrf_token'],
+        'authenticated'    => true,
+        'user'             => $ctx['user'],
+        'seo_capabilities' => seo_role_permissions((string) ($ctx['user']['role'] ?? '')),
+        'venture_capabilities' => venture_role_permissions((string) ($ctx['user']['role'] ?? '')),
+        'csrf_token'       => $ctx['session']['csrf_token'],
     ]);
 }
 

@@ -25,7 +25,13 @@ export default function SeoPageTemplate({ data }: { data: SeoPageData }) {
 
   return (
     <>
-      <Seo title={data.metaTitle} description={data.metaDescription} path={data.path} jsonLd={schema} />
+      <Seo
+        title={data.metaTitle}
+        description={data.metaDescription}
+        path={data.path}
+        jsonLd={schema}
+        robots={data.noindex ? 'noindex, follow' : 'index, follow'}
+      />
 
       <Breadcrumbs trail={data.breadcrumb} />
 

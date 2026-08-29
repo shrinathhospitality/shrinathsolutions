@@ -3,6 +3,9 @@ import toast from 'react-hot-toast';
 import { ArrowUp, ArrowDown, Trash2, Plus, Save } from 'lucide-react';
 import { adminFetch, ApiError } from '../lib/api';
 import { adminCard, adminColors, adminPrimaryBtn } from '../adminTheme';
+import { useConfirmDialog, type ConfirmOptions } from '../components/ConfirmDialog';
+
+type ConfirmFn = (options: ConfirmOptions) => void;
 
 type MenuItem = {
   id: number;
@@ -53,15 +56,17 @@ async function saveItem(id: number, patch: Partial<MenuItem>) {
   }
 }
 
-async function deleteItem(id: number, onDone: () => void) {
-  if (!confirm('Delete this menu item? This cannot be undone.')) return;
-  try {
-    await adminFetch(`/api/admin/menu-items/${id}`, { method: 'DELETE' });
-    toast.success('Deleted');
-    onDone();
-  } catch (err) {
-    toast.error(err instanceof ApiError ? err.message : 'Failed to delete');
-  }
+function deleteItem(id: number, confirmFn: ConfirmFn, onDone: () => void) {
+  confirmFn({
+    title: 'Delete this menu item?',
+    variant: 'destructive',
+    confirmLabel: 'Delete',
+    onConfirm: async () => {
+      await adminFetch(`/api/admin/menu-items/${id}`, { method: 'DELETE' });
+      toast.success('Deleted');
+      onDone();
+    },
+  });
 }
 
 async function reorder(slug: string, order: { id: number; display_order: number }[], onDone: () => void) {
@@ -81,7 +86,7 @@ function move<T extends { id: number; display_order: number }>(list: T[], index:
   return copy.map((item, i) => ({ id: item.id, display_order: i }));
 }
 
-function PrimaryRow({ item, index, total, slug, onReload }: { item: MenuItem; index: number; total: number; slug: string; onReload: () => void }) {
+function PrimaryRow({ item, index, total, slug, onReload, confirmFn }: { item: MenuItem; index: number; total: number; slug: string; onReload: () => void; confirmFn: ConfirmFn }) {
   const [label, setLabel] = useState(item.label);
   const [path, setPath] = useState(item.internal_path ?? '');
 
@@ -99,7 +104,7 @@ function PrimaryRow({ item, index, total, slug, onReload }: { item: MenuItem; in
         <button type="button" onClick={() => saveItem(item.id, { label, internal_path: path, url_type: 'internal' })} style={{ color: adminColors.accentBlue }}>
           <Save size={16} />
         </button>
-        <button type="button" onClick={() => deleteItem(item.id, onReload)} style={{ color: adminColors.danger }}>
+        <button type="button" onClick={() => deleteItem(item.id, confirmFn, onReload)} style={{ color: adminColors.danger }}>
           <Trash2 size={16} />
         </button>
       </div>
@@ -107,7 +112,7 @@ function PrimaryRow({ item, index, total, slug, onReload }: { item: MenuItem; in
   );
 }
 
-function PrimaryMenuEditor() {
+function PrimaryMenuEditor({ confirmFn }: { confirmFn: ConfirmFn }) {
   const { items, loading, reload } = useMenu('primary');
   const [newLabel, setNewLabel] = useState('');
   const [newPath, setNewPath] = useState('');
@@ -133,7 +138,7 @@ function PrimaryMenuEditor() {
   return (
     <div className="grid gap-2.5">
       {items.map((item, i) => (
-        <PrimaryRow key={item.id} item={item} index={i} total={items.length} slug="primary" onReload={reload} />
+        <PrimaryRow key={item.id} item={item} index={i} total={items.length} slug="primary" onReload={reload} confirmFn={confirmFn} />
       ))}
       <div style={{ ...adminCard, borderStyle: 'dashed' }} className="p-3.5 flex flex-wrap items-center gap-2.5">
         <input style={{ ...inputStyle, width: 180 }} placeholder="Label" value={newLabel} onChange={(e) => setNewLabel(e.target.value)} />
@@ -146,7 +151,7 @@ function PrimaryMenuEditor() {
   );
 }
 
-function MegaColumnEditor({ column, index, total, onReload }: { column: MenuItem; index: number; total: number; onReload: () => void }) {
+function MegaColumnEditor({ column, index, total, onReload, confirmFn }: { column: MenuItem; index: number; total: number; onReload: () => void; confirmFn: ConfirmFn }) {
   const [title, setTitle] = useState(column.label);
   const [icon, setIcon] = useState(column.icon ?? '');
   const [newChildLabel, setNewChildLabel] = useState('');
@@ -188,7 +193,7 @@ function MegaColumnEditor({ column, index, total, onReload }: { column: MenuItem
           <button type="button" onClick={() => saveItem(column.id, { label: title, icon, mega_column: title })} style={{ color: adminColors.accentBlue }}>
             <Save size={16} />
           </button>
-          <button type="button" onClick={() => deleteItem(column.id, onReload)} style={{ color: adminColors.danger }}>
+          <button type="button" onClick={() => deleteItem(column.id, confirmFn, onReload)} style={{ color: adminColors.danger }}>
             <Trash2 size={16} />
           </button>
         </div>
@@ -196,7 +201,7 @@ function MegaColumnEditor({ column, index, total, onReload }: { column: MenuItem
 
       <div className="grid gap-1.5 pl-2">
         {column.children.map((child, ci) => (
-          <MegaChildRow key={child.id} child={child} index={ci} total={column.children.length} onReload={onReload} />
+          <MegaChildRow key={child.id} child={child} index={ci} total={column.children.length} onReload={onReload} confirmFn={confirmFn} />
         ))}
       </div>
 
@@ -211,7 +216,7 @@ function MegaColumnEditor({ column, index, total, onReload }: { column: MenuItem
   );
 }
 
-function MegaChildRow({ child, index, total, onReload }: { child: MenuItem; index: number; total: number; onReload: () => void }) {
+function MegaChildRow({ child, index, total, onReload, confirmFn }: { child: MenuItem; index: number; total: number; onReload: () => void; confirmFn: ConfirmFn }) {
   const [label, setLabel] = useState(child.label);
   const [path, setPath] = useState(child.internal_path ?? '');
 
@@ -229,7 +234,7 @@ function MegaChildRow({ child, index, total, onReload }: { child: MenuItem; inde
         <button type="button" onClick={() => saveItem(child.id, { label, internal_path: path, url_type: 'internal', parent_id: child.parent_id })} style={{ color: adminColors.accentBlue }}>
           <Save size={14} />
         </button>
-        <button type="button" onClick={() => deleteItem(child.id, onReload)} style={{ color: adminColors.danger }}>
+        <button type="button" onClick={() => deleteItem(child.id, confirmFn, onReload)} style={{ color: adminColors.danger }}>
           <Trash2 size={14} />
         </button>
       </div>
@@ -237,7 +242,7 @@ function MegaChildRow({ child, index, total, onReload }: { child: MenuItem; inde
   );
 }
 
-function MegaMenuEditor() {
+function MegaMenuEditor({ confirmFn }: { confirmFn: ConfirmFn }) {
   const { items, loading, reload } = useMenu('services_mega');
   const [newColumn, setNewColumn] = useState('');
 
@@ -261,7 +266,7 @@ function MegaMenuEditor() {
   return (
     <div className="grid gap-3.5">
       {items.map((col, i) => (
-        <MegaColumnEditor key={col.id} column={col} index={i} total={items.length} onReload={reload} />
+        <MegaColumnEditor key={col.id} column={col} index={i} total={items.length} onReload={reload} confirmFn={confirmFn} />
       ))}
       <div style={{ ...adminCard, borderStyle: 'dashed' }} className="p-3.5 flex items-center gap-2.5">
         <input style={{ ...inputStyle, flex: 1 }} placeholder="New column title" value={newColumn} onChange={(e) => setNewColumn(e.target.value)} />
@@ -274,19 +279,21 @@ function MegaMenuEditor() {
 }
 
 export default function Menus() {
+  const { confirm, dialog } = useConfirmDialog();
   return (
-    <div className="grid gap-8 max-w-[720px]">
+    <div className="grid gap-8 w-full">
+      {dialog}
       <div>
         <div className="text-[13px] font-bold uppercase tracking-[.08em] mb-3" style={{ color: adminColors.textMuted }}>
           Primary navigation
         </div>
-        <PrimaryMenuEditor />
+        <PrimaryMenuEditor confirmFn={confirm} />
       </div>
       <div>
         <div className="text-[13px] font-bold uppercase tracking-[.08em] mb-3" style={{ color: adminColors.textMuted }}>
           Services mega menu
         </div>
-        <MegaMenuEditor />
+        <MegaMenuEditor confirmFn={confirm} />
       </div>
     </div>
   );

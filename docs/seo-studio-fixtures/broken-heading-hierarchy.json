@@ -1,0 +1,23 @@
+{
+  "description": "Headings skip a level (H2 straight to H4) and one heading repeats — content.heading_structure should be 'improvement', content.duplicate_headings 'warning'.",
+  "input": {
+    "contentType": "seo_page", "contentId": 6, "slug": "web-development-company-in-delhi", "status": "published",
+    "title": "Web Development Company in Delhi | Shrinath Solutions",
+    "description": "Custom web development for businesses in Delhi — fast, modern, mobile-first websites built for growth.",
+    "canonical": "https://shrinathsolutions.com/web-development-company-in-delhi",
+    "robotsIndex": true, "robotsFollow": true, "ogTitle": "", "ogDescription": "", "ogImage": "",
+    "h1": "Web Development Company in Delhi",
+    "introText": "We build fast, modern websites for growing businesses in Delhi.",
+    "bodyText": "We build fast, modern websites for growing businesses in Delhi. Our web development process covers design, build, testing and launch. We build fast, modern websites for growing businesses in Delhi with ongoing support after launch too.",
+    "paragraphs": ["We build fast, modern websites for growing businesses in Delhi.", "Our web development process covers design, build, testing and launch.", "We build fast, modern websites for growing businesses in Delhi with ongoing support after launch too."],
+    "headings": [
+      { "level": 2, "text": "Why choose our web development company in Delhi" },
+      { "level": 4, "text": "Fast turnaround" },
+      { "level": 2, "text": "Why choose our web development company in Delhi" }
+    ],
+    "images": [], "links": [],
+    "schemaTypes": ["WebPage"], "publicUrl": "/web-development-company-in-delhi", "pageType": "location_seo_page", "language": "en",
+    "primaryKeyphrase": "web development company in delhi", "relatedKeyphrases": [], "isCornerstone": false
+  },
+  "expected": { "headingStructureOutcome": "improvement", "duplicateHeadingsOutcome": "warning" }
+}

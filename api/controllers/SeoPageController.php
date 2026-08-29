@@ -135,6 +135,7 @@ function seo_pages_admin_delete(PDO $pdo, array $params): void
     }
 
     delete_seo_page($pdo, $id);
+    seo_cleanup_deleted_content($pdo, 'seo_page', $id);
     audit_log($pdo, $ctx['user']['id'], 'content_deleted', 'seo_page', (string) $id);
     json_success();
 }

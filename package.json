@@ -7,7 +7,15 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "test:redirects": "node scripts/test-redirects.mjs",
+    "build:ssr": "vite build --ssr src/entry-server.tsx --outDir dist-ssr",
+    "prerender": "node scripts/prerender.mjs",
+    "build:prerender": "npm run build && npm run build:ssr && npm run prerender",
+    "test:seo-parity": "node scripts/seo-parity-test.mjs",
+    "seo:apply-prerender-report": "php scripts/apply-prerender-report.php",
+    "test:migrate-glob": "php scripts/test-migrate-glob.php",
+    "test:seo-audit-privacy": "php scripts/test-seo-audit-privacy.php"
   },
   "dependencies": {
     "@tiptap/extension-link": "^3.30.2",

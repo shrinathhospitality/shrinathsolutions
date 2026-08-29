@@ -1,0 +1,18 @@
+{
+  "description": "Keyphrase repeated excessively — density check must flag 'warning', not reward the stuffing with a higher score.",
+  "input": {
+    "contentType": "seo_page", "contentId": 3, "slug": "seo-company-in-jaipur", "status": "published",
+    "title": "SEO company in Jaipur - best SEO company in Jaipur for SEO company in Jaipur",
+    "description": "SEO company in Jaipur offering SEO company in Jaipur services. Hire the top SEO company in Jaipur today for SEO company in Jaipur results.",
+    "canonical": "https://shrinathsolutions.com/seo-company-in-jaipur",
+    "robotsIndex": true, "robotsFollow": true, "ogTitle": "", "ogDescription": "", "ogImage": "",
+    "h1": "SEO company in Jaipur SEO company in Jaipur",
+    "introText": "SEO company in Jaipur SEO company in Jaipur SEO company in Jaipur SEO company in Jaipur.",
+    "bodyText": "SEO company in Jaipur SEO company in Jaipur SEO company in Jaipur. Looking for an SEO company in Jaipur? Our SEO company in Jaipur is the best SEO company in Jaipur. As an SEO company in Jaipur we know SEO company in Jaipur searches better than any other SEO company in Jaipur. Choose our SEO company in Jaipur for SEO company in Jaipur results from the leading SEO company in Jaipur.",
+    "paragraphs": ["SEO company in Jaipur SEO company in Jaipur SEO company in Jaipur.", "Looking for an SEO company in Jaipur? Our SEO company in Jaipur is the best SEO company in Jaipur.", "As an SEO company in Jaipur we know SEO company in Jaipur searches better than any other SEO company in Jaipur.", "Choose our SEO company in Jaipur for SEO company in Jaipur results from the leading SEO company in Jaipur."],
+    "headings": [], "images": [], "links": [],
+    "schemaTypes": [], "publicUrl": "/seo-company-in-jaipur", "pageType": "location_seo_page", "language": "en",
+    "primaryKeyphrase": "SEO company in Jaipur", "relatedKeyphrases": [], "isCornerstone": false
+  },
+  "expected": { "keywordDensityOutcome": "warning" }
+}

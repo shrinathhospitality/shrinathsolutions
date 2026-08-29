@@ -1,0 +1,17 @@
+{
+  "description": "Contact page profile (skip_thin_content: true) with a genuinely low word count — content.word_count must be 'informational', never a failure, purely because of length.",
+  "input": {
+    "contentType": "page", "contentId": 11, "slug": "contact", "status": "published",
+    "title": "Contact Shrinath Solutions | Jaisalmer, Rajasthan",
+    "description": "Get in touch with Shrinath Solutions for websites, digital marketing and hotel technology in Jaisalmer.",
+    "canonical": "https://shrinathsolutions.com/contact",
+    "robotsIndex": true, "robotsFollow": true, "ogTitle": "", "ogDescription": "", "ogImage": "",
+    "h1": "Get in Touch", "introText": "Tell us about your project and we'll reply within one business day.",
+    "bodyText": "Tell us about your project and we'll reply within one business day. Call, WhatsApp or use the form below.",
+    "paragraphs": ["Tell us about your project and we'll reply within one business day.", "Call, WhatsApp or use the form below."],
+    "headings": [], "images": [], "links": [],
+    "schemaTypes": ["ContactPage"], "publicUrl": "/contact", "pageType": "contact", "language": "en",
+    "primaryKeyphrase": "", "relatedKeyphrases": [], "isCornerstone": false
+  },
+  "expected": { "contentWordCountOutcome": "informational" }
+}

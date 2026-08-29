@@ -3,6 +3,7 @@ import toast from 'react-hot-toast';
 import { Trash2, Plus, Save } from 'lucide-react';
 import { adminFetch, ApiError } from '../lib/api';
 import { adminCard, adminColors, adminPrimaryBtn } from '../adminTheme';
+import { useConfirmDialog } from '../components/ConfirmDialog';
 
 type FooterLink = { id: number; label: string; url: string; display_order: number };
 type FooterSection = { id: number; title: string; display_order: number; is_visible: number | boolean; links: FooterLink[] };
@@ -17,6 +18,7 @@ const inputStyle: React.CSSProperties = {
 function LinkRow({ link, onReload }: { link: FooterLink; onReload: () => void }) {
   const [label, setLabel] = useState(link.label);
   const [url, setUrl] = useState(link.url);
+  const { confirm, dialog } = useConfirmDialog();
 
   async function save() {
     try {
@@ -27,19 +29,22 @@ function LinkRow({ link, onReload }: { link: FooterLink; onReload: () => void })
     }
   }
 
-  async function remove() {
-    if (!confirm('Delete this footer link?')) return;
-    try {
-      await adminFetch(`/api/admin/footer/links/${link.id}`, { method: 'DELETE' });
-      toast.success('Deleted');
-      onReload();
-    } catch (err) {
-      toast.error(err instanceof ApiError ? err.message : 'Failed to delete');
-    }
+  function remove() {
+    confirm({
+      title: 'Delete this footer link?',
+      variant: 'destructive',
+      confirmLabel: 'Delete',
+      onConfirm: async () => {
+        await adminFetch(`/api/admin/footer/links/${link.id}`, { method: 'DELETE' });
+        toast.success('Deleted');
+        onReload();
+      },
+    });
   }
 
   return (
     <div className="flex flex-wrap items-center gap-2">
+      {dialog}
       <input style={{ ...inputStyle, width: 160 }} value={label} onChange={(e) => setLabel(e.target.value)} />
       <input style={{ ...inputStyle, width: 160 }} value={url} onChange={(e) => setUrl(e.target.value)} />
       <button type="button" onClick={save} style={{ color: adminColors.accentBlue }}><Save size={14} /></button>
@@ -52,6 +57,7 @@ function SectionCard({ section, onReload }: { section: FooterSection; onReload: 
   const [title, setTitle] = useState(section.title);
   const [newLabel, setNewLabel] = useState('');
   const [newUrl, setNewUrl] = useState('');
+  const { confirm, dialog } = useConfirmDialog();
 
   async function saveTitle() {
     try {
@@ -65,15 +71,18 @@ function SectionCard({ section, onReload }: { section: FooterSection; onReload: 
     }
   }
 
-  async function removeSection() {
-    if (!confirm(`Delete the "${section.title}" footer section and all its links?`)) return;
-    try {
-      await adminFetch(`/api/admin/footer/sections/${section.id}`, { method: 'DELETE' });
-      toast.success('Deleted');
-      onReload();
-    } catch (err) {
-      toast.error(err instanceof ApiError ? err.message : 'Failed to delete');
-    }
+  function removeSection() {
+    confirm({
+      title: `Delete the "${section.title}" footer section?`,
+      description: 'All links inside this section will be deleted too.',
+      variant: 'destructive',
+      confirmLabel: 'Delete',
+      onConfirm: async () => {
+        await adminFetch(`/api/admin/footer/sections/${section.id}`, { method: 'DELETE' });
+        toast.success('Deleted');
+        onReload();
+      },
+    });
   }
 
   async function addLink() {
@@ -94,6 +103,7 @@ function SectionCard({ section, onReload }: { section: FooterSection; onReload: 
 
   return (
     <div style={adminCard} className="p-4">
+      {dialog}
       <div className="flex items-center gap-2.5 mb-3">
         <input style={{ ...inputStyle, flex: 1, fontWeight: 700 }} value={title} onChange={(e) => setTitle(e.target.value)} />
         <button type="button" onClick={saveTitle} style={{ color: adminColors.accentBlue }}><Save size={16} /></button>
@@ -150,7 +160,7 @@ export default function FooterAdmin() {
   if (loading) return <div style={{ color: adminColors.textMuted }}>Loading…</div>;
 
   return (
-    <div className="grid gap-3.5 max-w-[640px]">
+    <div className="grid gap-3.5 w-full">
       {sections.map((section) => (
         <SectionCard key={section.id} section={section} onReload={load} />
       ))}

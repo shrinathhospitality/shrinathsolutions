@@ -24,22 +24,24 @@ export default function JaisalmerAdventures({ venture }: { venture: Venture }) {
       {/* Documentary hero */}
       <section className="relative overflow-hidden" style={{ background: `linear-gradient(180deg, ${theme.background}, ${theme.surface})` }}>
         <div className="mx-auto max-w-shell px-[22px] pt-8 pb-14">
-          <div className="max-w-[700px]">
-            <div className="text-[12.5px] font-bold uppercase tracking-[.22em]" style={{ color: theme.accent }}>Travel & Experiences · Offbeat Safaris</div>
-            <motion.h1
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="font-heading font-extrabold text-[clamp(30px,4.2vw,48px)] leading-[1.1] mt-4 mb-0"
-              style={{ color: theme.text }}
-            >
-              {venture.tagline}
-            </motion.h1>
-            <p className="text-[16.5px] mt-5" style={{ color: theme.muted, lineHeight: 1.75 }}>{venture.summary}</p>
-            <div className="mt-8"><VentureContactRow venture={venture} theme={theme} /></div>
-          </div>
-          <div className="mt-10 max-w-[900px]">
-            <VentureImage theme={theme} icon="Mountain" ratio="21/9" label={venture.name} className="rounded-[4px]" />
+          <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] items-center">
+            <div>
+              <div className="text-[12.5px] font-bold uppercase tracking-[.22em]" style={{ color: theme.accent }}>Travel & Experiences · Offbeat Safaris</div>
+              <motion.h1
+                initial={{ opacity: 0, y: 18 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="font-heading font-extrabold text-[clamp(30px,4.2vw,48px)] leading-[1.1] mt-4 mb-0"
+                style={{ color: theme.text }}
+              >
+                {venture.tagline}
+              </motion.h1>
+              <p className="text-[16.5px] mt-5" style={{ color: theme.muted, lineHeight: 1.75 }}>{venture.summary}</p>
+              <div className="mt-8"><VentureContactRow venture={venture} theme={theme} /></div>
+            </div>
+            <div>
+              <VentureImage theme={theme} icon="Mountain" ratio="4/3" label={venture.name} className="rounded-[4px]" />
+            </div>
           </div>
         </div>
         <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-px" style={{ background: `linear-gradient(90deg, transparent, ${theme.accent}, transparent)` }} />

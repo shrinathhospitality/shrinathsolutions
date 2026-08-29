@@ -3,9 +3,16 @@ import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { Plus, Copy, Trash2, Pencil, Search, Eye } from 'lucide-react';
 import { adminFetch, ApiError } from '../lib/api';
-import { adminCard, adminColors, adminPrimaryBtn } from '../adminTheme';
+import { adminColors, adminPrimaryBtn } from '../adminTheme';
 import StatusBadge from '../components/StatusBadge';
 import type { ContentStatus } from '../lib/contentTypes';
+import { seoStudioApi, type InventoryItem } from '../../features/seo-studio/api';
+import SeoInventoryCell from '../components/SeoInventoryCell';
+import { useConfirmDialog } from '../components/ConfirmDialog';
+import PageHeader from '../components/PageHeader';
+import Pagination from '../components/Pagination';
+import RowActionMenu, { type RowAction } from '../components/RowActionMenu';
+import DataTable, { type Column } from '../components/DataTable';
 
 type ServiceRow = {
   id: number;
@@ -25,6 +32,9 @@ export default function Services() {
   const [search, setSearch] = useState('');
   const [status, setStatus] = useState('');
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
+  const [seoByContentId, setSeoByContentId] = useState<Record<number, InventoryItem>>({});
+  const { confirm, dialog } = useConfirmDialog();
 
   const load = useCallback((page = 1) => {
     setLoading(true);
@@ -35,8 +45,12 @@ export default function Services() {
       .then((d) => {
         setRows(d.services);
         setMeta(d.meta);
+        setLoadError(null);
       })
-      .catch(() => toast.error('Failed to load services'))
+      .catch((err) => {
+        toast.error('Failed to load services');
+        setLoadError(err instanceof ApiError ? err.message : "Couldn't load services.");
+      })
       .finally(() => setLoading(false));
   }, [search, status]);
 
@@ -44,15 +58,28 @@ export default function Services() {
     load(1);
   }, [load]);
 
-  async function remove(id: number, name: string) {
-    if (!confirm(`Delete "${name}"? This cannot be undone.`)) return;
-    try {
-      await adminFetch(`/api/admin/services/${id}`, { method: 'DELETE' });
-      toast.success('Deleted');
-      load(meta.page);
-    } catch (err) {
-      toast.error(err instanceof ApiError ? err.message : 'Failed to delete');
-    }
+  useEffect(() => {
+    seoStudioApi
+      .content('content_type=service&per_page=100')
+      .then((d) => {
+        const map: Record<number, InventoryItem> = {};
+        for (const item of d.items) map[item.content_id] = item;
+        setSeoByContentId(map);
+      })
+      .catch(() => {});
+  }, []);
+
+  function remove(id: number, name: string) {
+    confirm({
+      title: `Delete "${name}"?`,
+      variant: 'destructive',
+      confirmLabel: 'Delete',
+      onConfirm: async () => {
+        await adminFetch(`/api/admin/services/${id}`, { method: 'DELETE' });
+        toast.success('Deleted');
+        await load(meta.page);
+      },
+    });
   }
 
   async function duplicate(id: number) {
@@ -69,6 +96,8 @@ export default function Services() {
 
   return (
     <div className="grid gap-4">
+      {dialog}
+      <PageHeader title="Service Pages" description="Create, publish and optimize service pages." count={meta.total} />
       <div className="flex flex-wrap items-center gap-2.5">
         <div className="relative flex-1 min-w-[220px]">
           <Search size={15} style={{ position: 'absolute', left: 12, top: 11, color: adminColors.textMuted }} />
@@ -86,59 +115,62 @@ export default function Services() {
         </Link>
       </div>
 
-      <div style={adminCard} className="overflow-x-auto">
-        {loading ? (
-          <div className="p-6" style={{ color: adminColors.textMuted }}>Loading…</div>
-        ) : rows.length === 0 ? (
-          <div className="p-8 text-center" style={{ color: adminColors.textMuted }}>No services found.</div>
-        ) : (
-          <table className="w-full text-[14px]" style={{ borderCollapse: 'collapse' }}>
-            <thead>
-              <tr style={{ borderBottom: `1px solid ${adminColors.cardBorder}` }}>
-                <th className="text-left px-4 py-3 font-semibold" style={{ color: adminColors.textMuted }}>Name</th>
-                <th className="text-left px-4 py-3 font-semibold" style={{ color: adminColors.textMuted }}>Category</th>
-                <th className="text-left px-4 py-3 font-semibold" style={{ color: adminColors.textMuted }}>Status</th>
-                <th className="text-left px-4 py-3 font-semibold" style={{ color: adminColors.textMuted }}>Updated</th>
-                <th className="text-right px-4 py-3 font-semibold" style={{ color: adminColors.textMuted }}>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((row) => (
-                <tr key={row.id} style={{ borderBottom: `1px solid ${adminColors.cardBorder}` }}>
-                  <td className="px-4 py-3 font-medium">{row.name}<div className="text-[12.5px]" style={{ color: adminColors.textMuted }}>/{row.slug}</div></td>
-                  <td className="px-4 py-3" style={{ color: adminColors.textMuted }}>{row.category ?? '—'}</td>
-                  <td className="px-4 py-3"><StatusBadge status={row.status} /></td>
-                  <td className="px-4 py-3" style={{ color: adminColors.textMuted }}>{new Date(row.updated_at).toLocaleDateString()}</td>
-                  <td className="px-4 py-3">
-                    <div className="flex items-center justify-end gap-2.5">
-                      <a href={`/services/${row.slug}`} target="_blank" rel="noopener noreferrer" title="View live page" style={{ color: adminColors.textMuted }}><Eye size={15} /></a>
-                      <Link to={`/admin/services/${row.id}/edit`} style={{ color: adminColors.accentBlue }}><Pencil size={15} /></Link>
-                      <button type="button" onClick={() => duplicate(row.id)} style={{ color: adminColors.textMuted }}><Copy size={15} /></button>
-                      <button type="button" onClick={() => remove(row.id, row.name)} style={{ color: adminColors.danger }}><Trash2 size={15} /></button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-      </div>
+      <DataTable<ServiceRow>
+        columns={servicesColumns(seoByContentId, duplicate, remove)}
+        rows={rows}
+        rowKey={(r) => r.id}
+        loading={loading}
+        error={loadError}
+        onRetry={() => load(meta.page)}
+        emptyTitle="No service pages yet"
+        emptyDescription="Create your first service page to get started."
+        caption="Service pages with category, status, SEO score, order, last-updated date and available actions."
+      />
 
-      {meta.total_pages > 1 && (
-        <div className="flex items-center gap-2">
-          {Array.from({ length: meta.total_pages }, (_, i) => i + 1).map((p) => (
-            <button
-              key={p}
-              type="button"
-              onClick={() => load(p)}
-              className="w-8 h-8 rounded-full text-[13px] font-semibold"
-              style={p === meta.page ? adminPrimaryBtn : { border: `1px solid ${adminColors.cardBorder}`, color: adminColors.textMuted }}
-            >
-              {p}
-            </button>
-          ))}
-        </div>
-      )}
+      <Pagination page={meta.page} totalPages={meta.total_pages} onChange={load} />
     </div>
   );
+}
+
+function servicesColumns(
+  seoByContentId: Record<number, InventoryItem>,
+  duplicate: (id: number) => void,
+  remove: (id: number, name: string) => void,
+): Column<ServiceRow>[] {
+  return [
+    {
+      key: 'name',
+      header: 'Name',
+      render: (row) => (
+        <>
+          <span className="font-medium">{row.name}</span>
+          <div className="text-[12.5px]" style={{ color: adminColors.textMuted }}>/{row.slug}</div>
+        </>
+      ),
+    },
+    { key: 'category', header: 'Category', wrap: false, render: (row) => <span style={{ color: adminColors.textMuted }}>{row.category ?? '—'}</span> },
+    { key: 'status', header: 'Status', wrap: false, render: (row) => <StatusBadge status={row.status} /> },
+    { key: 'seo', header: 'SEO', wrap: false, render: (row) => <SeoInventoryCell item={seoByContentId[row.id]} /> },
+    { key: 'order', header: 'Order', wrap: false, render: (row) => <span style={{ color: adminColors.textMuted }}>{row.display_order}</span> },
+    { key: 'updated', header: 'Updated', wrap: false, render: (row) => <span style={{ color: adminColors.textMuted }}>{new Date(row.updated_at).toLocaleDateString()}</span> },
+    {
+      key: 'actions',
+      header: 'Actions',
+      align: 'right',
+      wrap: false,
+      render: (row) => (
+        <div className="flex items-center justify-end gap-2.5">
+          <Link to={`/admin/services/${row.id}/edit`} title="Edit" style={{ color: adminColors.accentBlue }}><Pencil size={15} /></Link>
+          <RowActionMenu
+            label={`Actions for "${row.name}"`}
+            actions={[
+              { label: 'View live page', icon: <Eye size={14} />, onClick: () => window.open(`/services/${row.slug}`, '_blank', 'noopener,noreferrer') },
+              { label: 'Duplicate', icon: <Copy size={14} />, onClick: () => duplicate(row.id) },
+              { label: 'Delete', icon: <Trash2 size={14} />, danger: true, separated: true, onClick: () => remove(row.id, row.name) },
+            ] satisfies RowAction[]}
+          />
+        </div>
+      ),
+    },
+  ];
 }

@@ -1,12 +1,33 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Phone, Mail, ArrowRight } from 'lucide-react';
 import Seo, { breadcrumbSchema, orgSchema } from '../components/Seo';
 import VentureCard from '../components/ventures/VentureCard';
 import { VentureIcon } from '../components/ventures/ventureIcons';
-import { ventures, VENTURE_CATEGORIES } from '../data/ventures';
+import { ventures as staticVentures, VENTURE_CATEGORIES } from '../data/ventures';
+import type { Venture } from '../types/venture';
 import { site } from '../data/site';
+import { useSeoOverride } from '../hooks/useSeoOverride';
+
+type PublicVentureListItem = {
+  name: string; slug: string; short_name: string | null; tagline: string; category: string; summary: string;
+  theme: Venture['theme']; logo_image: string | null; hero_image: string | null; is_featured: boolean;
+  phone_numbers: string[]; website_url: string | null; google_business_url: string | null;
+};
+
+/** Minimal Venture-shaped object for the card grid — this list view never needs
+ *  services/sections/highlights/faqs/seo, so the public list endpoint deliberately doesn't
+ *  send them (spec §6: don't load structured content the view doesn't use). */
+function toCardVenture(v: PublicVentureListItem): Venture {
+  return {
+    slug: v.slug, name: v.name, shortName: v.short_name ?? undefined, tagline: v.tagline,
+    category: v.category, summary: v.summary, phoneNumbers: v.phone_numbers,
+    website: v.website_url ?? undefined, googleBusinessUrl: v.google_business_url ?? undefined,
+    theme: v.theme, services: [], highlights: [], sections: [], faqs: [],
+    seo: { title: v.name, description: v.summary, canonicalPath: `/our-ventures/${v.slug}` },
+  };
+}
 
 /** One icon per business category, standing in for real group photography until the owner
  *  supplies approved images (see src/components/ventures/VentureImage.tsx for the per-venture
@@ -19,6 +40,25 @@ const rise = { initial: { opacity: 0, y: 18 }, whileInView: { opacity: 1, y: 0 }
 
 export default function OurVentures() {
   const [activeCategory, setActiveCategory] = useState<string>('All');
+  // Database is the primary source; the static ventures.ts snapshot is only ever shown if the
+  // API is unavailable (build-time/runtime outage) — same fallback contract as VentureDetail.
+  const [ventures, setVentures] = useState<Venture[]>(staticVentures);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch('/api/public/ventures')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (!cancelled && d?.success && Array.isArray(d.ventures) && d.ventures.length) {
+          setVentures(d.ventures.map(toCardVenture));
+        }
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   const filtered = activeCategory === 'All' ? ventures : ventures.filter((v) => v.category === activeCategory);
 
   const schema = [
@@ -36,12 +76,17 @@ export default function OurVentures() {
     },
   ];
 
+  const seoOverride = useSeoOverride('/our-ventures');
+
   return (
     <div style={{ background: '#fbf8f2', color: '#211d16' }}>
       <Seo
         path="/our-ventures"
-        title="Our Ventures in Jaisalmer | Shrinath Solutions"
-        description="Explore the family of businesses built in Jaisalmer under Shrinath Solutions — legacy craft, technology, hospitality, travel and local digital platforms."
+        title={seoOverride?.title ?? "Our Ventures in Jaisalmer | Shrinath Solutions"}
+        description={seoOverride?.description ?? "Explore the family of businesses built in Jaisalmer under Shrinath Solutions — legacy craft, technology, hospitality, travel and local digital platforms."}
+        canonicalOverride={seoOverride?.canonical}
+        robots={seoOverride ? `${seoOverride.robotsIndex ? 'index' : 'noindex'}, ${seoOverride.robotsFollow ? 'follow' : 'nofollow'}` : undefined}
+        image={seoOverride?.ogImage ?? undefined}
         jsonLd={schema}
       />
 

@@ -85,6 +85,14 @@ function redirect_creates_loop(PDO $pdo, string $source, string $destination, ?i
     return true; // depth exceeded — treat as a loop rather than trust it
 }
 
+const REDIRECT_TYPES = ['301', '302', '307', '308'];
+
+function normalize_redirect_type(mixed $type): string
+{
+    $type = (string) $type;
+    return in_array($type, REDIRECT_TYPES, true) ? $type : '301';
+}
+
 function create_redirect(PDO $pdo, array $data): int
 {
     $stmt = $pdo->prepare(
@@ -94,7 +102,7 @@ function create_redirect(PDO $pdo, array $data): int
     $stmt->execute([
         'source'      => normalize_path($data['source_url']),
         'destination' => $data['destination_url'],
-        'type'        => $data['redirect_type'] === '302' ? '302' : '301',
+        'type'        => normalize_redirect_type($data['redirect_type'] ?? '301'),
         'status'      => ($data['status'] ?? 'active') === 'inactive' ? 'inactive' : 'active',
         'notes'       => $data['notes'] ?? null,
     ]);
@@ -110,7 +118,7 @@ function update_redirect(PDO $pdo, int $id, array $data): void
     $stmt->execute([
         'source'      => normalize_path($data['source_url']),
         'destination' => $data['destination_url'],
-        'type'        => $data['redirect_type'] === '302' ? '302' : '301',
+        'type'        => normalize_redirect_type($data['redirect_type'] ?? '301'),
         'status'      => ($data['status'] ?? 'active') === 'inactive' ? 'inactive' : 'active',
         'notes'       => $data['notes'] ?? null,
         'id'          => $id,
@@ -120,4 +128,32 @@ function update_redirect(PDO $pdo, int $id, array $data): void
 function delete_redirect(PDO $pdo, int $id): void
 {
     $pdo->prepare('DELETE FROM redirects WHERE id = :id')->execute(['id' => $id]);
+}
+
+/** Atomic, single-statement hit-count increment — cheap enough at this project's traffic
+ *  scale to run inline on every lookup (see SEO_STUDIO_ARCHITECTURE.md's redirect-tracking
+ *  section for why a buffered/queued approach wasn't needed). Never throws: a tracking
+ *  failure must never turn a working redirect into a 500 (spec §19) — callers wrap this in
+ *  their own try/catch and ignore failures. last_referrer is truncated and never stores a
+ *  query string, only the referring page's own path/host, to avoid capturing anything
+ *  sensitive a referrer URL might carry. */
+function record_redirect_hit(PDO $pdo, int $id, ?string $referrer): void
+{
+    $safeReferrer = null;
+    if ($referrer) {
+        $host = parse_url($referrer, PHP_URL_HOST);
+        $path = parse_url($referrer, PHP_URL_PATH) ?? '';
+        $safeReferrer = $host ? mb_substr($host . $path, 0, 255) : null;
+    }
+    $pdo->prepare('UPDATE redirects SET hit_count = hit_count + 1, last_hit_at = NOW(), last_referrer = :ref WHERE id = :id')
+        ->execute(['ref' => $safeReferrer, 'id' => $id]);
+}
+
+/** True if `source` is also a currently-known live route (via the SEO Document Registry) —
+ *  redirecting away a URL that's actually a real, working page is almost always a mistake. */
+function redirect_source_conflicts_with_live_route(PDO $pdo, string $source): bool
+{
+    $stmt = $pdo->prepare("SELECT 1 FROM seo_documents WHERE route_path = :path AND is_published = 1 LIMIT 1");
+    $stmt->execute(['path' => normalize_path($source)]);
+    return (bool) $stmt->fetchColumn();
 }

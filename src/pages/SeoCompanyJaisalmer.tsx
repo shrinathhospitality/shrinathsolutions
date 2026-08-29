@@ -10,6 +10,8 @@ import Faq from '../components/Faq';
 import EnquiryForm from '../components/EnquiryForm';
 import { glass, muted, emberBtn, ghostBtn } from '../styles/theme';
 import { site, wa } from '../data/site';
+import { useRouteData } from '../loaders/useRouteData';
+import { loadSeoPage, type SeoPageDetailData } from '../loaders/seoPageLoader';
 
 type ContentSection = { kind: string; heading: string; body?: string; items: any[]; meta?: { name?: string; role?: string; company?: string } };
 type StatItem = { value: string; label: string };
@@ -155,19 +157,37 @@ function useScrollSpy(ids: string[]) {
   return active;
 }
 
-type ApiSeo = { meta_title?: string | null; meta_description?: string | null };
+// `/seo-company-jaisalmer` is real CMS content (a seeded `seo_pages` row, see
+// database/seed_seo_page_seo_company_jaisalmer.php) served through the existing
+// /api/public/seo-pages/{slug} endpoint — it already carries the authoritative saved seo_meta
+// row (canonical/robots/OG/Twitter), same as any other seo_page. This is not a static_page/
+// venture virtual route, so it deliberately does not call useSeoOverride/public_resolve.php (that
+// endpoint deliberately only serves virtual route-only content — see
+// docs/SEO_STUDIO_ARCHITECTURE.md Part 3 §22). The real gap here was that this component only
+// ever read meta_title/meta_description off that row and dropped every other saved field.
+type ApiSeo = {
+  meta_title?: string | null; meta_description?: string | null; canonical_url?: string | null;
+  robots_index?: boolean; robots_follow?: boolean; og_title?: string | null; og_description?: string | null;
+  og_image?: string | null;
+};
 
 export default function SeoCompanyJaisalmer() {
-  const [data, setData] = useState<{ page: ApiPage; faqs: ApiFaq[]; seo: ApiSeo | null } | null>(null);
+  // Was a plain useEffect+fetch — never ran during SSR/prerendering (React effects don't fire
+  // in renderToString), so the prerendered HTML for this route always showed only the
+  // hardcoded fallback title/description/content below, never the real CMS content or any
+  // saved SEO Studio override, regardless of what was saved. Switched to the same
+  // useRouteData/loader pattern every other dynamic page already uses (loadSeoPage is the
+  // existing loader DynamicSeoPage.tsx's catch-all already uses for every other seo_pages row)
+  // — no new resolver, no new fetch mechanism, just the established one this page had never
+  // been migrated to. Found and fixed via this phase's raw-HTML verification (§11): a mock-API
+  // round trip showed every other static/dynamic route picking up its test override except
+  // this one.
+  const routeResult = useRouteData<SeoPageDetailData>('/seo-company-jaisalmer', (signal) => loadSeoPage('seo-company-jaisalmer', { signal }));
+  const data = routeResult !== 'loading' && routeResult.status === 'success'
+    ? { page: routeResult.data.page as unknown as ApiPage, faqs: routeResult.data.faqs as ApiFaq[], seo: routeResult.data.seo as ApiSeo | null }
+    : null;
   const active = useScrollSpy(TABS.map((t) => t.id));
   const contactRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    fetch('/api/public/seo-pages/seo-company-jaisalmer')
-      .then((r) => (r.ok ? r.json() : null))
-      .then((json) => { if (json?.success) setData({ page: json.page, faqs: json.faqs, seo: json.seo }); })
-      .catch(() => {});
-  }, []);
 
   const sections = data?.page.content_sections ?? [];
   const byHeading = (h: string) => sections.find((s) => s.heading === h);
@@ -223,6 +243,9 @@ export default function SeoCompanyJaisalmer() {
         description={data?.seo?.meta_description || 'Grow your business with Shrinath Solutions, a trusted SEO company in Jaisalmer offering local SEO, Google Maps SEO, website audits and content marketing.'}
         path="/seo-company-jaisalmer"
         jsonLd={schema}
+        canonicalOverride={data?.seo?.canonical_url}
+        robots={data?.seo ? `${data.seo.robots_index === false ? 'noindex' : 'index'}, ${data.seo.robots_follow === false ? 'nofollow' : 'follow'}` : undefined}
+        image={data?.seo?.og_image ?? undefined}
       />
 
       <nav aria-label="Breadcrumb" className="mx-auto max-w-shell px-[22px] pt-6 flex flex-wrap items-center gap-1.5 text-sm" style={{ color: 'var(--color-muted)' }}>

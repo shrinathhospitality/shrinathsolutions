@@ -1,0 +1,17 @@
+{
+  "description": "A utility_noindex page-type (default_indexable: false) that IS noindex, as expected — must NOT be capped merely for being noindex.",
+  "input": {
+    "contentType": "page", "contentId": 9, "slug": "seo-preview-demo", "status": "draft",
+    "title": "Preview — Not a real page", "description": "Internal preview/demo content, never meant to be indexed.",
+    "canonical": "https://shrinathsolutions.com/seo-preview-demo",
+    "robotsIndex": false, "robotsFollow": true, "ogTitle": "", "ogDescription": "", "ogImage": "",
+    "h1": "Preview — Not a real page",
+    "introText": "This is sample/demo content used to preview the SEO page template.",
+    "bodyText": "This is sample/demo content used to preview the SEO page template. It exists only so an editor can see how a real page would look before publishing genuine content, and is intentionally kept out of search results.",
+    "paragraphs": ["This is sample/demo content used to preview the SEO page template.", "It exists only so an editor can see how a real page would look before publishing genuine content."],
+    "headings": [], "images": [], "links": [],
+    "schemaTypes": [], "publicUrl": "/seo-preview-demo", "pageType": "utility_noindex", "language": "en",
+    "primaryKeyphrase": "", "relatedKeyphrases": [], "isCornerstone": false
+  },
+  "expected": { "capReason": null, "technicalIndexableOutcome": "passed" }
+}

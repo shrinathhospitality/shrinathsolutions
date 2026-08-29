@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Seo, { breadcrumbSchema, faqSchema, orgSchema } from '../components/Seo';
+import { useSeoOverride } from '../hooks/useSeoOverride';
 import Breadcrumbs from '../components/Breadcrumbs';
 import Faq from '../components/Faq';
 import RelatedLinks from '../components/RelatedLinks';
@@ -28,12 +29,16 @@ export default function Pricing() {
     ...(term === v ? emberBtn : { color: 'var(--color-heading)', background: 'transparent' }),
   });
 
+  const seoOverride = useSeoOverride('/channel-manager-pricing');
   return (
     <>
       <Seo
         path="/channel-manager-pricing"
-        title="Channel Manager Pricing | Hotel PMS Software Plans — Shrinath Solutions"
-        description="Channel manager and cloud PMS plans for hotels, resorts and desert camps: Starter, Growth and Hotel Pro. Feature comparison, setup information and FAQs. Pricing shared on enquiry."
+        title={seoOverride?.title ?? "Channel Manager Pricing | Hotel PMS Software Plans — Shrinath Solutions"}
+        description={seoOverride?.description ?? "Channel manager and cloud PMS plans for hotels, resorts and desert camps: Starter, Growth and Hotel Pro. Feature comparison, setup information and FAQs. Pricing shared on enquiry."}
+        canonicalOverride={seoOverride?.canonical}
+        robots={seoOverride ? `${seoOverride.robotsIndex ? 'index' : 'noindex'}, ${seoOverride.robotsFollow ? 'follow' : 'nofollow'}` : undefined}
+        image={seoOverride?.ogImage ?? undefined}
         jsonLd={[orgSchema, breadcrumbSchema(trail), faqSchema(d.faqs)]}
       />
       <Breadcrumbs trail={trail} />

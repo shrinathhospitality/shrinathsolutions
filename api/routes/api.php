@@ -10,6 +10,7 @@ return [
     ['POST', 'admin/login', 'auth_login'],
     ['POST', 'admin/logout', 'auth_logout'],
     ['GET', 'admin/session', 'auth_session'],
+    ['GET', 'admin/dashboard/summary', 'dashboard_admin_summary'],
     ['POST', 'admin/change-password', 'auth_change_password'],
     ['PATCH', 'admin/profile', 'auth_update_profile'],
 
@@ -68,6 +69,22 @@ return [
     ['PUT', 'admin/services/{id}', 'services_admin_update'],
     ['DELETE', 'admin/services/{id}', 'services_admin_delete'],
     ['POST', 'admin/services/{id}/duplicate', 'services_admin_duplicate'],
+
+    // Ventures (public)
+    ['GET', 'public/ventures', 'ventures_public_list'],
+    ['GET', 'public/ventures/{slug}', 'ventures_public_detail'],
+
+    // Ventures (admin)
+    ['GET', 'admin/ventures', 'ventures_admin_list'],
+    ['POST', 'admin/ventures', 'ventures_admin_create'],
+    ['GET', 'admin/ventures/{id}', 'ventures_admin_detail'],
+    ['PUT', 'admin/ventures/{id}', 'ventures_admin_update'],
+    ['POST', 'admin/ventures/{id}/publish', 'ventures_admin_publish'],
+    ['POST', 'admin/ventures/{id}/unpublish', 'ventures_admin_unpublish'],
+    ['POST', 'admin/ventures/{id}/archive', 'ventures_admin_archive'],
+    ['POST', 'admin/ventures/{id}/restore', 'ventures_admin_restore'],
+    ['POST', 'admin/ventures/reorder', 'ventures_admin_reorder'],
+    ['GET', 'admin/ventures/{id}/history', 'ventures_admin_history'],
 
     // SEO Pages (public)
     ['GET', 'public/seo-pages/{slug}', 'seo_pages_public_detail'],
@@ -129,6 +146,18 @@ return [
     ['POST', 'admin/redirects', 'redirects_admin_create'],
     ['PUT', 'admin/redirects/{id}', 'redirects_admin_update'],
     ['DELETE', 'admin/redirects/{id}', 'redirects_admin_delete'],
+    ['GET', 'admin/redirects/export', 'redirects_admin_export'],
+    ['POST', 'admin/redirects/import-preview', 'redirects_admin_import_preview'],
+    ['POST', 'admin/redirects/import-apply', 'redirects_admin_import_apply'],
+
+    // SEO Audit Tool runs (public tool at api/seo-toolkit/*, records mirrored here for admin visibility)
+    // Note: the static 'export' route must be registered before the '{id}' route below, or a
+    // request to /admin/seo-audits/export would match {id} first with id="export".
+    ['GET', 'admin/seo-audits', 'seo_audits_admin_list'],
+    ['GET', 'admin/seo-audits/export', 'seo_audits_admin_export'],
+    ['GET', 'admin/seo-audits/{id}', 'seo_audits_admin_detail'],
+    ['PUT', 'admin/seo-audits/{id}/lead-status', 'seo_audits_admin_update_lead_status'],
+    ['DELETE', 'admin/seo-audits/{id}', 'seo_audits_admin_delete'],
 
     // Audit logs
     ['GET', 'admin/audit-logs', 'audit_logs_admin_list'],
@@ -141,4 +170,27 @@ return [
     ['POST', 'admin/testimonials', 'testimonials_admin_create'],
     ['PUT', 'admin/testimonials/{id}', 'testimonials_admin_update'],
     ['DELETE', 'admin/testimonials/{id}', 'testimonials_admin_delete'],
+
+    // Shrinath SEO Studio (admin)
+    ['GET', 'admin/seo/dashboard', 'seo_studio_dashboard'],
+    ['GET', 'admin/seo/content', 'seo_studio_content_list'],
+    ['GET', 'admin/seo/content/{type}/{id}', 'seo_studio_content_detail'],
+    ['PUT', 'admin/seo/content/{type}/{id}', 'seo_studio_content_save'],
+    ['POST', 'admin/seo/analyze', 'seo_studio_analyze'],
+    ['POST', 'admin/seo/analyze-bulk', 'seo_studio_analyze_bulk'],
+    ['GET', 'admin/seo/history/{type}/{id}', 'seo_studio_history'],
+    ['GET', 'admin/seo/link-suggestions/{type}/{id}', 'seo_studio_link_suggestions'],
+    ['POST', 'admin/seo/link-index/rebuild', 'seo_studio_link_index_rebuild'],
+    ['GET', 'admin/seo/orphans', 'seo_studio_orphans'],
+    ['GET', 'admin/seo/duplicates', 'seo_studio_duplicates'],
+    ['GET', 'admin/seo/settings', 'seo_studio_settings_get'],
+    ['PUT', 'admin/seo/settings', 'seo_studio_settings_update'],
+    ['GET', 'admin/seo/reports/export', 'seo_studio_reports_export'],
+    ['POST', 'admin/seo/registry/sync', 'seo_studio_registry_sync'],
+    ['GET', 'admin/seo/registry/diagnostics', 'seo_studio_registry_diagnostics'],
+    ['GET', 'admin/seo/documents/{id}', 'seo_studio_document_detail'],
+    ['PUT', 'admin/seo/documents/{id}', 'seo_studio_document_save'],
+    ['POST', 'admin/seo/documents/{id}/mark-prerendered', 'seo_studio_mark_prerendered'],
+    ['POST', 'admin/seo/prerender/recover-abandoned', 'seo_studio_recover_abandoned_builds'],
+    ['GET', 'public/seo-document', 'seo_document_public_resolve'],
 ];

@@ -1,0 +1,20 @@
+{
+  "description": "A route-only Venture document (pageType: venture) — real venture-style content, no Shrinath Solutions primary keywords forced onto it, matching the spec's 'preserve each venture's own identity' requirement.",
+  "input": {
+    "contentType": "venture", "contentId": 2, "slug": "shrinath-hospitality", "status": "published",
+    "title": "Shrinath Hospitality | Hotel Marketing & Management",
+    "description": "Shrinath Hospitality provides hotel marketing and management services for independent properties in Jaisalmer.",
+    "canonical": "https://shrinathsolutions.com/our-ventures/shrinath-hospitality",
+    "robotsIndex": true, "robotsFollow": true, "ogTitle": "", "ogDescription": "", "ogImage": "",
+    "h1": "Shrinath Hospitality — Hotel Marketing & Management",
+    "introText": "Shrinath Hospitality helps independent hotels in Jaisalmer market and manage their properties.",
+    "bodyText": "Shrinath Hospitality helps independent hotels in Jaisalmer market and manage their properties. The venture works directly with hotel owners on pricing, guest experience and day-to-day operations. Unlike a typical marketing agency, Shrinath Hospitality is embedded in the hospitality side of the business, not just the marketing side. Contact Shrinath Hospitality directly to discuss a property.",
+    "paragraphs": ["Shrinath Hospitality helps independent hotels in Jaisalmer market and manage their properties.", "The venture works directly with hotel owners on pricing, guest experience and day-to-day operations.", "Unlike a typical marketing agency, Shrinath Hospitality is embedded in the hospitality side of the business, not just the marketing side.", "Contact Shrinath Hospitality directly to discuss a property."],
+    "headings": [{ "level": 2, "text": "What Shrinath Hospitality does" }],
+    "images": [{ "alt": "Shrinath Hospitality managed hotel property in Jaisalmer", "src": "/uploads/shrinath-hospitality.jpg", "hasDimensions": true, "loading": "eager" }],
+    "links": [{ "href": "/our-ventures", "text": "Our Ventures", "target": null, "rel": null, "isInternal": true }],
+    "schemaTypes": ["WebPage"], "publicUrl": "/our-ventures/shrinath-hospitality", "pageType": "venture", "language": "en",
+    "primaryKeyphrase": "shrinath hospitality hotel management jaisalmer", "relatedKeyphrases": [], "isCornerstone": false
+  },
+  "expected": { "seoScore": { "min": 55 } }
+}

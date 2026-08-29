@@ -1,0 +1,306 @@
+{
+    "generated_at": "2026-08-28T10:13:20+00:00",
+    "db_host": "srv2210.hstgr.io",
+    "total_documents": 5,
+    "errors": 0,
+    "conflicts": [],
+    "documents": [
+        {
+            "document_id": 129,
+            "route": "/blog/how-jaisalmer-hotels-can-cut-ota-commission-without-losing-bookings",
+            "content_type": "blog_post",
+            "content_id": 1,
+            "page_profile": "blog_post",
+            "is_published": false,
+            "is_indexable": true,
+            "display_name": "How Jaisalmer hotels can cut OTA commission without losing bookings",
+            "search_intent": null,
+            "before": {
+                "primary_keyphrase": "",
+                "related_keyphrases": [],
+                "seo_score": 54,
+                "readability_score": 79,
+                "overall_score": 58,
+                "score_status": "needs_improvement",
+                "failed_or_warning_checks": [
+                    {
+                        "id": "keyword.primary_exists",
+                        "outcome": "failed"
+                    },
+                    {
+                        "id": "content.word_count",
+                        "outcome": "failed"
+                    },
+                    {
+                        "id": "links.incoming_count",
+                        "outcome": "warning"
+                    }
+                ]
+            },
+            "proposed": {
+                "primary_keyphrase": "how jaisalmer hotels can cut ota",
+                "related_keyphrases": [
+                    "body copy",
+                    "body copy replace",
+                    "booking engine",
+                    "hotel ads",
+                    "copy replace"
+                ]
+            },
+            "after": {
+                "seo_score": 84,
+                "readability_score": 79,
+                "overall_score": 83,
+                "score_status": "good",
+                "failed_or_warning_checks": [
+                    {
+                        "id": "content.word_count",
+                        "outcome": "failed"
+                    },
+                    {
+                        "id": "links.incoming_count",
+                        "outcome": "warning"
+                    }
+                ]
+            },
+            "classification": "SAFE_FILL_MISSING",
+            "reason": "Derived from this page's own existing H1/title/body text (no invented content). Only fills a currently-empty field."
+        },
+        {
+            "document_id": 130,
+            "route": "/blog/google-business-profile-settings-most-rajasthan-businesses-get-wrong",
+            "content_type": "blog_post",
+            "content_id": 2,
+            "page_profile": "blog_post",
+            "is_published": false,
+            "is_indexable": true,
+            "display_name": "Google Business Profile settings most Rajasthan businesses get wrong",
+            "search_intent": null,
+            "before": {
+                "primary_keyphrase": "",
+                "related_keyphrases": [],
+                "seo_score": 54,
+                "readability_score": 79,
+                "overall_score": 58,
+                "score_status": "needs_improvement",
+                "failed_or_warning_checks": [
+                    {
+                        "id": "keyword.primary_exists",
+                        "outcome": "failed"
+                    },
+                    {
+                        "id": "content.word_count",
+                        "outcome": "failed"
+                    },
+                    {
+                        "id": "links.incoming_count",
+                        "outcome": "warning"
+                    }
+                ]
+            },
+            "proposed": {
+                "primary_keyphrase": "google business profile settings most rajasthan",
+                "related_keyphrases": [
+                    "body copy",
+                    "body copy replace",
+                    "copy replace"
+                ]
+            },
+            "after": {
+                "seo_score": 84,
+                "readability_score": 79,
+                "overall_score": 83,
+                "score_status": "good",
+                "failed_or_warning_checks": [
+                    {
+                        "id": "content.word_count",
+                        "outcome": "failed"
+                    },
+                    {
+                        "id": "links.incoming_count",
+                        "outcome": "warning"
+                    }
+                ]
+            },
+            "classification": "SAFE_FILL_MISSING",
+            "reason": "Derived from this page's own existing H1/title/body text (no invented content). Only fills a currently-empty field."
+        },
+        {
+            "document_id": 131,
+            "route": "/blog/what-a-slow-hotel-website-actually-costs-you",
+            "content_type": "blog_post",
+            "content_id": 3,
+            "page_profile": "blog_post",
+            "is_published": false,
+            "is_indexable": true,
+            "display_name": "What a slow hotel website actually costs you",
+            "search_intent": null,
+            "before": {
+                "primary_keyphrase": "",
+                "related_keyphrases": [],
+                "seo_score": 54,
+                "readability_score": 79,
+                "overall_score": 58,
+                "score_status": "needs_improvement",
+                "failed_or_warning_checks": [
+                    {
+                        "id": "keyword.primary_exists",
+                        "outcome": "failed"
+                    },
+                    {
+                        "id": "content.word_count",
+                        "outcome": "failed"
+                    },
+                    {
+                        "id": "links.incoming_count",
+                        "outcome": "warning"
+                    }
+                ]
+            },
+            "proposed": {
+                "primary_keyphrase": "what a slow hotel website actually",
+                "related_keyphrases": [
+                    "body copy",
+                    "body copy replace",
+                    "copy replace"
+                ]
+            },
+            "after": {
+                "seo_score": 84,
+                "readability_score": 79,
+                "overall_score": 83,
+                "score_status": "good",
+                "failed_or_warning_checks": [
+                    {
+                        "id": "content.word_count",
+                        "outcome": "failed"
+                    },
+                    {
+                        "id": "links.incoming_count",
+                        "outcome": "warning"
+                    }
+                ]
+            },
+            "classification": "SAFE_FILL_MISSING",
+            "reason": "Derived from this page's own existing H1/title/body text (no invented content). Only fills a currently-empty field."
+        },
+        {
+            "document_id": 132,
+            "route": "/blog/overbooking-is-a-sync-problem-not-a-staffing-problem",
+            "content_type": "blog_post",
+            "content_id": 4,
+            "page_profile": "blog_post",
+            "is_published": false,
+            "is_indexable": true,
+            "display_name": "Overbooking is a sync problem, not a staffing problem",
+            "search_intent": null,
+            "before": {
+                "primary_keyphrase": "",
+                "related_keyphrases": [],
+                "seo_score": 54,
+                "readability_score": 79,
+                "overall_score": 58,
+                "score_status": "needs_improvement",
+                "failed_or_warning_checks": [
+                    {
+                        "id": "keyword.primary_exists",
+                        "outcome": "failed"
+                    },
+                    {
+                        "id": "content.word_count",
+                        "outcome": "failed"
+                    },
+                    {
+                        "id": "links.incoming_count",
+                        "outcome": "warning"
+                    }
+                ]
+            },
+            "proposed": {
+                "primary_keyphrase": "overbooking is a sync problem not",
+                "related_keyphrases": [
+                    "body copy",
+                    "body copy replace",
+                    "copy replace"
+                ]
+            },
+            "after": {
+                "seo_score": 80,
+                "readability_score": 79,
+                "overall_score": 80,
+                "score_status": "needs_improvement",
+                "failed_or_warning_checks": [
+                    {
+                        "id": "content.word_count",
+                        "outcome": "failed"
+                    },
+                    {
+                        "id": "links.incoming_count",
+                        "outcome": "warning"
+                    }
+                ]
+            },
+            "classification": "SAFE_FILL_MISSING",
+            "reason": "Derived from this page's own existing H1/title/body text (no invented content). Only fills a currently-empty field."
+        },
+        {
+            "document_id": 133,
+            "route": "/blog/setting-a-cost-per-enquiry-target-before-you-spend-a-rupee",
+            "content_type": "blog_post",
+            "content_id": 5,
+            "page_profile": "blog_post",
+            "is_published": false,
+            "is_indexable": true,
+            "display_name": "Setting a cost-per-enquiry target before you spend a rupee",
+            "search_intent": null,
+            "before": {
+                "primary_keyphrase": "",
+                "related_keyphrases": [],
+                "seo_score": 54,
+                "readability_score": 79,
+                "overall_score": 58,
+                "score_status": "needs_improvement",
+                "failed_or_warning_checks": [
+                    {
+                        "id": "keyword.primary_exists",
+                        "outcome": "failed"
+                    },
+                    {
+                        "id": "content.word_count",
+                        "outcome": "failed"
+                    },
+                    {
+                        "id": "links.incoming_count",
+                        "outcome": "warning"
+                    }
+                ]
+            },
+            "proposed": {
+                "primary_keyphrase": "setting a cost-per-enquiry target before you",
+                "related_keyphrases": [
+                    "body copy",
+                    "body copy replace",
+                    "copy replace"
+                ]
+            },
+            "after": {
+                "seo_score": 82,
+                "readability_score": 79,
+                "overall_score": 82,
+                "score_status": "good",
+                "failed_or_warning_checks": [
+                    {
+                        "id": "content.word_count",
+                        "outcome": "failed"
+                    },
+                    {
+                        "id": "links.incoming_count",
+                        "outcome": "warning"
+                    }
+                ]
+            },
+            "classification": "SAFE_FILL_MISSING",
+            "reason": "Derived from this page's own existing H1/title/body text (no invented content). Only fills a currently-empty field."
+        }
+    ]
+}

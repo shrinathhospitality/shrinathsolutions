@@ -440,12 +440,12 @@ export default function Footer() {
 
   return (
     <footer
-      className="relative overflow-hidden mt-16 md:mt-24"
+      className="relative overflow-hidden pt-16 md:pt-24"
       style={{ borderTop: '1px solid rgba(255,255,255,.12)', background: '#07142E' }}
     >
       <div aria-hidden="true" className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(circle at 8% 0%, rgba(39,167,255,.12), transparent 45%), radial-gradient(circle at 95% 30%, rgba(154,85,255,.1), transparent 45%)' }} />
 
-      <div className="relative mx-auto max-w-shell px-[22px] pt-16 pb-2">
+      <div className="relative mx-auto max-w-shell px-[22px] pb-2">
         <div className="grid gap-12 lg:grid-cols-[0.62fr_1fr] items-start">
           <BrandProfile siteName={siteName} logoUrl={logoUrl} statement={statement} aboutText={aboutText} phone={phone} email={email} location={location} socials={socials} />
           <ProjectEnquiryPanel

@@ -7,6 +7,7 @@ namespace App\Controllers;
 use App\Bootstrap;
 use App\Support\ApiException;
 use App\Support\ApiResponse;
+use App\Support\Logger;
 use App\Support\RequestBody;
 use App\Validation\AuditRequestValidator;
 
@@ -29,19 +30,111 @@ final class AuditController
         $repo = Bootstrap::auditRepository();
         $id = $repo->generateId();
 
+        // Lifecycle step: one 'processing' row per accepted request, created before analysis
+        // starts — see api/models/SeoAudit.php. Best-effort: a main-database hiccup must never
+        // block the public tool, so failure here just means no admin-visible row exists,
+        // never an error surfaced to the caller. $mainDbAuditRowId stays null in that case,
+        // and the completion/failure step below simply no-ops.
+        $mainDbAuditRowId = $this->createMainDatabaseRow($id, $validated);
+        $startedAt = microtime(true);
+
         try {
             $result = Bootstrap::analyzer()->analyze($validated['url']);
         } catch (ApiException $e) {
             $repo->saveFailed($id, 'audit', $e->getMessage());
+            $this->failMainDatabaseRow($mainDbAuditRowId, $e->getMessage(), $startedAt);
             throw $e;
         } catch (\Throwable $e) {
+            // Never persist $e->getMessage() here — it isn't a curated public-facing string
+            // like an ApiException's, so it can't be trusted not to contain internal detail.
+            Logger::warning('Unexpected audit analysis failure', ['error' => $e->getMessage()]);
             $repo->saveFailed($id, 'audit', 'Failed to analyze URL: ' . $e->getMessage());
+            $this->failMainDatabaseRow($mainDbAuditRowId, 'The analysis could not be completed for this URL.', $startedAt);
             throw new ApiException('Failed to analyze the URL. It may be unreachable or blocked this request.', 503);
         }
 
         $repo->saveCompleted($id, 'audit', $result);
+        $this->completeMainDatabaseRow($mainDbAuditRowId, $result, $startedAt);
 
         ApiResponse::success(['id' => $id, 'status' => 'completed', 'result' => $result], null, 201);
+    }
+
+    /**
+     * Creates the permanent, admin-visible 'processing' row for this request — best-effort,
+     * purely for admin visibility. This tool's own JSON-file storage (self-expiring after
+     * AUDIT_RETENTION_HOURS) remains the source of truth for the /report and /status
+     * endpoints regardless of whether this succeeds. Only a redacted, normalized URL is ever
+     * stored — no raw IP, no user-agent, no query string (see normalize_audit_url()).
+     *
+     * @param array{url: string, leadName: ?string, leadEmail: ?string} $validated
+     * @return int|null the new row's id, or null if the row couldn't be created (main DB
+     *                   unavailable, or the URL failed to normalize into a safe form)
+     */
+    private function createMainDatabaseRow(string $requestId, array $validated): ?int
+    {
+        try {
+            if (!$this->loadMainDatabaseSupport()) {
+                return null;
+            }
+
+            $normalized = normalize_audit_url($validated['url']);
+            if ($normalized === null) {
+                return null; // couldn't be safely normalized — don't store anything for it
+            }
+
+            return create_seo_audit(get_db_connection(), [
+                'request_id' => $requestId,
+                'url_hash' => $normalized['url_hash'],
+                'normalized_url' => $normalized['normalized_url'],
+                'domain' => $normalized['domain'],
+                'path' => $normalized['path'],
+                'lead_name' => $validated['leadName'],
+                'lead_email' => $validated['leadEmail'],
+            ]);
+        } catch (\Throwable $e) {
+            Logger::warning('Failed to create seo_audits row', ['error' => $e->getMessage()]);
+            return null;
+        }
+    }
+
+    private function completeMainDatabaseRow(?int $rowId, array $result, float $startedAt): void
+    {
+        if ($rowId === null) {
+            return;
+        }
+        try {
+            $this->loadMainDatabaseSupport();
+            $processingTimeMs = (int) round((microtime(true) - $startedAt) * 1000);
+            complete_seo_audit(get_db_connection(), $rowId, $result, $processingTimeMs);
+        } catch (\Throwable $e) {
+            Logger::warning('Failed to complete seo_audits row', ['error' => $e->getMessage()]);
+        }
+    }
+
+    private function failMainDatabaseRow(?int $rowId, string $safeMessage, float $startedAt): void
+    {
+        if ($rowId === null) {
+            return;
+        }
+        try {
+            $this->loadMainDatabaseSupport();
+            $processingTimeMs = (int) round((microtime(true) - $startedAt) * 1000);
+            fail_seo_audit(get_db_connection(), $rowId, $safeMessage, $processingTimeMs);
+        } catch (\Throwable $e) {
+            Logger::warning('Failed to mark seo_audits row failed', ['error' => $e->getMessage()]);
+        }
+    }
+
+    private function loadMainDatabaseSupport(): bool
+    {
+        $mainDbConfig = __DIR__ . '/../../../config/db.php';
+        $mainDbModel = __DIR__ . '/../../../models/SeoAudit.php';
+        if (!is_file($mainDbConfig) || !is_file($mainDbModel)) {
+            return false;
+        }
+        require_once $mainDbConfig;
+        require_once $mainDbModel;
+        return true;
     }
 
     /** @param array<string, string> $params */

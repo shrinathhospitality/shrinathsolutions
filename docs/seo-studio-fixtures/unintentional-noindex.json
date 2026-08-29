@@ -1,0 +1,19 @@
+{
+  "description": "A service page (default_indexable: true) accidentally set to noindex — must trigger the unintentional_noindex cap, not be treated as a deliberate choice.",
+  "input": {
+    "contentType": "service", "contentId": 8, "slug": "local-seo", "status": "published",
+    "title": "Local SEO Services | Shrinath Solutions",
+    "description": "Local SEO services to help your business rank in Google Maps and local search results.",
+    "canonical": "https://shrinathsolutions.com/services/local-seo",
+    "robotsIndex": false, "robotsFollow": true, "ogTitle": "", "ogDescription": "", "ogImage": "",
+    "h1": "Local SEO Services",
+    "introText": "We help local businesses rank in Google Maps and nearby search results.",
+    "bodyText": "We help local businesses rank in Google Maps and nearby search results. Local SEO covers your Google Business Profile, local citations, review management and location-specific content, all working together so nearby customers find you first.",
+    "paragraphs": ["We help local businesses rank in Google Maps and nearby search results.", "Local SEO covers your Google Business Profile, local citations, review management and location-specific content."],
+    "headings": [{ "level": 2, "text": "What local SEO includes" }],
+    "images": [], "links": [{ "href": "/contact", "text": "Contact our team", "target": null, "rel": null, "isInternal": true }],
+    "schemaTypes": ["Service"], "publicUrl": "/services/local-seo", "pageType": "service", "language": "en",
+    "primaryKeyphrase": "local seo services", "relatedKeyphrases": [], "isCornerstone": false
+  },
+  "expected": { "capReason": "unintentional_noindex", "seoScoreMax": 49, "overallScoreMax": 49 }
+}

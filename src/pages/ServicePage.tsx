@@ -13,6 +13,7 @@ import ServiceOutcomes from '../components/service/ServiceOutcomes';
 import ServiceAdvantages from '../components/service/ServiceAdvantages';
 import RelatedServices from '../components/service/RelatedServices';
 import { normalizeServiceBlocks, highlightsFrom } from '../lib/serviceContent';
+import { useSeoOverride } from '../hooks/useSeoOverride';
 
 export type Block =
   | { kind: 'paras'; heading: string; body?: string; items: string[] }
@@ -80,10 +81,22 @@ export default function ServicePage(p: ServicePageProps) {
 
   const n = normalizeServiceBlocks(p.blocks);
   const currentSlug = p.path.split('/').filter(Boolean).pop();
+  // Shared by both the 7 hardcoded static pages (About, WebsiteDesigning, ...) and the
+  // CMS-driven DynamicServicePage.tsx — for a dynamic /services/:slug route this correctly
+  // resolves to null (that content_type isn't a route-only document), at the cost of one
+  // harmless extra request on those routes specifically; see SEO_STUDIO_ARCHITECTURE.md Part 3.
+  const seoOverride = useSeoOverride(p.path);
 
   return (
     <>
-      <Seo title={p.title} description={p.description} path={p.path} jsonLd={schema} />
+      <Seo
+        title={seoOverride?.title ?? p.title}
+        description={seoOverride?.description ?? p.description}
+        canonicalOverride={seoOverride?.canonical}
+        robots={seoOverride ? `${seoOverride.robotsIndex ? 'index' : 'noindex'}, ${seoOverride.robotsFollow ? 'follow' : 'nofollow'}` : undefined}
+        image={seoOverride?.ogImage ?? undefined}
+        path={p.path} jsonLd={schema}
+      />
       <Breadcrumbs trail={[{ name: 'Home', path: '/' }, ...p.crumbs]} />
 
       <ServiceHero

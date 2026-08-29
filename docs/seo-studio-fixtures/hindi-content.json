@@ -1,0 +1,18 @@
+{
+  "description": "Hindi-language content — all 6 readability checks must be 'unavailable' and readabilityScore null, while universal checks (word count, metadata, links) still run normally.",
+  "input": {
+    "contentType": "blog_post", "contentId": 10, "slug": "hindi-seo-guide", "status": "published",
+    "title": "छोटे व्यवसायों के लिए SEO गाइड | Shrinath Solutions",
+    "description": "छोटे व्यवसायों के लिए एक व्यावहारिक SEO गाइड, जो खोज परिणामों में बेहतर रैंकिंग पाने में मदद करती है।",
+    "canonical": "https://shrinathsolutions.com/blog/hindi-seo-guide",
+    "robotsIndex": true, "robotsFollow": true, "ogTitle": "", "ogDescription": "", "ogImage": "",
+    "h1": "छोटे व्यवसायों के लिए SEO गाइड",
+    "introText": "यह गाइड छोटे व्यवसाय मालिकों के लिए है जो अपनी वेबसाइट को गूगल पर बेहतर रैंक कराना चाहते हैं।",
+    "bodyText": "यह गाइड छोटे व्यवसाय मालिकों के लिए है जो अपनी वेबसाइट को गूगल पर बेहतर रैंक कराना चाहते हैं। सबसे पहले, अपनी वेबसाइट की गति और मोबाइल अनुकूलता की जांच करें। इसके बाद, हर पेज के लिए एक अलग और स्पष्ट शीर्षक लिखें। अंत में, नियमित रूप से नई और उपयोगी सामग्री प्रकाशित करते रहें ताकि आपकी वेबसाइट सक्रिय बनी रहे।",
+    "paragraphs": ["यह गाइड छोटे व्यवसाय मालिकों के लिए है जो अपनी वेबसाइट को गूगल पर बेहतर रैंक कराना चाहते हैं।", "सबसे पहले, अपनी वेबसाइट की गति और मोबाइल अनुकूलता की जांच करें।", "इसके बाद, हर पेज के लिए एक अलग और स्पष्ट शीर्षक लिखें।"],
+    "headings": [{ "level": 2, "text": "वेबसाइट की गति जांचें" }],
+    "images": [], "links": [], "schemaTypes": ["BlogPosting"], "publicUrl": "/blog/hindi-seo-guide", "pageType": "blog_post", "language": "hi",
+    "primaryKeyphrase": "छोटे व्यवसाय SEO", "relatedKeyphrases": [], "isCornerstone": false
+  },
+  "expected": { "readabilityChecksUnavailable": true, "readabilityScoreNull": true }
+}

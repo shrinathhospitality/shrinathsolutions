@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
 import { wa } from '../data/site';
 import { emberBtn } from '../styles/theme';
+import { trackFormSubmit } from '../lib/analytics';
 
 export type Field = { label: string; name: string; type: string; placeholder: string; required: boolean };
 
@@ -93,6 +94,8 @@ export default function EnquiryForm({
             body: JSON.stringify(payload),
           });
           if (!res.ok) throw new Error('Request failed');
+
+          trackFormSubmit(source);
 
           if (autoOpenWhatsApp) {
             const lines = [`New enquiry from shrinathsolutions.com (${source})`];

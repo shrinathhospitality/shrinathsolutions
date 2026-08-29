@@ -76,7 +76,7 @@ export default function SiteSettings() {
   };
 
   return (
-    <form onSubmit={onSubmit} className="max-w-[640px] grid gap-5">
+    <form onSubmit={onSubmit} className="w-full grid gap-5">
       <div style={adminCard} className="p-6 grid gap-4">
         {Object.keys(settings).map((key) => (
           <label key={key} className="grid gap-1.5 text-[13.5px] font-semibold" style={{ color: adminColors.textMuted }}>

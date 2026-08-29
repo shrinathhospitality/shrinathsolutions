@@ -52,7 +52,7 @@ export default function ChangePassword() {
   }
 
   return (
-    <div className="max-w-[480px]">
+    <div className="w-full">
       {user?.must_change_password && (
         <div
           className="mb-5 px-4 py-3 rounded-[12px] text-[14px]"

@@ -1,0 +1,18 @@
+{
+  "description": "No focus keyphrase set — every keyword check must be 'unavailable', not 'failed'.",
+  "input": {
+    "contentType": "service", "contentId": 2, "slug": "seo-audit", "status": "published",
+    "title": "SEO Audit Service | Shrinath Solutions",
+    "description": "A thorough SEO audit covering technical, on-page and content issues, with a prioritised action list.",
+    "canonical": "https://shrinathsolutions.com/services/seo-audit",
+    "robotsIndex": true, "robotsFollow": true, "ogTitle": "", "ogDescription": "", "ogImage": "",
+    "h1": "SEO Audit Services", "introText": "We audit your website across technical SEO, on-page SEO and content quality.",
+    "bodyText": "We audit your website across technical SEO, on-page SEO and content quality. Our audit covers crawlability, indexability, page speed, structured data, internal linking and content depth. You receive a written report with a prioritised list of fixes, ranked by expected impact. We also review your competitors so you understand where you stand. Every audit ends with a call to walk through the findings together.",
+    "paragraphs": ["We audit your website across technical SEO, on-page SEO and content quality.", "Our audit covers crawlability, indexability, page speed, structured data, internal linking and content depth.", "You receive a written report with a prioritised list of fixes, ranked by expected impact.", "We also review your competitors so you understand where you stand.", "Every audit ends with a call to walk through the findings together."],
+    "headings": [{ "level": 2, "text": "What our SEO audit covers" }],
+    "images": [], "links": [{ "href": "/contact", "text": "Contact our team", "target": null, "rel": null, "isInternal": true }],
+    "schemaTypes": ["Service"], "publicUrl": "/services/seo-audit", "pageType": "service", "language": "en",
+    "primaryKeyphrase": "", "relatedKeyphrases": [], "isCornerstone": false
+  },
+  "expected": { "keywordChecksUnavailable": true }
+}

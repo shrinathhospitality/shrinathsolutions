@@ -3,6 +3,10 @@ import toast from 'react-hot-toast';
 import { Trash2, Search, Download, X } from 'lucide-react';
 import { adminFetch, ApiError } from '../lib/api';
 import { adminCard, adminColors, adminPrimaryBtn } from '../adminTheme';
+import { useConfirmDialog } from '../components/ConfirmDialog';
+import PageHeader from '../components/PageHeader';
+import Pagination from '../components/Pagination';
+import DataTable, { type Column } from '../components/DataTable';
 
 type Enquiry = {
   id: number; name: string; phone: string | null; email: string | null; message: string | null;
@@ -12,10 +16,10 @@ type Enquiry = {
 type ListResponse = { enquiries: Enquiry[]; meta: { total: number; page: number; total_pages: number } };
 
 const STATUS_COLORS: Record<string, { bg: string; text: string }> = {
-  new: { bg: '#eef0ff', text: '#3b6bff' },
-  contacted: { bg: '#fff4e6', text: '#c2650a' },
-  converted: { bg: '#e6f7ef', text: '#1fa971' },
-  spam: { bg: '#fdecea', text: '#e0473e' },
+  new: { bg: adminColors.primarySoft, text: adminColors.primary },
+  contacted: { bg: '#FDF3D8', text: '#9A6700' },
+  converted: { bg: adminColors.limeSoft, text: '#37A866' },
+  spam: { bg: '#FBEAEA', text: adminColors.danger },
 };
 
 export default function Enquiries() {
@@ -25,6 +29,8 @@ export default function Enquiries() {
   const [status, setStatus] = useState('');
   const [selected, setSelected] = useState<Enquiry | null>(null);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
+  const { confirm, dialog } = useConfirmDialog();
 
   const load = useCallback((page = 1) => {
     setLoading(true);
@@ -32,8 +38,11 @@ export default function Enquiries() {
     if (search) params.set('search', search);
     if (status) params.set('status', status);
     return adminFetch<ListResponse>(`/api/admin/enquiries?${params}`)
-      .then((d) => { setRows(d.enquiries); setMeta(d.meta); })
-      .catch(() => toast.error('Failed to load enquiries'))
+      .then((d) => { setRows(d.enquiries); setMeta(d.meta); setLoadError(null); })
+      .catch((err) => {
+        toast.error('Failed to load enquiries');
+        setLoadError(err instanceof ApiError ? err.message : "Couldn't load enquiries.");
+      })
       .finally(() => setLoading(false));
   }, [search, status]);
 
@@ -53,22 +62,26 @@ export default function Enquiries() {
     }
   }
 
-  async function remove(id: number) {
-    if (!confirm('Delete this enquiry? This cannot be undone.')) return;
-    try {
-      await adminFetch(`/api/admin/enquiries/${id}`, { method: 'DELETE' });
-      toast.success('Deleted');
-      setSelected(null);
-      load(meta.page);
-    } catch (err) {
-      toast.error(err instanceof ApiError ? err.message : 'Failed to delete');
-    }
+  function remove(id: number) {
+    confirm({
+      title: 'Delete this enquiry?',
+      variant: 'destructive',
+      confirmLabel: 'Delete',
+      onConfirm: async () => {
+        await adminFetch(`/api/admin/enquiries/${id}`, { method: 'DELETE' });
+        toast.success('Deleted');
+        setSelected(null);
+        await load(meta.page);
+      },
+    });
   }
 
   const inputStyle: React.CSSProperties = { padding: '9px 13px', borderRadius: 10, border: `1px solid ${adminColors.cardBorder}`, fontSize: 14 };
 
   return (
     <div className="grid gap-4">
+      {dialog}
+      <PageHeader title="Contact Enquiries" description="Messages submitted through the site's contact form." count={meta.total} />
       <div className="flex flex-wrap items-center gap-2.5">
         <div className="relative flex-1 min-w-[220px]">
           <Search size={15} style={{ position: 'absolute', left: 12, top: 11, color: adminColors.textMuted }} />
@@ -86,48 +99,20 @@ export default function Enquiries() {
         </a>
       </div>
 
-      <div style={adminCard} className="overflow-x-auto">
-        {loading ? (
-          <div className="p-6" style={{ color: adminColors.textMuted }}>Loading…</div>
-        ) : rows.length === 0 ? (
-          <div className="p-8 text-center" style={{ color: adminColors.textMuted }}>No enquiries found.</div>
-        ) : (
-          <table className="w-full text-[14px]" style={{ borderCollapse: 'collapse' }}>
-            <thead>
-              <tr style={{ borderBottom: `1px solid ${adminColors.cardBorder}` }}>
-                <th className="text-left px-4 py-3 font-semibold" style={{ color: adminColors.textMuted }}>Name</th>
-                <th className="text-left px-4 py-3 font-semibold" style={{ color: adminColors.textMuted }}>Contact</th>
-                <th className="text-left px-4 py-3 font-semibold" style={{ color: adminColors.textMuted }}>Service</th>
-                <th className="text-left px-4 py-3 font-semibold" style={{ color: adminColors.textMuted }}>Status</th>
-                <th className="text-left px-4 py-3 font-semibold" style={{ color: adminColors.textMuted }}>Received</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((row) => (
-                <tr key={row.id} onClick={() => setSelected(row)} className="cursor-pointer" style={{ borderBottom: `1px solid ${adminColors.cardBorder}` }}>
-                  <td className="px-4 py-3 font-medium">{row.name}</td>
-                  <td className="px-4 py-3" style={{ color: adminColors.textMuted }}>{row.phone ?? row.email ?? '—'}</td>
-                  <td className="px-4 py-3" style={{ color: adminColors.textMuted }}>{row.service ?? '—'}</td>
-                  <td className="px-4 py-3">
-                    <span className="px-2.5 py-1 rounded-full text-[12px] font-semibold capitalize" style={{ background: (STATUS_COLORS[row.status] ?? STATUS_COLORS.new).bg, color: (STATUS_COLORS[row.status] ?? STATUS_COLORS.new).text }}>{row.status}</span>
-                  </td>
-                  <td className="px-4 py-3" style={{ color: adminColors.textMuted }}>{new Date(row.created_at).toLocaleString()}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-      </div>
+      <DataTable<Enquiry>
+        columns={enquiriesColumns()}
+        rows={rows}
+        rowKey={(r) => r.id}
+        loading={loading}
+        error={loadError}
+        onRetry={() => load(meta.page)}
+        emptyTitle="No enquiries yet"
+        emptyDescription="Submissions from the site's contact form will appear here."
+        caption="Enquiries with contact, service, status and received date — click a row to view details."
+        onRowClick={(row) => setSelected(row)}
+      />
 
-      {meta.total_pages > 1 && (
-        <div className="flex items-center gap-2">
-          {Array.from({ length: meta.total_pages }, (_, i) => i + 1).map((p) => (
-            <button key={p} type="button" onClick={() => load(p)} className="w-8 h-8 rounded-full text-[13px] font-semibold" style={p === meta.page ? adminPrimaryBtn : { border: `1px solid ${adminColors.cardBorder}`, color: adminColors.textMuted }}>
-              {p}
-            </button>
-          ))}
-        </div>
-      )}
+      <Pagination page={meta.page} totalPages={meta.total_pages} onChange={load} />
 
       {selected && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-5" style={{ background: 'rgba(10,14,28,.5)' }} onClick={() => setSelected(null)}>
@@ -165,4 +150,23 @@ export default function Enquiries() {
       )}
     </div>
   );
+}
+
+function enquiriesColumns(): Column<Enquiry>[] {
+  return [
+    { key: 'name', header: 'Name', render: (row) => <span className="font-medium">{row.name}</span> },
+    { key: 'contact', header: 'Contact', wrap: false, render: (row) => <span style={{ color: adminColors.textMuted }}>{row.phone ?? row.email ?? '—'}</span> },
+    { key: 'service', header: 'Service', wrap: false, render: (row) => <span style={{ color: adminColors.textMuted }}>{row.service ?? '—'}</span> },
+    {
+      key: 'status',
+      header: 'Status',
+      wrap: false,
+      render: (row) => (
+        <span className="px-2.5 py-1 rounded-full text-[12px] font-semibold capitalize" style={{ background: (STATUS_COLORS[row.status] ?? STATUS_COLORS.new).bg, color: (STATUS_COLORS[row.status] ?? STATUS_COLORS.new).text }}>
+          {row.status}
+        </span>
+      ),
+    },
+    { key: 'received', header: 'Received', wrap: false, render: (row) => <span style={{ color: adminColors.textMuted }}>{new Date(row.created_at).toLocaleString()}</span> },
+  ];
 }

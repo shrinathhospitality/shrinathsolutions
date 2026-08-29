@@ -1,9 +1,13 @@
 import { lazy, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout';
-import Home from './pages/Home';
 import { AuthProvider } from './admin/context/AuthContext';
 import ProtectedRoute from './admin/components/ProtectedRoute';
+
+// Lazy like every other route (not eager): Home pulls in framer-motion, which was previously
+// shipped in the shared entry chunk for every single route because this import used to be
+// synchronous — see SEO_IMPLEMENTATION.md Phase 3 §bundle-analysis for the measured impact.
+const Home = lazy(() => import('./pages/Home'));
 
 const AdminLogin = lazy(() => import('./admin/pages/Login'));
 const AdminLayout = lazy(() => import('./admin/components/AdminLayout'));
@@ -18,6 +22,8 @@ const AdminPageEdit = lazy(() => import('./admin/pages/PageEdit'));
 const AdminPageRevisions = lazy(() => import('./admin/pages/PageRevisions'));
 const AdminServices = lazy(() => import('./admin/pages/Services'));
 const AdminServiceEdit = lazy(() => import('./admin/pages/ServiceEdit'));
+const AdminVentures = lazy(() => import('./admin/pages/Ventures'));
+const AdminVentureEdit = lazy(() => import('./admin/pages/VentureEdit'));
 const AdminSeoPages = lazy(() => import('./admin/pages/SeoPages'));
 const AdminSeoPageEdit = lazy(() => import('./admin/pages/SeoPageEdit'));
 const AdminBlog = lazy(() => import('./admin/pages/Blog'));
@@ -28,9 +34,15 @@ const AdminTestimonials = lazy(() => import('./admin/pages/Testimonials'));
 const AdminMedia = lazy(() => import('./admin/pages/Media'));
 const AdminEnquiries = lazy(() => import('./admin/pages/Enquiries'));
 const AdminRedirects = lazy(() => import('./admin/pages/Redirects'));
+const AdminSeoAudits = lazy(() => import('./admin/pages/SeoAudits'));
+const AdminSeoAuditDetail = lazy(() => import('./admin/pages/SeoAuditDetail'));
 const AdminAuditLogs = lazy(() => import('./admin/pages/AuditLogs'));
 const AdminNewsletterSubscribers = lazy(() => import('./admin/pages/NewsletterSubscribers'));
 const AdminProposalRequests = lazy(() => import('./admin/pages/ProposalRequests'));
+const SeoStudioDashboard = lazy(() => import('./admin/pages/seo-studio/Dashboard'));
+const SeoStudioContentInventory = lazy(() => import('./admin/pages/seo-studio/ContentInventory'));
+const SeoStudioContentAnalyzer = lazy(() => import('./admin/pages/seo-studio/ContentAnalyzer'));
+const SeoStudioSettings = lazy(() => import('./admin/pages/seo-studio/Settings'));
 
 /** Route-based code splitting: the homepage ships eagerly, everything else on demand. */
 const About = lazy(() => import('./pages/About'));
@@ -86,6 +98,9 @@ export default function App() {
                     <Route path="services" element={<AdminServices />} />
                     <Route path="services/new" element={<AdminServiceEdit />} />
                     <Route path="services/:id/edit" element={<AdminServiceEdit />} />
+                    <Route path="ventures" element={<AdminVentures />} />
+                    <Route path="ventures/new" element={<AdminVentureEdit />} />
+                    <Route path="ventures/:id/edit" element={<AdminVentureEdit />} />
                     <Route path="seo-pages" element={<AdminSeoPages />} />
                     <Route path="seo-pages/new" element={<AdminSeoPageEdit />} />
                     <Route path="seo-pages/:id/edit" element={<AdminSeoPageEdit />} />
@@ -99,9 +114,17 @@ export default function App() {
                     <Route path="media" element={<AdminMedia />} />
                     <Route path="enquiries" element={<AdminEnquiries />} />
                     <Route path="redirects" element={<AdminRedirects />} />
+                    <Route path="seo-audits" element={<AdminSeoAudits />} />
+                    <Route path="seo-audits/:id" element={<AdminSeoAuditDetail />} />
                     <Route path="audit-logs" element={<AdminAuditLogs />} />
                     <Route path="newsletter-subscribers" element={<AdminNewsletterSubscribers />} />
                     <Route path="proposal-requests" element={<AdminProposalRequests />} />
+                    <Route path="seo-studio" element={<SeoStudioDashboard />} />
+                    <Route path="seo-studio/content" element={<SeoStudioContentInventory />} />
+                    <Route path="seo-studio/content/:documentId" element={<SeoStudioContentAnalyzer />} />
+                    <Route path="seo-studio/content/:contentType/:contentId" element={<SeoStudioContentAnalyzer />} />
+                    <Route path="seo-studio/redirects" element={<AdminRedirects />} />
+                    <Route path="seo-studio/settings" element={<SeoStudioSettings />} />
                   </Route>
                 </Route>
               </Routes>
@@ -110,7 +133,7 @@ export default function App() {
         }
       />
       <Route element={<Layout />}>
-        <Route index element={<Home />} />
+        <Route index element={<Suspense fallback={<Fallback />}><Home /></Suspense>} />
         <Route
           path="*"
           element={

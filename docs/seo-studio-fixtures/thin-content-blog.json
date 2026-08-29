@@ -1,0 +1,16 @@
+{
+  "description": "A blog post (needs 500+ words per thin_content_words) with far too little body text.",
+  "input": {
+    "contentType": "blog_post", "contentId": 4, "slug": "quick-tip", "status": "published",
+    "title": "A Quick SEO Tip", "description": "One quick SEO tip for small business owners.",
+    "canonical": "https://shrinathsolutions.com/blog/quick-tip",
+    "robotsIndex": true, "robotsFollow": true, "ogTitle": "", "ogDescription": "", "ogImage": "",
+    "h1": "A Quick SEO Tip", "introText": "Here is one quick tip.",
+    "bodyText": "Here is one quick tip. Always write a unique title for every page. That's it for today.",
+    "paragraphs": ["Here is one quick tip.", "Always write a unique title for every page.", "That's it for today."],
+    "headings": [], "images": [], "links": [],
+    "schemaTypes": ["BlogPosting"], "publicUrl": "/blog/quick-tip", "pageType": "blog_post", "language": "en",
+    "primaryKeyphrase": "seo tip", "relatedKeyphrases": [], "isCornerstone": false
+  },
+  "expected": { "contentWordCountOutcome": "failed" }
+}

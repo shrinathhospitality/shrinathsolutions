@@ -195,6 +195,7 @@ function blog_admin_delete(PDO $pdo, array $params): void
     }
 
     delete_blog_post($pdo, $id);
+    seo_cleanup_deleted_content($pdo, 'blog_post', $id);
     audit_log($pdo, $ctx['user']['id'], 'content_deleted', 'blog_post', (string) $id);
     json_success();
 }

@@ -2,13 +2,16 @@ import { useEffect, useState, type FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import {
-  Search, Loader2, AlertCircle, CheckCircle2, AlertTriangle, XCircle, Download, ArrowRight,
+  Loader2, AlertCircle, CheckCircle2, AlertTriangle, XCircle, Download, ArrowRight,
   Gauge, FileText, Smartphone, Shield, Cpu, Eye, Sparkles, Image as ImageIcon, Link2,
+  Settings, Lock, ListChecks, Database, ShieldCheck, Globe,
 } from 'lucide-react';
 import Seo, { breadcrumbSchema, orgSchema } from '../components/Seo';
 import Breadcrumbs from '../components/Breadcrumbs';
 import { glass, muted, emberBtn, faint } from '../styles/theme';
 import { wa } from '../data/site';
+import { trackAuditToolSubmit, trackAuditToolResult } from '../lib/analytics';
+import { useSeoOverride } from '../hooks/useSeoOverride';
 import type { AnalysisResult, Recommendation } from '../types/seoAudit';
 
 const crumbs = [{ name: 'Home', path: '/' }, { name: 'Free SEO Audit Tool', path: '/seo-audit-tool' }];
@@ -107,8 +110,40 @@ function RecommendationCard({ r }: { r: Recommendation }) {
 type PageCopy = { h1: string; hero_content: string | null; cta_heading: string | null; cta_body: string | null };
 type PageSeo = { meta_title?: string | null; meta_description?: string | null };
 
+const HERO_FEATURES = [
+  { label: 'Technical SEO', Icon: Settings },
+  { label: 'On-page Analysis', Icon: FileText },
+  { label: 'Performance', Icon: Gauge },
+  { label: 'Mobile & Accessibility', Icon: Smartphone },
+];
+
+const TRUST_BADGES = [
+  { label: 'No signup required', Icon: ShieldCheck },
+  { label: 'Prioritized recommendations', Icon: ListChecks },
+  { label: 'Mobile-friendly report', Icon: Smartphone },
+  { label: 'Secure URL validation', Icon: Lock },
+];
+
+const HEALTH_CHECK_CATEGORIES = [
+  { label: 'Crawl & Indexability', Icon: Settings, description: 'Identify crawl errors, blocked pages and indexation issues.' },
+  { label: 'On-page SEO', Icon: FileText, description: 'Review titles, meta tags, headings and content optimisation.' },
+  { label: 'Performance', Icon: Gauge, description: 'Check Core Web Vitals, load time and overall page performance.' },
+  { label: 'Mobile & UX', Icon: Smartphone, description: 'Evaluate mobile usability, responsive design and UX.' },
+  { label: 'Security', Icon: Lock, description: 'Scan SSL, security headers and site safety.' },
+  { label: 'Structured Data', Icon: Database, description: 'Check schema markup and rich result opportunities.' },
+];
+
+const EXAMPLE_PREVIEW = [
+  { label: 'Technical SEO', score: 85, color: '#16a34a' },
+  { label: 'On-page SEO', score: 78, color: 'var(--color-primary)' },
+  { label: 'Performance', score: 74, color: '#f59e0b' },
+  { label: 'Mobile', score: 88, color: '#7c3aed' },
+];
+
 export default function SeoAuditTool() {
   const [url, setUrl] = useState('');
+  const [leadName, setLeadName] = useState('');
+  const [leadEmail, setLeadEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
   const [result, setResult] = useState<AnalysisResult | null>(null);
@@ -128,15 +163,22 @@ export default function SeoAuditTool() {
     setStatus('loading');
     setErrorMsg('');
     setResult(null);
+    trackAuditToolSubmit();
     try {
       const res = await fetch('/api/seo-toolkit/audits', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url: url.trim() }),
+        body: JSON.stringify({
+          url: url.trim(),
+          leadName: leadName.trim() || undefined,
+          leadEmail: leadEmail.trim() || undefined,
+        }),
       });
       const json = await res.json().catch(() => null);
       if (!res.ok || !json?.success) throw new Error(json?.message ?? 'Could not analyse that URL. Please check it and try again.');
-      setResult({ ...json.data.result, id: json.data.id });
+      const auditResult = { ...json.data.result, id: json.data.id };
+      setResult(auditResult);
+      trackAuditToolResult(auditResult.score >= 80 ? 'high' : auditResult.score >= 50 ? 'medium' : 'low');
       setStatus('idle');
     } catch (err) {
       setErrorMsg(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
@@ -145,60 +187,160 @@ export default function SeoAuditTool() {
   }
 
   const schema = [orgSchema, breadcrumbSchema(crumbs)];
+  const seoOverride = useSeoOverride('/seo-audit-tool');
 
   return (
     <>
       <Seo
-        title={pageSeo?.meta_title || 'Free SEO Audit Tool | Shrinath Solutions'}
-        description={pageSeo?.meta_description || 'Run a free, instant SEO audit on any website. Check technical SEO, on-page optimisation, performance, mobile-friendliness, security and accessibility in seconds.'}
+        title={seoOverride?.title || pageSeo?.meta_title || 'Free SEO Audit Tool | Shrinath Solutions'}
+        description={seoOverride?.description || pageSeo?.meta_description || 'Run a free, instant SEO audit on any website. Check technical SEO, on-page optimisation, performance, mobile-friendliness, security and accessibility in seconds.'}
+        canonicalOverride={seoOverride?.canonical}
+        robots={seoOverride ? `${seoOverride.robotsIndex ? 'index' : 'noindex'}, ${seoOverride.robotsFollow ? 'follow' : 'nofollow'}` : undefined}
+        image={seoOverride?.ogImage ?? undefined}
         path="/seo-audit-tool"
         jsonLd={schema}
       />
       <Breadcrumbs trail={crumbs} />
 
       <section className="mx-auto max-w-shell px-[22px] pt-8">
-        <div className="max-w-[720px]">
-          <div className="text-[13px] font-bold uppercase tracking-[.18em]" style={{ color: 'var(--color-primary)' }}>Free Tool</div>
-          <h1 className="font-heading font-extrabold text-[clamp(30px,4vw,46px)] leading-[1.1] mt-3 mb-0" style={{ letterSpacing: '-0.03em' }}>
-            {copy?.h1 || 'Free SEO Audit Tool'}
-          </h1>
-          <p className="text-[17px] mt-4" style={{ color: muted }}>
-            {copy?.hero_content || 'Enter any website URL to get an instant SEO score across technical SEO, on-page optimisation, performance, mobile-friendliness, security and accessibility — with a prioritised list of what to fix first.'}
-          </p>
-        </div>
-
-        <form onSubmit={onSubmit} className="mt-7 p-6 rounded-[22px]" style={glass}>
-          <label htmlFor="audit-url" className="block text-[13.5px] font-semibold mb-2" style={{ color: 'var(--color-heading)' }}>
-            Website URL
-          </label>
-          <div className="flex flex-wrap gap-3">
-            <div className="relative flex-1 min-w-[240px]">
-              <Search size={16} style={{ position: 'absolute', left: 16, top: 17 }} color="var(--color-muted)" aria-hidden="true" />
-              <input
-                id="audit-url"
-                type="text"
-                required
-                placeholder="https://example.com"
-                value={url}
-                onChange={(e) => setUrl(e.target.value)}
-                disabled={status === 'loading'}
-                className="w-full pl-11 pr-4 py-3.5 rounded-full text-[15.5px] transition-colors outline-none focus:!border-[var(--color-primary)] focus:shadow-[0_0_0_4px_rgba(49,87,229,.2)]"
-                style={{ border: '1px solid var(--color-border-strong)', background: 'var(--color-surface)', color: 'var(--color-heading)' }}
-              />
+        <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-start">
+          <div>
+            <div className="text-[13px] font-bold uppercase tracking-[.18em]" style={{ color: 'var(--color-primary)' }}>Free SEO Audit Tool</div>
+            <h1 className="font-heading font-extrabold text-[clamp(30px,4vw,46px)] leading-[1.1] mt-3 mb-0" style={{ letterSpacing: '-0.03em' }}>
+              {copy?.h1 || 'Find What Is Holding Your Website Back'}
+            </h1>
+            <p className="text-[17px] mt-4" style={{ color: muted }}>
+              {copy?.hero_content || 'Get a comprehensive SEO audit across technical SEO, on-page optimisation, performance, mobile-friendliness, security and accessibility — with a prioritised list of what to fix first.'}
+            </p>
+            <div className="grid grid-cols-2 gap-4 mt-7 max-w-[440px]">
+              {HERO_FEATURES.map(({ label, Icon }) => (
+                <div key={label} className="flex items-center gap-3">
+                  <span className="grid place-items-center rounded-full shrink-0" style={{ width: 40, height: 40, background: 'var(--color-surface-alt)' }}>
+                    <Icon size={17} color="var(--color-primary)" aria-hidden="true" />
+                  </span>
+                  <span className="text-[14.5px] font-semibold" style={{ color: 'var(--color-heading)' }}>{label}</span>
+                </div>
+              ))}
             </div>
-            <button type="submit" disabled={status === 'loading'} className="flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-heading font-bold text-[15.5px] disabled:opacity-70 transition hover:brightness-95" style={emberBtn}>
-              {status === 'loading' ? <><Loader2 size={17} className="animate-spin" aria-hidden="true" /> Analysing…</> : 'Run Free Audit'}
-            </button>
           </div>
-          {status === 'error' && (
-            <div className="flex items-center gap-2 mt-3 text-[14px]" style={{ color: 'var(--color-error)' }}>
-              <AlertCircle size={15} aria-hidden="true" /> {errorMsg}
+
+          <div className="p-6 rounded-[22px]" style={glass}>
+            <h2 className="font-heading font-extrabold text-[20px] m-0">Check Your Website</h2>
+            <p className="text-[14px] mt-1 mb-5" style={{ color: muted }}>Get your SEO health snapshot</p>
+
+            <form onSubmit={onSubmit}>
+              <label htmlFor="audit-url" className="block text-[13.5px] font-semibold mb-2" style={{ color: 'var(--color-heading)' }}>
+                Website URL
+              </label>
+              <div className="relative">
+                <Globe size={16} style={{ position: 'absolute', left: 16, top: 17 }} color="var(--color-muted)" aria-hidden="true" />
+                <input
+                  id="audit-url"
+                  type="text"
+                  required
+                  placeholder="https://example.com"
+                  value={url}
+                  onChange={(e) => setUrl(e.target.value)}
+                  disabled={status === 'loading'}
+                  className="w-full pl-11 pr-4 py-3.5 rounded-full text-[15.5px] transition-colors outline-none focus:!border-[var(--color-primary)] focus:shadow-[0_0_0_4px_rgba(49,87,229,.2)]"
+                  style={{ border: '1px solid var(--color-border-strong)', background: 'var(--color-surface)', color: 'var(--color-heading)' }}
+                />
+              </div>
+
+              <details className="mt-3 group">
+                <summary className="text-[13px] font-semibold cursor-pointer list-none flex items-center gap-1" style={{ color: 'var(--color-primary)' }}>
+                  Get help fixing these SEO issues (optional)
+                </summary>
+                <div className="grid sm:grid-cols-2 gap-2.5 mt-2.5">
+                  <input
+                    type="text"
+                    placeholder="Your name"
+                    value={leadName}
+                    onChange={(e) => setLeadName(e.target.value)}
+                    disabled={status === 'loading'}
+                    className="w-full px-4 py-2.5 rounded-full text-[14px] outline-none"
+                    style={{ border: '1px solid var(--color-border-strong)', background: 'var(--color-surface)', color: 'var(--color-heading)' }}
+                  />
+                  <input
+                    type="email"
+                    placeholder="you@example.com"
+                    value={leadEmail}
+                    onChange={(e) => setLeadEmail(e.target.value)}
+                    disabled={status === 'loading'}
+                    className="w-full px-4 py-2.5 rounded-full text-[14px] outline-none"
+                    style={{ border: '1px solid var(--color-border-strong)', background: 'var(--color-surface)', color: 'var(--color-heading)' }}
+                  />
+                </div>
+                <p className="text-[12px] mt-2 mb-0" style={{ color: 'var(--color-muted)' }}>
+                  Optional — share your details if you would like Shrinath Solutions to contact you about improving these results.
+                </p>
+              </details>
+
+              <button type="submit" disabled={status === 'loading'} className="w-full flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-heading font-bold text-[15.5px] disabled:opacity-70 transition hover:brightness-95 mt-4" style={emberBtn}>
+                {status === 'loading' ? <><Loader2 size={17} className="animate-spin" aria-hidden="true" /> Analysing…</> : 'Run Free Audit'}
+              </button>
+              {status === 'error' && (
+                <div className="flex items-center gap-2 mt-3 text-[14px]" style={{ color: 'var(--color-error)' }}>
+                  <AlertCircle size={15} aria-hidden="true" /> {errorMsg}
+                </div>
+              )}
+              <p className="mt-3 mb-0 text-[12.5px] text-center" style={{ color: 'var(--color-muted)' }}>
+                Free audit &bull; No signup &bull; Prioritized recommendations
+              </p>
+            </form>
+
+            {!result && (
+              <div className="mt-6 pt-5" style={{ borderTop: '1px solid var(--color-border)' }}>
+                <div className="text-[12px] font-bold uppercase tracking-[.08em] mb-3" style={{ color: 'var(--color-muted)' }}>Example preview</div>
+                <div className="flex items-center gap-5">
+                  <ScoreRing score={82} />
+                  <div className="flex-1 grid gap-2">
+                    {EXAMPLE_PREVIEW.map((row) => (
+                      <div key={row.label} className="flex items-center gap-2">
+                        <span className="text-[12.5px] w-[92px] shrink-0" style={{ color: 'var(--color-heading)' }}>{row.label}</span>
+                        <span className="flex-1 h-1.5 rounded-full overflow-hidden" style={{ background: 'var(--color-surface-alt)' }}>
+                          <span className="block h-full rounded-full" style={{ width: `${row.score}%`, background: row.color }} />
+                        </span>
+                        <span className="text-[12px] font-semibold w-[42px] text-right" style={{ color: 'var(--color-muted)' }}>{row.score}/100</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-shell px-[22px] pt-12">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 py-6" style={{ borderTop: '1px solid var(--color-border)', borderBottom: '1px solid var(--color-border)' }}>
+          {TRUST_BADGES.map(({ label, Icon }) => (
+            <div key={label} className="flex items-center gap-3">
+              <span className="grid place-items-center rounded-full shrink-0" style={{ width: 36, height: 36, background: 'var(--color-surface-alt)' }}>
+                <Icon size={16} color="var(--color-primary)" aria-hidden="true" />
+              </span>
+              <span className="text-[14px] font-semibold" style={{ color: 'var(--color-heading)' }}>{label}</span>
             </div>
-          )}
-          <p className="mt-3 mb-0 text-[13px]" style={{ color: 'var(--color-muted)' }}>
-            Free, no signup. Limited to a few audits per hour to keep this fair for everyone.
-          </p>
-        </form>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-shell px-[22px] py-14">
+        <div className="text-center max-w-[640px] mx-auto mb-10">
+          <h2 className="font-heading font-extrabold text-[clamp(24px,3vw,32px)] m-0">A Complete Website Health Check</h2>
+          <p className="mt-3 mb-0 text-[15.5px]" style={{ color: muted }}>We analyse key areas that impact your search visibility and user experience.</p>
+        </div>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
+          {HEALTH_CHECK_CATEGORIES.map(({ label, Icon, description }) => (
+            <div key={label}>
+              <span className="grid place-items-center rounded-full mb-3" style={{ width: 48, height: 48, background: 'var(--color-surface-alt)' }}>
+                <Icon size={20} color="var(--color-primary)" aria-hidden="true" />
+              </span>
+              <div className="font-heading font-bold text-[15px]" style={{ color: 'var(--color-heading)' }}>{label}</div>
+              <p className="mt-1.5 mb-0 text-[13.5px]" style={{ color: muted }}>{description}</p>
+            </div>
+          ))}
+        </div>
       </section>
 
       {result && (

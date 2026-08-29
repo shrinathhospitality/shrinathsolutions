@@ -25,7 +25,13 @@ $pdo->exec(
 $applied = $pdo->query('SELECT migration FROM schema_migrations')->fetchAll(PDO::FETCH_COLUMN);
 $appliedSet = array_flip($applied);
 
-$files = glob(__DIR__ . '/migrations/*.sql');
+// Excludes *.down.sql on purpose: glob('*.sql') matches them too, and '.down.sql' sorts
+// alphabetically *before* the matching forward file's plain '.sql' (e.g.
+// "0016_seo_documents.down.sql" < "0016_seo_documents.sql"), which — before this filter — meant
+// a fresh install would attempt to run a down-migration (dropping columns that don't exist yet)
+// before its own forward migration ever ran. Found and fixed during the MySQL validation pass;
+// see docs/SEO_STUDIO_ARCHITECTURE.md Part 4.
+$files = array_values(array_filter(glob(__DIR__ . '/migrations/*.sql'), fn($f) => !str_ends_with($f, '.down.sql')));
 sort($files);
 
 $ran = 0;

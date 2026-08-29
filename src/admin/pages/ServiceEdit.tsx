@@ -4,6 +4,8 @@ import toast from 'react-hot-toast';
 import { adminFetch, ApiError } from '../lib/api';
 import { adminCard, adminColors, adminPrimaryBtn } from '../adminTheme';
 import type { FaqItem, SeoFields } from '../lib/contentTypes';
+import SeoStudioPanel from '../../features/seo-studio/components/SeoStudioPanel';
+import { seoStudioApi, type StoredAnalysis } from '../../features/seo-studio/api';
 
 type ServiceForm = {
   name: string;
@@ -36,6 +38,14 @@ const empty: ServiceForm = {
 const input: React.CSSProperties = { padding: '11px 14px', borderRadius: 10, border: `1px solid ${adminColors.cardBorder}`, fontSize: 14.5, width: '100%' };
 const label: React.CSSProperties = { color: adminColors.textMuted, fontSize: 13.5, fontWeight: 600 };
 
+type PageTab = 'details' | 'content' | 'seo' | 'faqs';
+const PAGE_TABS: { key: PageTab; label: string }[] = [
+  { key: 'details', label: 'Details' },
+  { key: 'content', label: 'Content' },
+  { key: 'seo', label: 'SEO' },
+  { key: 'faqs', label: 'FAQs' },
+];
+
 export default function ServiceEdit() {
   const { id } = useParams();
   const isNew = !id;
@@ -47,6 +57,13 @@ export default function ServiceEdit() {
   const [catalogue, setCatalogue] = useState<ServiceSummary[]>([]);
   const [loading, setLoading] = useState(!isNew);
   const [submitting, setSubmitting] = useState(false);
+  const [keyphrase, setKeyphrase] = useState('');
+  const [relatedKeyphrases, setRelatedKeyphrases] = useState<string[]>([]);
+  const [language, setLanguage] = useState<'en' | 'hi'>('en');
+  const [isCornerstone, setIsCornerstone] = useState(false);
+  const [storedAnalysis, setStoredAnalysis] = useState<StoredAnalysis>(null);
+  const [contentId, setContentId] = useState<number | null>(isNew ? null : Number(id));
+  const [pageTab, setPageTab] = useState<PageTab>('details');
 
   useEffect(() => {
     adminFetch<{ services: ServiceSummary[] }>('/api/admin/services?per_page=100')
@@ -72,6 +89,16 @@ export default function ServiceEdit() {
       })
       .catch(() => toast.error('Failed to load service'))
       .finally(() => setLoading(false));
+
+    seoStudioApi.contentDetail('service', Number(id)).then((d) => {
+      setStoredAnalysis(d.analysis);
+      if (d.analysis) {
+        setKeyphrase(d.analysis.primary_keyphrase ?? '');
+        setRelatedKeyphrases(d.analysis.related_keyphrases ?? []);
+        setLanguage((d.analysis.language as 'en' | 'hi') ?? 'en');
+        setIsCornerstone(d.analysis.is_cornerstone);
+      }
+    }).catch(() => {});
   }, [id, isNew]);
 
   function toggleRelated(s: ServiceSummary) {
@@ -106,13 +133,23 @@ export default function ServiceEdit() {
     };
 
     try {
+      let savedId = contentId;
       if (isNew) {
         const res = await adminFetch<{ id: number }>('/api/admin/services', { method: 'POST', body: JSON.stringify(payload) });
+        savedId = res.id;
+        setContentId(res.id);
         toast.success('Service created');
         navigate(`/admin/services/${res.id}/edit`, { replace: true });
       } else {
         await adminFetch(`/api/admin/services/${id}`, { method: 'PUT', body: JSON.stringify(payload) });
         toast.success('Saved');
+      }
+
+      if (savedId) {
+        const seoStudioResult = await seoStudioApi.saveContent('service', savedId, {
+          seo, primary_keyphrase: keyphrase, related_keyphrases: relatedKeyphrases, language, is_cornerstone: isCornerstone,
+        });
+        setStoredAnalysis(seoStudioResult.analysis);
       }
     } catch (err) {
       toast.error(err instanceof ApiError ? err.message : 'Failed to save');
@@ -124,7 +161,22 @@ export default function ServiceEdit() {
   if (loading) return <div style={{ color: adminColors.textMuted }}>Loading…</div>;
 
   return (
-    <form onSubmit={onSubmit} className="grid gap-5 max-w-[760px]">
+    <form onSubmit={onSubmit} className="grid gap-5 w-full">
+      <div className="flex gap-1 border-b sticky top-0 z-10" style={{ borderColor: adminColors.cardBorder, background: adminColors.contentBg }}>
+        {PAGE_TABS.map((t) => (
+          <button
+            key={t.key} type="button" onClick={() => setPageTab(t.key)}
+            className="px-4 py-2.5 text-[13.5px] font-semibold -mb-px"
+            style={{ borderBottom: pageTab === t.key ? `2px solid ${adminColors.accentBlue}` : '2px solid transparent', color: pageTab === t.key ? adminColors.accentBlue : adminColors.textMuted }}
+          >
+            {t.label}
+            {t.key === 'faqs' && faqs.length > 0 ? ` (${faqs.length})` : ''}
+          </button>
+        ))}
+      </div>
+
+      {pageTab === 'details' && (
+      <>
       <div style={adminCard} className="p-6 grid gap-4">
         <div className="grid gap-4" style={{ gridTemplateColumns: '1fr 1fr' }}>
           <label className="grid gap-1.5" style={label}>Name<input style={input} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required /></label>
@@ -164,7 +216,11 @@ export default function ServiceEdit() {
           Show in menus
         </label>
       </div>
+      </>
+      )}
 
+      {pageTab === 'content' && (
+      <>
       <div style={adminCard} className="p-6 grid gap-4">
         <div className="font-heading font-bold text-[15px]">Content blocks</div>
         <p className="text-[13px] m-0" style={{ color: adminColors.textMuted }}>
@@ -191,7 +247,7 @@ export default function ServiceEdit() {
           {catalogue.filter((s) => s.slug !== form.slug).map((s) => {
             const checked = form.related.some((r) => r.to === `/services/${s.slug}`);
             return (
-              <label key={s.id} className="flex items-center gap-2 text-[13.5px] px-2.5 py-1.5 rounded-[8px]" style={{ background: checked ? '#eef0ff' : 'transparent' }}>
+              <label key={s.id} className="flex items-center gap-2 text-[13.5px] px-2.5 py-1.5 rounded-[8px]" style={{ background: checked ? adminColors.primarySoft : 'transparent' }}>
                 <input type="checkbox" checked={checked} onChange={() => toggleRelated(s)} />
                 {s.name}
               </label>
@@ -205,7 +261,11 @@ export default function ServiceEdit() {
         <label className="grid gap-1.5" style={label}>Heading<input style={input} value={form.cta_heading} onChange={(e) => setForm({ ...form, cta_heading: e.target.value })} /></label>
         <label className="grid gap-1.5" style={label}>Body<input style={input} value={form.cta_body} onChange={(e) => setForm({ ...form, cta_body: e.target.value })} /></label>
       </div>
+      </>
+      )}
 
+      {pageTab === 'seo' && (
+      <>
       <div style={adminCard} className="p-6 grid gap-4">
         <div className="font-heading font-bold text-[15px]">SEO</div>
         <label className="grid gap-1.5" style={label}>Meta title<input style={input} value={seo.meta_title ?? ''} onChange={(e) => setSeo({ ...seo, meta_title: e.target.value })} /></label>
@@ -217,6 +277,20 @@ export default function ServiceEdit() {
         </div>
       </div>
 
+      <SeoStudioPanel
+        contentType="service" contentId={contentId} seo={seo} slug={form.slug} h1={form.h1}
+        introText={form.hero_description} blocks={(() => { try { return JSON.parse(form.blocksJson); } catch { return []; } })()}
+        pageType="service" publicUrl={`/services/${form.slug}`}
+        keyphrase={keyphrase} onKeyphraseChange={setKeyphrase}
+        relatedKeyphrases={relatedKeyphrases} onRelatedKeyphrasesChange={setRelatedKeyphrases}
+        language={language} onLanguageChange={setLanguage}
+        isCornerstone={isCornerstone} onCornerstoneChange={setIsCornerstone}
+        storedAnalysis={storedAnalysis}
+      />
+      </>
+      )}
+
+      {pageTab === 'faqs' && (
       <div style={adminCard} className="p-6 grid gap-3">
         <div className="font-heading font-bold text-[15px]">FAQs</div>
         {faqs.map((f, i) => (
@@ -230,6 +304,7 @@ export default function ServiceEdit() {
           + Add FAQ
         </button>
       </div>
+      )}
 
       <button type="submit" disabled={submitting} className="justify-self-start px-6 py-3 rounded-full text-[15px] disabled:opacity-60" style={adminPrimaryBtn}>
         {submitting ? 'Saving…' : isNew ? 'Create service' : 'Save changes'}

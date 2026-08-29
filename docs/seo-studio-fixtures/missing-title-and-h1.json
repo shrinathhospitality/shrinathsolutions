@@ -1,0 +1,15 @@
+{
+  "description": "No SEO title and no H1 — must trigger the missing_title_and_h1 cap (SEO/Overall capped at 49).",
+  "input": {
+    "contentType": "service", "contentId": 5, "slug": "untitled-service", "status": "draft",
+    "title": "", "description": "Some description text exists but the title and H1 are both missing.",
+    "canonical": "", "robotsIndex": true, "robotsFollow": true, "ogTitle": "", "ogDescription": "", "ogImage": "",
+    "h1": "", "introText": "This page has content but nobody wrote a title or heading yet.",
+    "bodyText": "This page has content but nobody wrote a title or heading yet. It still has a reasonable amount of body text describing the service in general terms, which is why every other check aside from the title and heading ones might otherwise look fine on its own, but the missing title and missing H1 together are treated as a critical technical problem regardless of how good the rest of the page is.",
+    "paragraphs": ["This page has content but nobody wrote a title or heading yet.", "It still has a reasonable amount of body text describing the service in general terms."],
+    "headings": [], "images": [], "links": [],
+    "schemaTypes": [], "publicUrl": "/services/untitled-service", "pageType": "service", "language": "en",
+    "primaryKeyphrase": "", "relatedKeyphrases": [], "isCornerstone": false
+  },
+  "expected": { "capReason": "missing_title_and_h1", "seoScoreMax": 49, "overallScoreMax": 49 }
+}

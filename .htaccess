@@ -3,6 +3,45 @@
 
 RewriteEngine On
 
+# --- Canonical host + protocol: force HTTPS and non-www (matches https://shrinathsolutions.com
+# used as the canonical/OG base everywhere in the app — see src/data/site.ts). Runs first so
+# every rule below it only ever sees the canonical host. ---
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^ https://shrinathsolutions.com%{REQUEST_URI} [L,R=301]
+
+# --- Strip a trailing slash on any non-root, non-directory URL (one trailing-slash
+# convention — without — to match every internal <Link>/canonical in the app). Excludes
+# /api/ so it never interferes with backend routing. ---
+RewriteCond %{REQUEST_URI} !^/api/
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} ^/(.+)/$
+RewriteRule ^(.+)/$ /$1 [L,R=301]
+
+# --- /index.html is not a distinct canonical URL — collapse it into / ---
+RewriteRule ^index\.html$ / [L,R=301]
+
+# --- Legacy WordPress-era paths. These are structural, defensive redirects for URL *shapes*
+# that no longer exist on this app; the owner should cross-check actual Search Console /
+# analytics history for specific old URLs and add exact 301 mappings above this block if any
+# carry real indexed value. WP core/admin paths never had public content of their own, so
+# they 410 (permanently gone) rather than 301 to avoid implying a replacement exists. ---
+RewriteRule ^wp-(admin|login|includes|content|json)(/.*)?$ - [G,L]
+RewriteRule ^xmlrpc\.php$ - [G,L]
+RewriteRule ^feed/?$ - [G,L]
+RewriteRule ^(.*)/feed/?$ - [G,L]
+# Old WP category/tag/author archive URLs are listing pages, not individual content — a
+# blanket 301 to /blog would consolidate unrelated ranking signals onto an unrelated page,
+# so these 410 (permanently gone) by default. If a real Search Console export shows specific
+# archive URLs with meaningful clicks/impressions, add an exact 301 mapping above this block
+# instead of widening this rule (see SEO_IMPLEMENTATION.md's redirect-migration section).
+RewriteRule ^category(/.*)?$ - [G,L]
+RewriteRule ^tag(/.*)?$ - [G,L]
+RewriteRule ^author(/.*)?$ - [G,L]
+# "/blog-list/" is a plausible old-theme alias for the same content the current /blog index
+# represents, so this one keeps a real 301 rather than a 410.
+RewriteRule ^blog-list/?$ /blog [L,R=301]
+
 # --- Dynamic sitemap: overrides any static sitemap.xml that may exist in dist/ ---
 RewriteRule ^sitemap\.xml$ api/sitemap.php [L]
 
@@ -15,11 +54,75 @@ RewriteRule ^api/(admin|public)/(.*)$ api/index.php?__route=$1/$2 [QSA,L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^api/seo-toolkit/(.*)$ api/seo-toolkit/public/index.php [L]
 
-# --- SPA fallback: any non-file, non-/api request goes to index.html ---
+# --- Prerendered static HTML (scripts/prerender.mjs, see SEO_IMPLEMENTATION.md Phase 3):
+# dist/{route}.html — a flat file, not a {route}/index.html directory, specifically so this
+# never triggers Apache's default mod_dir DirectorySlash redirect (which would otherwise
+# 301 "/about" -> "/about/" before serving it, adding a hop and conflicting with this site's
+# no-trailing-slash canonical convention above). Serves the prerendered file in place, with
+# the URL bar staying exactly as requested, ahead of the SPA fallback below. ---
 RewriteCond %{REQUEST_URI} !^/api/
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^ index.html [L]
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI}.html -f
+RewriteRule ^(.*)$ $1.html [L]
+
+# --- SPA fallback: any non-file, non-/api request is routed through api/spa-router.php,
+# which serves index.html but sets a genuine HTTP 404 status for paths that aren't a known
+# static route or a published CMS/content slug (see api/lib/route_manifest.php). This keeps
+# real deep links (blog posts, portfolio items, service pages, ventures) working exactly as
+# before while giving crawlers/tools a true 404 instead of a soft 200 for dead paths. ---
+RewriteCond %{REQUEST_URI} !^/api/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ api/spa-router.php [L]
+
+# --- Compression (spec: "Gzip or Brotli compression"). Text-based assets only — images/fonts
+# are already compressed formats and gain nothing from re-compressing, only CPU cost. ---
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml text/javascript
+    AddOutputFilterByType DEFLATE application/javascript application/x-javascript application/json
+    AddOutputFilterByType DEFLATE application/xml application/rss+xml application/atom+xml
+    AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# --- Caching: Vite content-hashes every JS/CSS/asset filename (e.g. index-DMhRji6V.js) — a
+# changed file always gets a new URL, so these can be cached forever ("immutable") with zero
+# staleness risk. HTML (the SPA shell and every prerendered {route}.html file) is NOT
+# hash-named and its content can change without the URL changing, so it gets a short cache
+# window instead — long enough to matter for repeat views within a session, short enough that
+# a content edit or redeploy is visible promptly. Never touches /api/ (those responses aren't
+# static files this block can match, and several are per-session/CSRF-bearing — see the
+# `Cache-Control: no-store` note below). ---
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType application/json "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType text/html "access plus 10 minutes"
+</IfModule>
+
+<IfModule mod_headers.c>
+    # Hashed build assets (dist/assets/*) — safe to mark immutable, matches ExpiresByType above.
+    <FilesMatch "\.(js|css|woff2)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+    # Content-addressed media uploads (random hex filename per file — see api/lib/upload.php)
+    # are equally safe to cache long-term; a replaced image gets a new filename, never this one.
+    <FilesMatch "^uploads/.*\.(jpe?g|png|webp|gif)$">
+        Header set Cache-Control "public, max-age=31536000, immutable"
+    </FilesMatch>
+    # HTML is never hash-named — keep it short-lived so edits and redeploys show up promptly.
+    <FilesMatch "\.html$">
+        Header set Cache-Control "public, max-age=600"
+    </FilesMatch>
+</IfModule>
 
 # --- Security headers ---
 <IfModule mod_headers.c>

@@ -5,7 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <!-- Non-render-blocking font CSS: the stylesheet itself is small, but fetching it
+         synchronously still delays first paint until it returns. `media="print"` makes the
+         browser fetch it at low priority without applying it, then the onload flips it to
+         `all` once it's ready; `display=swap` (already in the URL) means text never stays
+         invisible waiting for the font files themselves. The <noscript> tag is the fallback
+         for the (rare) case JS is disabled. -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" />
+    </noscript>
     <title>Shrinath Solutions — Websites, Marketing &amp; Hotel Technology</title>
   </head>
   <body>

@@ -13,6 +13,10 @@ export type SeoPageData = {
   metaTitle: string;
   metaDescription: string;
   breadcrumb: { name: string; path: string }[];
+  /** True for demo/preview instances (sample data, not a real published page) — keeps them
+   *  out of search results without affecting crawl of their internal links. Omit/false for a
+   *  genuine production page built from this template. */
+  noindex?: boolean;
 
   eyebrow: string;
   h1: string;

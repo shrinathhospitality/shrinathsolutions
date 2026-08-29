@@ -1,0 +1,3153 @@
+{
+    "generatedAt": "2026-08-28T11:03:34+00:00",
+    "apply": true,
+    "totals": {
+        "SAFE_FILL_MISSING": 115,
+        "CONFLICT": 9
+    },
+    "results": [
+        {
+            "route": "/blog/choose-right-digital-marketing-agency",
+            "contentType": "blog_post",
+            "contentId": 18,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "digital marketing agency",
+            "relatedKeyphrases": [
+                "best digital marketing company",
+                "digital marketing services in Jaisalmer",
+                "online marketing company",
+                "performance marketing agency",
+                "SEO"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 59,
+                "read": 88,
+                "overall": 64
+            },
+            "after": {
+                "seo": 92,
+                "read": 88,
+                "overall": 92
+            }
+        },
+        {
+            "route": "/blog/google-ads-local-business-leads",
+            "contentType": "blog_post",
+            "contentId": 13,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Google Ads management services",
+            "relatedKeyphrases": [
+                "Google PPC agency",
+                "local business Google Ads",
+                "Google Ads company in Jaisalmer",
+                "pay per click management",
+                "lead generation campaigns"
+            ],
+            "classification": "CONFLICT",
+            "reason": "Keyphrase \"Google Ads management services\" collides with: /blog/google-ads-local-business-leads, /google-ads-management"
+        },
+        {
+            "route": "/blog/google-business-profile-optimization",
+            "contentType": "blog_post",
+            "contentId": 10,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Google Business Profile optimization",
+            "relatedKeyphrases": [
+                "Google Maps business optimization",
+                "GBP optimization services",
+                "Google Business Profile SEO",
+                "local business listing optimization",
+                "Google profile management"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 59,
+                "read": 94,
+                "overall": 65
+            },
+            "after": {
+                "seo": 89,
+                "read": 94,
+                "overall": 90
+            }
+        },
+        {
+            "route": "/blog/hotel-channel-manager-booking-engine",
+            "contentType": "blog_post",
+            "contentId": 17,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "hotel channel manager software",
+            "relatedKeyphrases": [
+                "booking engine for hotels",
+                "hotel inventory management",
+                "OTA channel manager",
+                "direct booking engine",
+                "hotel technology solutions"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 59,
+                "read": 88,
+                "overall": 64
+            },
+            "after": {
+                "seo": 85,
+                "read": 88,
+                "overall": 85
+            }
+        },
+        {
+            "route": "/blog/hotel-digital-marketing-direct-enquiries",
+            "contentType": "blog_post",
+            "contentId": 11,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "hotel digital marketing services",
+            "relatedKeyphrases": [
+                "hotel marketing company",
+                "hotel SEO services",
+                "direct hotel booking strategy",
+                "resort digital marketing",
+                "hospitality marketing agency"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 59,
+                "read": 94,
+                "overall": 65
+            },
+            "after": {
+                "seo": 85,
+                "read": 94,
+                "overall": 86
+            }
+        },
+        {
+            "route": "/blog/local-seo-small-business-guide",
+            "contentType": "blog_post",
+            "contentId": 9,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "local SEO services",
+            "relatedKeyphrases": [
+                "local SEO company",
+                "local SEO services in Jaisalmer",
+                "Google Maps SEO",
+                "local business SEO",
+                "SEO company in Rajasthan"
+            ],
+            "classification": "CONFLICT",
+            "reason": "Keyphrase \"local SEO services\" collides with: /blog/local-seo-small-business-guide, /local-seo"
+        },
+        {
+            "route": "/blog/meta-ads-hotels-travel-strategy",
+            "contentType": "blog_post",
+            "contentId": 14,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Meta Ads management services",
+            "relatedKeyphrases": [
+                "Facebook Ads for hotels",
+                "Instagram Ads for travel business",
+                "hotel social media advertising",
+                "Meta advertising agency",
+                "travel lead generation ads"
+            ],
+            "classification": "CONFLICT",
+            "reason": "Keyphrase \"Meta Ads management services\" collides with: /blog/meta-ads-hotels-travel-strategy, /meta-ads-management"
+        },
+        {
+            "route": "/blog/ota-optimization-for-hotels",
+            "contentType": "blog_post",
+            "contentId": 12,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "OTA optimization services",
+            "relatedKeyphrases": [
+                "hotel OTA management",
+                "Booking.com listing optimization",
+                "hotel listing optimization",
+                "OTA revenue management",
+                "hotel channel management"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 59,
+                "read": 94,
+                "overall": 65
+            },
+            "after": {
+                "seo": 85,
+                "read": 94,
+                "overall": 86
+            }
+        },
+        {
+            "route": "/blog/professional-website-business-growth",
+            "contentType": "blog_post",
+            "contentId": 8,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "professional website design services",
+            "relatedKeyphrases": [
+                "business website design",
+                "responsive web design company",
+                "website development services",
+                "SEO-friendly website",
+                "web design company in Jaisalmer"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 59,
+                "read": 94,
+                "overall": 65
+            },
+            "after": {
+                "seo": 83,
+                "read": 94,
+                "overall": 85
+            }
+        },
+        {
+            "route": "/blog/seo-for-hotels-direct-demand",
+            "contentType": "blog_post",
+            "contentId": 15,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "hotel SEO services",
+            "relatedKeyphrases": [
+                "SEO for hotels",
+                "hotel SEO company",
+                "hotel website SEO",
+                "local SEO for hotels",
+                "resort SEO services"
+            ],
+            "classification": "CONFLICT",
+            "reason": "Keyphrase \"hotel SEO services\" collides with: /blog/seo-for-hotels-direct-demand, /hotel-seo"
+        },
+        {
+            "route": "/blog/social-media-marketing-small-business",
+            "contentType": "blog_post",
+            "contentId": 16,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "social media marketing services",
+            "relatedKeyphrases": [
+                "social media management company",
+                "Instagram marketing for business",
+                "Facebook marketing services",
+                "content marketing agency",
+                "small business social media strategy"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 59,
+                "read": 94,
+                "overall": 65
+            },
+            "after": {
+                "seo": 85,
+                "read": 94,
+                "overall": 86
+            }
+        },
+        {
+            "route": "/business-website-design",
+            "contentType": "service",
+            "contentId": 8,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "business website design company",
+            "relatedKeyphrases": [
+                "professional business website design",
+                "corporate website development",
+                "small business website design India",
+                "lead generation website",
+                "responsive business website"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 49,
+                "read": 78,
+                "overall": 49
+            },
+            "after": {
+                "seo": 49,
+                "read": 78,
+                "overall": 49
+            }
+        },
+        {
+            "route": "/cloud-pms",
+            "contentType": "service",
+            "contentId": 38,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "cloud PMS for hotels",
+            "relatedKeyphrases": [
+                "hotel property management system India",
+                "cloud hotel software",
+                "PMS for small hotels",
+                "resort management software",
+                "front desk hotel system"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 49,
+                "read": 83,
+                "overall": 49
+            },
+            "after": {
+                "seo": 49,
+                "read": 83,
+                "overall": 49
+            }
+        },
+        {
+            "route": "/content-marketing",
+            "contentType": "service",
+            "contentId": 21,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "content marketing services",
+            "relatedKeyphrases": [
+                "SEO content writing India",
+                "hotel content marketing",
+                "travel content strategy",
+                "blog content services",
+                "website content creation"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 49,
+                "read": 83,
+                "overall": 49
+            },
+            "after": {
+                "seo": 49,
+                "read": 83,
+                "overall": 49
+            }
+        },
+        {
+            "route": "/conversion-rate-optimisation",
+            "contentType": "service",
+            "contentId": 26,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "conversion rate optimisation services",
+            "relatedKeyphrases": [
+                "CRO agency India",
+                "website conversion optimisation",
+                "landing page optimisation",
+                "lead funnel optimisation",
+                "A/B testing services"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 49,
+                "read": 78,
+                "overall": 49
+            },
+            "after": {
+                "seo": 49,
+                "read": 78,
+                "overall": 49
+            }
+        },
+        {
+            "route": "/digital-marketing-services",
+            "contentType": "service",
+            "contentId": 17,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "digital marketing company in Jaisalmer",
+            "relatedKeyphrases": [
+                "digital marketing services India",
+                "online marketing agency Rajasthan",
+                "hotel digital marketing",
+                "travel digital marketing",
+                "lead generation agency"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 49,
+                "read": 83,
+                "overall": 49
+            },
+            "after": {
+                "seo": 49,
+                "read": 83,
+                "overall": 49
+            }
+        },
+        {
+            "route": "/ecommerce-development",
+            "contentType": "service",
+            "contentId": 13,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "ecommerce website development company",
+            "relatedKeyphrases": [
+                "online store development India",
+                "WooCommerce store development",
+                "custom ecommerce website",
+                "ecommerce conversion design",
+                "payment gateway integration"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 49,
+                "read": 78,
+                "overall": 49
+            },
+            "after": {
+                "seo": 49,
+                "read": 78,
+                "overall": 49
+            }
+        },
+        {
+            "route": "/ecommerce-seo",
+            "contentType": "service",
+            "contentId": 34,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "ecommerce SEO services",
+            "relatedKeyphrases": [
+                "online store SEO India",
+                "product page SEO",
+                "category page optimisation",
+                "WooCommerce SEO",
+                "ecommerce technical SEO"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 49,
+                "read": 83,
+                "overall": 49
+            },
+            "after": {
+                "seo": 49,
+                "read": 83,
+                "overall": 49
+            }
+        },
+        {
+            "route": "/email-marketing",
+            "contentType": "service",
+            "contentId": 22,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "email marketing services",
+            "relatedKeyphrases": [
+                "email campaign management India",
+                "marketing automation email",
+                "hotel email marketing",
+                "lead nurturing campaigns",
+                "newsletter strategy"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 49,
+                "read": 83,
+                "overall": 49
+            },
+            "after": {
+                "seo": 49,
+                "read": 83,
+                "overall": 49
+            }
+        },
+        {
+            "route": "/google-ads-management",
+            "contentType": "service",
+            "contentId": 19,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Google Ads management services",
+            "relatedKeyphrases": [
+                "Google PPC agency India",
+                "search ads management",
+                "hotel Google Ads",
+                "travel PPC campaigns",
+                "Google Ads lead generation"
+            ],
+            "classification": "CONFLICT",
+            "reason": "Keyphrase \"Google Ads management services\" collides with: /blog/google-ads-local-business-leads, /google-ads-management"
+        },
+        {
+            "route": "/google-business-profile-management",
+            "contentType": "service",
+            "contentId": 24,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Google Business Profile management",
+            "relatedKeyphrases": [
+                "Google My Business management India",
+                "GBP optimisation service",
+                "local business profile management",
+                "hotel Google Business Profile",
+                "Google Maps business optimisation"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 49,
+                "read": 83,
+                "overall": 49
+            },
+            "after": {
+                "seo": 49,
+                "read": 83,
+                "overall": 49
+            }
+        },
+        {
+            "route": "/google-business-profile-seo",
+            "contentType": "service",
+            "contentId": 35,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Google Business Profile SEO",
+            "relatedKeyphrases": [
+                "Google Maps ranking service",
+                "GBP SEO India",
+                "Google My Business SEO",
+                "local map pack optimisation",
+                "hotel Google Maps SEO"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 49,
+                "read": 78,
+                "overall": 49
+            },
+            "after": {
+                "seo": 49,
+                "read": 78,
+                "overall": 49
+            }
+        },
+        {
+            "route": "/google-hotel-ads",
+            "contentType": "service",
+            "contentId": 44,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Google Hotel Ads management",
+            "relatedKeyphrases": [
+                "hotel price ads Google",
+                "direct booking hotel campaigns",
+                "Google hotel metasearch India",
+                "hotel rates on Google",
+                "hotel booking ads"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 49,
+                "read": 78,
+                "overall": 49
+            },
+            "after": {
+                "seo": 49,
+                "read": 78,
+                "overall": 49
+            }
+        },
+        {
+            "route": "/hotel-booking-engine",
+            "contentType": "service",
+            "contentId": 39,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "hotel booking engine",
+            "relatedKeyphrases": [
+                "direct booking engine for hotels India",
+                "hotel website booking system",
+                "commission free hotel bookings",
+                "resort booking engine",
+                "online room booking software"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 49,
+                "read": 83,
+                "overall": 49
+            },
+            "after": {
+                "seo": 49,
+                "read": 83,
+                "overall": 49
+            }
+        },
+        {
+            "route": "/hotel-channel-manager",
+            "contentType": "service",
+            "contentId": 37,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "hotel channel manager",
+            "relatedKeyphrases": [
+                "channel manager for hotels India",
+                "OTA inventory management software",
+                "hotel rate",
+                "availability sync",
+                "channel manager for desert camp"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 49,
+                "read": 83,
+                "overall": 49
+            },
+            "after": {
+                "seo": 49,
+                "read": 83,
+                "overall": 49
+            }
+        },
+        {
+            "route": "/hotel-digital-marketing",
+            "contentType": "service",
+            "contentId": 6,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "hotel digital marketing company",
+            "relatedKeyphrases": [
+                "hotel marketing agency India",
+                "resort online marketing",
+                "direct booking marketing",
+                "hospitality digital marketing",
+                "Jaisalmer hotel marketing"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 49,
+                "read": 94,
+                "overall": 49
+            },
+            "after": {
+                "seo": 49,
+                "read": 94,
+                "overall": 49
+            }
+        },
+        {
+            "route": "/hotel-revenue-management",
+            "contentType": "service",
+            "contentId": 43,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "hotel revenue management services",
+            "relatedKeyphrases": [
+                "hotel pricing strategy India",
+                "room revenue optimisation",
+                "dynamic hotel pricing",
+                "resort revenue management",
+                "hotel occupancy"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 49,
+                "read": 83,
+                "overall": 49
+            },
+            "after": {
+                "seo": 49,
+                "read": 83,
+                "overall": 49
+            }
+        },
+        {
+            "route": "/hotel-seo",
+            "contentType": "service",
+            "contentId": 29,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "hotel SEO services",
+            "relatedKeyphrases": [
+                "hotel SEO company India",
+                "resort search engine optimisation",
+                "direct booking SEO",
+                "hospitality SEO agency",
+                "Jaisalmer hotel SEO"
+            ],
+            "classification": "CONFLICT",
+            "reason": "Keyphrase \"hotel SEO services\" collides with: /blog/seo-for-hotels-direct-demand, /hotel-seo"
+        },
+        {
+            "route": "/hotel-website",
+            "contentType": "service",
+            "contentId": 40,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "hotel website development",
+            "relatedKeyphrases": [
+                "direct booking hotel website India",
+                "resort website development",
+                "boutique hotel website",
+                "hotel website with booking engine",
+                "hospitality website company"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 49,
+                "read": 83,
+                "overall": 49
+            },
+            "after": {
+                "seo": 49,
+                "read": 83,
+                "overall": 49
+            }
+        },
+        {
+            "route": "/hotel-website-design",
+            "contentType": "service",
+            "contentId": 9,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "hotel website design company",
+            "relatedKeyphrases": [
+                "hotel website development India",
+                "resort website design",
+                "direct booking hotel website",
+                "hospitality web design",
+                "desert camp website design"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 49,
+                "read": 78,
+                "overall": 49
+            },
+            "after": {
+                "seo": 49,
+                "read": 78,
+                "overall": 49
+            }
+        },
+        {
+            "route": "/landing-page-design",
+            "contentType": "service",
+            "contentId": 14,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "landing page design services",
+            "relatedKeyphrases": [
+                "high converting landing page",
+                "Google Ads landing page design",
+                "lead generation landing page",
+                "campaign page design India",
+                "conversion focused web design"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 49,
+                "read": 78,
+                "overall": 49
+            },
+            "after": {
+                "seo": 49,
+                "read": 78,
+                "overall": 49
+            }
+        },
+        {
+            "route": "/lead-generation",
+            "contentType": "service",
+            "contentId": 25,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "lead generation services",
+            "relatedKeyphrases": [
+                "B2B lead generation India",
+                "hotel lead generation",
+                "digital lead generation agency",
+                "qualified leads services",
+                "online enquiry generation"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 49,
+                "read": 83,
+                "overall": 49
+            },
+            "after": {
+                "seo": 49,
+                "read": 83,
+                "overall": 49
+            }
+        },
+        {
+            "route": "/local-seo",
+            "contentType": "service",
+            "contentId": 28,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "local SEO services",
+            "relatedKeyphrases": [
+                "local SEO company India",
+                "Google Maps SEO",
+                "near me SEO services",
+                "local business ranking",
+                "Jaisalmer local SEO"
+            ],
+            "classification": "CONFLICT",
+            "reason": "Keyphrase \"local SEO services\" collides with: /blog/local-seo-small-business-guide, /local-seo"
+        },
+        {
+            "route": "/meta-ads-management",
+            "contentType": "service",
+            "contentId": 20,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Meta Ads management services",
+            "relatedKeyphrases": [
+                "Facebook Ads agency India",
+                "Instagram Ads management",
+                "hotel Meta Ads",
+                "travel Facebook advertising",
+                "lead ads campaign management"
+            ],
+            "classification": "CONFLICT",
+            "reason": "Keyphrase \"Meta Ads management services\" collides with: /blog/meta-ads-hotels-travel-strategy, /meta-ads-management"
+        },
+        {
+            "route": "/off-page-seo",
+            "contentType": "service",
+            "contentId": 33,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "off-page SEO services",
+            "relatedKeyphrases": [
+                "link building services India",
+                "SEO authority building",
+                "digital PR for SEO",
+                "local citation building",
+                "backlink audit services"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 49,
+                "read": 83,
+                "overall": 49
+            },
+            "after": {
+                "seo": 49,
+                "read": 83,
+                "overall": 49
+            }
+        },
+        {
+            "route": "/on-page-seo",
+            "contentType": "service",
+            "contentId": 32,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "on-page SEO services",
+            "relatedKeyphrases": [
+                "website content optimisation",
+                "SEO title",
+                "meta optimisation",
+                "keyword mapping services",
+                "content SEO India"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 49,
+                "read": 78,
+                "overall": 49
+            },
+            "after": {
+                "seo": 49,
+                "read": 78,
+                "overall": 49
+            }
+        },
+        {
+            "route": "/online-reputation-management",
+            "contentType": "service",
+            "contentId": 23,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "online reputation management services",
+            "relatedKeyphrases": [
+                "review management company India",
+                "hotel reputation management",
+                "Google review management",
+                "online brand monitoring",
+                "reputation repair services"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 49,
+                "read": 83,
+                "overall": 49
+            },
+            "after": {
+                "seo": 49,
+                "read": 83,
+                "overall": 49
+            }
+        },
+        {
+            "route": "/ota-listing",
+            "contentType": "service",
+            "contentId": 41,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "hotel OTA listing services",
+            "relatedKeyphrases": [
+                "list hotel on Booking.com",
+                "hotel listing on MakeMyTrip",
+                "resort OTA registration India",
+                "hotel onboarding on OTAs",
+                "desert camp online listing"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 49,
+                "read": 83,
+                "overall": 49
+            },
+            "after": {
+                "seo": 49,
+                "read": 83,
+                "overall": 49
+            }
+        },
+        {
+            "route": "/ota-management",
+            "contentType": "service",
+            "contentId": 42,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "hotel OTA management services",
+            "relatedKeyphrases": [
+                "Booking.com management service",
+                "MakeMyTrip hotel management",
+                "hotel online distribution management",
+                "OTA optimisation India",
+                "hotel extranet management"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 49,
+                "read": 83,
+                "overall": 49
+            },
+            "after": {
+                "seo": 49,
+                "read": 83,
+                "overall": 49
+            }
+        },
+        {
+            "route": "/payment-gateway-integration",
+            "contentType": "service",
+            "contentId": 45,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "payment gateway integration services",
+            "relatedKeyphrases": [
+                "online payment integration India",
+                "hotel payment gateway",
+                "website payment system",
+                "secure booking payment",
+                "Razorpay integration service"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 49,
+                "read": 78,
+                "overall": 49
+            },
+            "after": {
+                "seo": 49,
+                "read": 78,
+                "overall": 49
+            }
+        },
+        {
+            "route": "/react-website-development",
+            "contentType": "service",
+            "contentId": 12,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "React website development company",
+            "relatedKeyphrases": [
+                "custom React development India",
+                "React JS website design",
+                "Next.js development company",
+                "fast React website",
+                "headless website development"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 49,
+                "read": 83,
+                "overall": 49
+            },
+            "after": {
+                "seo": 49,
+                "read": 83,
+                "overall": 49
+            }
+        },
+        {
+            "route": "/search-engine-optimisation",
+            "contentType": "service",
+            "contentId": 27,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "SEO company in Jaisalmer",
+            "relatedKeyphrases": [
+                "SEO services India",
+                "search engine optimisation agency",
+                "organic traffic growth",
+                "professional SEO services",
+                "Rajasthan SEO company"
+            ],
+            "classification": "CONFLICT",
+            "reason": "Keyphrase \"SEO company in Jaisalmer\" collides with: /seo-company-jaisalmer (excluded, real CMS ownership)"
+        },
+        {
+            "route": "/seo-audit",
+            "contentType": "service",
+            "contentId": 36,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "SEO audit services",
+            "relatedKeyphrases": [
+                "website SEO audit India",
+                "technical SEO analysis",
+                "content SEO audit",
+                "SEO health check",
+                "organic traffic audit"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 49,
+                "read": 78,
+                "overall": 49
+            },
+            "after": {
+                "seo": 49,
+                "read": 78,
+                "overall": 49
+            }
+        },
+        {
+            "route": "/seo-company-in-ahmedabad",
+            "contentType": "seo_page",
+            "contentId": 49,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "SEO Company in Ahmedabad",
+            "relatedKeyphrases": [
+                "best SEO company in Ahmedabad",
+                "SEO services in Ahmedabad",
+                "local SEO services in Ahmedabad",
+                "SEO expert in Ahmedabad",
+                "digital marketing company in Ahmedabad"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 88,
+                "overall": 67
+            },
+            "after": {
+                "seo": 93,
+                "read": 88,
+                "overall": 92
+            }
+        },
+        {
+            "route": "/seo-company-in-ajmer",
+            "contentType": "seo_page",
+            "contentId": 34,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "SEO Company in Ajmer",
+            "relatedKeyphrases": [
+                "best SEO company in Ajmer",
+                "SEO services in Ajmer",
+                "local SEO services in Ajmer",
+                "SEO expert in Ajmer",
+                "digital marketing company in Ajmer"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 88,
+                "overall": 68
+            },
+            "after": {
+                "seo": 93,
+                "read": 88,
+                "overall": 93
+            }
+        },
+        {
+            "route": "/seo-company-in-alwar",
+            "contentType": "seo_page",
+            "contentId": 36,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "SEO Company in Alwar",
+            "relatedKeyphrases": [
+                "best SEO company in Alwar",
+                "SEO services in Alwar",
+                "local SEO services in Alwar",
+                "SEO expert in Alwar",
+                "digital marketing company in Alwar"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 88,
+                "overall": 68
+            },
+            "after": {
+                "seo": 93,
+                "read": 88,
+                "overall": 93
+            }
+        },
+        {
+            "route": "/seo-company-in-bengaluru",
+            "contentType": "seo_page",
+            "contentId": 45,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "SEO Company in Bengaluru",
+            "relatedKeyphrases": [
+                "best SEO company in Bengaluru",
+                "SEO services in Bengaluru",
+                "local SEO services in Bengaluru",
+                "SEO expert in Bengaluru",
+                "digital marketing company in Bengaluru"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 88,
+                "overall": 67
+            },
+            "after": {
+                "seo": 93,
+                "read": 88,
+                "overall": 92
+            }
+        },
+        {
+            "route": "/seo-company-in-bhilwara",
+            "contentType": "seo_page",
+            "contentId": 37,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "SEO Company in Bhilwara",
+            "relatedKeyphrases": [
+                "best SEO company in Bhilwara",
+                "SEO services in Bhilwara",
+                "local SEO services in Bhilwara",
+                "SEO expert in Bhilwara",
+                "digital marketing company in Bhilwara"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 88,
+                "overall": 67
+            },
+            "after": {
+                "seo": 93,
+                "read": 88,
+                "overall": 92
+            }
+        },
+        {
+            "route": "/seo-company-in-bikaner",
+            "contentType": "seo_page",
+            "contentId": 35,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "SEO Company in Bikaner",
+            "relatedKeyphrases": [
+                "best SEO company in Bikaner",
+                "SEO services in Bikaner",
+                "local SEO services in Bikaner",
+                "SEO expert in Bikaner",
+                "digital marketing company in Bikaner"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 88,
+                "overall": 67
+            },
+            "after": {
+                "seo": 93,
+                "read": 88,
+                "overall": 92
+            }
+        },
+        {
+            "route": "/seo-company-in-chennai",
+            "contentType": "seo_page",
+            "contentId": 47,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "SEO Company in Chennai",
+            "relatedKeyphrases": [
+                "best SEO company in Chennai",
+                "SEO services in Chennai",
+                "local SEO services in Chennai",
+                "SEO expert in Chennai",
+                "digital marketing company in Chennai"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 88,
+                "overall": 67
+            },
+            "after": {
+                "seo": 93,
+                "read": 88,
+                "overall": 92
+            }
+        },
+        {
+            "route": "/seo-company-in-delhi",
+            "contentType": "seo_page",
+            "contentId": 40,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "SEO Company in Delhi",
+            "relatedKeyphrases": [
+                "best SEO company in Delhi",
+                "SEO services in Delhi",
+                "local SEO services in Delhi",
+                "SEO expert in Delhi",
+                "digital marketing company in Delhi"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 88,
+                "overall": 68
+            },
+            "after": {
+                "seo": 93,
+                "read": 88,
+                "overall": 93
+            }
+        },
+        {
+            "route": "/seo-company-in-gurugram",
+            "contentType": "seo_page",
+            "contentId": 41,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "SEO Company in Gurugram",
+            "relatedKeyphrases": [
+                "best SEO company in Gurugram",
+                "SEO services in Gurugram",
+                "local SEO services in Gurugram",
+                "SEO expert in Gurugram",
+                "digital marketing company in Gurugram"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 88,
+                "overall": 67
+            },
+            "after": {
+                "seo": 93,
+                "read": 88,
+                "overall": 92
+            }
+        },
+        {
+            "route": "/seo-company-in-hyderabad",
+            "contentType": "seo_page",
+            "contentId": 46,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "SEO Company in Hyderabad",
+            "relatedKeyphrases": [
+                "best SEO company in Hyderabad",
+                "SEO services in Hyderabad",
+                "local SEO services in Hyderabad",
+                "SEO expert in Hyderabad",
+                "digital marketing company in Hyderabad"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 88,
+                "overall": 67
+            },
+            "after": {
+                "seo": 93,
+                "read": 88,
+                "overall": 92
+            }
+        },
+        {
+            "route": "/seo-company-in-indore",
+            "contentType": "seo_page",
+            "contentId": 51,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "SEO Company in Indore",
+            "relatedKeyphrases": [
+                "best SEO company in Indore",
+                "SEO services in Indore",
+                "local SEO services in Indore",
+                "SEO expert in Indore",
+                "digital marketing company in Indore"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 88,
+                "overall": 67
+            },
+            "after": {
+                "seo": 93,
+                "read": 88,
+                "overall": 92
+            }
+        },
+        {
+            "route": "/seo-company-in-jaipur",
+            "contentType": "seo_page",
+            "contentId": 31,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "SEO Company in Jaipur",
+            "relatedKeyphrases": [
+                "best SEO company in Jaipur",
+                "SEO services in Jaipur",
+                "local SEO services in Jaipur",
+                "SEO expert in Jaipur",
+                "digital marketing company in Jaipur"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 88,
+                "overall": 67
+            },
+            "after": {
+                "seo": 93,
+                "read": 88,
+                "overall": 92
+            }
+        },
+        {
+            "route": "/seo-company-in-jodhpur",
+            "contentType": "seo_page",
+            "contentId": 32,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "SEO Company in Jodhpur",
+            "relatedKeyphrases": [
+                "best SEO company in Jodhpur",
+                "SEO services in Jodhpur",
+                "local SEO services in Jodhpur",
+                "SEO expert in Jodhpur",
+                "digital marketing company in Jodhpur"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 88,
+                "overall": 67
+            },
+            "after": {
+                "seo": 93,
+                "read": 88,
+                "overall": 92
+            }
+        },
+        {
+            "route": "/seo-company-in-kolkata",
+            "contentType": "seo_page",
+            "contentId": 48,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "SEO Company in Kolkata",
+            "relatedKeyphrases": [
+                "best SEO company in Kolkata",
+                "SEO services in Kolkata",
+                "local SEO services in Kolkata",
+                "SEO expert in Kolkata",
+                "digital marketing company in Kolkata"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 88,
+                "overall": 67
+            },
+            "after": {
+                "seo": 93,
+                "read": 88,
+                "overall": 92
+            }
+        },
+        {
+            "route": "/seo-company-in-kota",
+            "contentType": "seo_page",
+            "contentId": 33,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "SEO Company in Kota",
+            "relatedKeyphrases": [
+                "best SEO company in Kota",
+                "SEO services in Kota",
+                "local SEO services in Kota",
+                "SEO expert in Kota",
+                "digital marketing company in Kota"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 88,
+                "overall": 68
+            },
+            "after": {
+                "seo": 93,
+                "read": 88,
+                "overall": 93
+            }
+        },
+        {
+            "route": "/seo-company-in-mumbai",
+            "contentType": "seo_page",
+            "contentId": 43,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "SEO Company in Mumbai",
+            "relatedKeyphrases": [
+                "best SEO company in Mumbai",
+                "SEO services in Mumbai",
+                "local SEO services in Mumbai",
+                "SEO expert in Mumbai",
+                "digital marketing company in Mumbai"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 88,
+                "overall": 67
+            },
+            "after": {
+                "seo": 93,
+                "read": 88,
+                "overall": 92
+            }
+        },
+        {
+            "route": "/seo-company-in-noida",
+            "contentType": "seo_page",
+            "contentId": 42,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "SEO Company in Noida",
+            "relatedKeyphrases": [
+                "best SEO company in Noida",
+                "SEO services in Noida",
+                "local SEO services in Noida",
+                "SEO expert in Noida",
+                "digital marketing company in Noida"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 88,
+                "overall": 68
+            },
+            "after": {
+                "seo": 93,
+                "read": 88,
+                "overall": 93
+            }
+        },
+        {
+            "route": "/seo-company-in-pali",
+            "contentType": "seo_page",
+            "contentId": 39,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "SEO Company in Pali",
+            "relatedKeyphrases": [
+                "best SEO company in Pali",
+                "SEO services in Pali",
+                "local SEO services in Pali",
+                "SEO expert in Pali",
+                "digital marketing company in Pali"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 88,
+                "overall": 68
+            },
+            "after": {
+                "seo": 93,
+                "read": 88,
+                "overall": 93
+            }
+        },
+        {
+            "route": "/seo-company-in-pune",
+            "contentType": "seo_page",
+            "contentId": 44,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "SEO Company in Pune",
+            "relatedKeyphrases": [
+                "best SEO company in Pune",
+                "SEO services in Pune",
+                "local SEO services in Pune",
+                "SEO expert in Pune",
+                "digital marketing company in Pune"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 88,
+                "overall": 68
+            },
+            "after": {
+                "seo": 93,
+                "read": 88,
+                "overall": 93
+            }
+        },
+        {
+            "route": "/seo-company-in-sikar",
+            "contentType": "seo_page",
+            "contentId": 38,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "SEO Company in Sikar",
+            "relatedKeyphrases": [
+                "best SEO company in Sikar",
+                "SEO services in Sikar",
+                "local SEO services in Sikar",
+                "SEO expert in Sikar",
+                "digital marketing company in Sikar"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 88,
+                "overall": 68
+            },
+            "after": {
+                "seo": 93,
+                "read": 88,
+                "overall": 93
+            }
+        },
+        {
+            "route": "/seo-company-in-surat",
+            "contentType": "seo_page",
+            "contentId": 50,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "SEO Company in Surat",
+            "relatedKeyphrases": [
+                "best SEO company in Surat",
+                "SEO services in Surat",
+                "local SEO services in Surat",
+                "SEO expert in Surat",
+                "digital marketing company in Surat"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 88,
+                "overall": 68
+            },
+            "after": {
+                "seo": 93,
+                "read": 88,
+                "overall": 93
+            }
+        },
+        {
+            "route": "/seo-company-in-udaipur",
+            "contentType": "seo_page",
+            "contentId": 30,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "SEO Company in Udaipur",
+            "relatedKeyphrases": [
+                "best SEO company in Udaipur",
+                "SEO services in Udaipur",
+                "local SEO services in Udaipur",
+                "SEO expert in Udaipur",
+                "digital marketing company in Udaipur"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 88,
+                "overall": 67
+            },
+            "after": {
+                "seo": 93,
+                "read": 88,
+                "overall": 92
+            }
+        },
+        {
+            "route": "/social-media-marketing",
+            "contentType": "service",
+            "contentId": 18,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "social media marketing company",
+            "relatedKeyphrases": [
+                "Instagram marketing services India",
+                "Facebook marketing agency",
+                "hotel social media marketing",
+                "travel social media management",
+                "social media content strategy"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 49,
+                "read": 83,
+                "overall": 49
+            },
+            "after": {
+                "seo": 49,
+                "read": 83,
+                "overall": 49
+            }
+        },
+        {
+            "route": "/software-developer-in-baran",
+            "contentType": "seo_page",
+            "contentId": 77,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Software Developer in Baran",
+            "relatedKeyphrases": [
+                "website designing company in Baran",
+                "web developer in Baran",
+                "best website designer in Baran",
+                "software development company in Baran",
+                "responsive website design in Baran"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 66
+            },
+            "after": {
+                "seo": 96,
+                "read": 78,
+                "overall": 93
+            }
+        },
+        {
+            "route": "/software-developer-in-bharatpur",
+            "contentType": "seo_page",
+            "contentId": 69,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Software Developer in Bharatpur",
+            "relatedKeyphrases": [
+                "website designing company in Bharatpur",
+                "web developer in Bharatpur",
+                "best website designer in Bharatpur",
+                "software development company in Bharatpur",
+                "responsive website design in Bharatpur"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 65
+            },
+            "after": {
+                "seo": 95,
+                "read": 78,
+                "overall": 92
+            }
+        },
+        {
+            "route": "/software-developer-in-bikaner",
+            "contentType": "seo_page",
+            "contentId": 57,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Software Developer in Bikaner",
+            "relatedKeyphrases": [
+                "website designing company in Bikaner",
+                "web developer in Bikaner",
+                "best website designer in Bikaner",
+                "software development company in Bikaner",
+                "responsive website design in Bikaner"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 66
+            },
+            "after": {
+                "seo": 96,
+                "read": 78,
+                "overall": 93
+            }
+        },
+        {
+            "route": "/software-developer-in-chennai",
+            "contentType": "seo_page",
+            "contentId": 21,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Software Developer in Chennai",
+            "relatedKeyphrases": [
+                "website designing company in Chennai",
+                "web developer in Chennai",
+                "best website designer in Chennai",
+                "software development company in Chennai",
+                "responsive website design in Chennai"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 66
+            },
+            "after": {
+                "seo": 96,
+                "read": 78,
+                "overall": 93
+            }
+        },
+        {
+            "route": "/software-developer-in-indore",
+            "contentType": "seo_page",
+            "contentId": 25,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Software Developer in Indore",
+            "relatedKeyphrases": [
+                "website designing company in Indore",
+                "web developer in Indore",
+                "best website designer in Indore",
+                "software development company in Indore",
+                "responsive website design in Indore"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 66
+            },
+            "after": {
+                "seo": 96,
+                "read": 78,
+                "overall": 93
+            }
+        },
+        {
+            "route": "/software-developer-in-jaipur",
+            "contentType": "seo_page",
+            "contentId": 53,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Software Developer in Jaipur",
+            "relatedKeyphrases": [
+                "website designing company in Jaipur",
+                "web developer in Jaipur",
+                "best website designer in Jaipur",
+                "software development company in Jaipur",
+                "responsive website design in Jaipur"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 66
+            },
+            "after": {
+                "seo": 96,
+                "read": 78,
+                "overall": 93
+            }
+        },
+        {
+            "route": "/software-developer-in-jhalawar",
+            "contentType": "seo_page",
+            "contentId": 73,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Software Developer in Jhalawar",
+            "relatedKeyphrases": [
+                "website designing company in Jhalawar",
+                "web developer in Jhalawar",
+                "best website designer in Jhalawar",
+                "software development company in Jhalawar",
+                "responsive website design in Jhalawar"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 65
+            },
+            "after": {
+                "seo": 95,
+                "read": 78,
+                "overall": 92
+            }
+        },
+        {
+            "route": "/software-developer-in-mumbai",
+            "contentType": "seo_page",
+            "contentId": 17,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Software Developer in Mumbai",
+            "relatedKeyphrases": [
+                "website designing company in Mumbai",
+                "web developer in Mumbai",
+                "best website designer in Mumbai",
+                "software development company in Mumbai",
+                "responsive website design in Mumbai"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 66
+            },
+            "after": {
+                "seo": 96,
+                "read": 78,
+                "overall": 93
+            }
+        },
+        {
+            "route": "/software-developer-in-nagpur",
+            "contentType": "seo_page",
+            "contentId": 29,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Software Developer in Nagpur",
+            "relatedKeyphrases": [
+                "website designing company in Nagpur",
+                "web developer in Nagpur",
+                "best website designer in Nagpur",
+                "software development company in Nagpur",
+                "responsive website design in Nagpur"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 66
+            },
+            "after": {
+                "seo": 96,
+                "read": 78,
+                "overall": 93
+            }
+        },
+        {
+            "route": "/software-developer-in-nathdwara",
+            "contentType": "seo_page",
+            "contentId": 65,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Software Developer in Nathdwara",
+            "relatedKeyphrases": [
+                "website designing company in Nathdwara",
+                "web developer in Nathdwara",
+                "best website designer in Nathdwara",
+                "software development company in Nathdwara",
+                "responsive website design in Nathdwara"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 65
+            },
+            "after": {
+                "seo": 95,
+                "read": 78,
+                "overall": 92
+            }
+        },
+        {
+            "route": "/software-developer-in-pali",
+            "contentType": "seo_page",
+            "contentId": 61,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Software Developer in Pali",
+            "relatedKeyphrases": [
+                "website designing company in Pali",
+                "web developer in Pali",
+                "best website designer in Pali",
+                "software development company in Pali",
+                "responsive website design in Pali"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 66
+            },
+            "after": {
+                "seo": 96,
+                "read": 78,
+                "overall": 93
+            }
+        },
+        {
+            "route": "/software-developer-in-pratapgarh",
+            "contentType": "seo_page",
+            "contentId": 81,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Software Developer in Pratapgarh",
+            "relatedKeyphrases": [
+                "website designing company in Pratapgarh",
+                "web developer in Pratapgarh",
+                "best website designer in Pratapgarh",
+                "software development company in Pratapgarh",
+                "responsive website design in Pratapgarh"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 65
+            },
+            "after": {
+                "seo": 95,
+                "read": 78,
+                "overall": 92
+            }
+        },
+        {
+            "route": "/software-developer-in-sirohi",
+            "contentType": "seo_page",
+            "contentId": 85,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Software Developer in Sirohi",
+            "relatedKeyphrases": [
+                "website designing company in Sirohi",
+                "web developer in Sirohi",
+                "best website designer in Sirohi",
+                "software development company in Sirohi",
+                "responsive website design in Sirohi"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 66
+            },
+            "after": {
+                "seo": 96,
+                "read": 78,
+                "overall": 93
+            }
+        },
+        {
+            "route": "/software-development-in-ahmedabad",
+            "contentType": "seo_page",
+            "contentId": 23,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Software Development in Ahmedabad",
+            "relatedKeyphrases": [
+                "website designing company in Ahmedabad",
+                "web developer in Ahmedabad",
+                "best website designer in Ahmedabad",
+                "software development company in Ahmedabad",
+                "responsive website design in Ahmedabad"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 66
+            },
+            "after": {
+                "seo": 96,
+                "read": 78,
+                "overall": 93
+            }
+        },
+        {
+            "route": "/software-development-in-banswara",
+            "contentType": "seo_page",
+            "contentId": 63,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Software Development in Banswara",
+            "relatedKeyphrases": [
+                "website designing company in Banswara",
+                "web developer in Banswara",
+                "best website designer in Banswara",
+                "software development company in Banswara",
+                "responsive website design in Banswara"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 65
+            },
+            "after": {
+                "seo": 95,
+                "read": 78,
+                "overall": 92
+            }
+        },
+        {
+            "route": "/software-development-in-beawar",
+            "contentType": "seo_page",
+            "contentId": 87,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Software Development in Beawar",
+            "relatedKeyphrases": [
+                "website designing company in Beawar",
+                "web developer in Beawar",
+                "best website designer in Beawar",
+                "software development company in Beawar",
+                "responsive website design in Beawar"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 65
+            },
+            "after": {
+                "seo": 95,
+                "read": 78,
+                "overall": 92
+            }
+        },
+        {
+            "route": "/software-development-in-bengaluru",
+            "contentType": "seo_page",
+            "contentId": 19,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Software Development in Bengaluru",
+            "relatedKeyphrases": [
+                "website designing company in Bengaluru",
+                "web developer in Bengaluru",
+                "best website designer in Bengaluru",
+                "software development company in Bengaluru",
+                "responsive website design in Bengaluru"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 66
+            },
+            "after": {
+                "seo": 96,
+                "read": 78,
+                "overall": 93
+            }
+        },
+        {
+            "route": "/software-development-in-bhilwara",
+            "contentType": "seo_page",
+            "contentId": 59,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Software Development in Bhilwara",
+            "relatedKeyphrases": [
+                "website designing company in Bhilwara",
+                "web developer in Bhilwara",
+                "best website designer in Bhilwara",
+                "software development company in Bhilwara",
+                "responsive website design in Bhilwara"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 65
+            },
+            "after": {
+                "seo": 95,
+                "read": 78,
+                "overall": 92
+            }
+        },
+        {
+            "route": "/software-development-in-dausa",
+            "contentType": "seo_page",
+            "contentId": 79,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Software Development in Dausa",
+            "relatedKeyphrases": [
+                "website designing company in Dausa",
+                "web developer in Dausa",
+                "best website designer in Dausa",
+                "software development company in Dausa",
+                "responsive website design in Dausa"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 66
+            },
+            "after": {
+                "seo": 96,
+                "read": 78,
+                "overall": 93
+            }
+        },
+        {
+            "route": "/software-development-in-gurugram",
+            "contentType": "seo_page",
+            "contentId": 15,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Software Development in Gurugram",
+            "relatedKeyphrases": [
+                "website designing company in Gurugram",
+                "web developer in Gurugram",
+                "best website designer in Gurugram",
+                "software development company in Gurugram",
+                "responsive website design in Gurugram"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 65
+            },
+            "after": {
+                "seo": 95,
+                "read": 78,
+                "overall": 92
+            }
+        },
+        {
+            "route": "/software-development-in-hanumangarh",
+            "contentType": "seo_page",
+            "contentId": 75,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Software Development in Hanumangarh",
+            "relatedKeyphrases": [
+                "website designing company in Hanumangarh",
+                "web developer in Hanumangarh",
+                "best website designer in Hanumangarh",
+                "software development company in Hanumangarh",
+                "responsive website design in Hanumangarh"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 66
+            },
+            "after": {
+                "seo": 96,
+                "read": 78,
+                "overall": 93
+            }
+        },
+        {
+            "route": "/software-development-in-jhunjhunu",
+            "contentType": "seo_page",
+            "contentId": 83,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Software Development in Jhunjhunu",
+            "relatedKeyphrases": [
+                "website designing company in Jhunjhunu",
+                "web developer in Jhunjhunu",
+                "best website designer in Jhunjhunu",
+                "software development company in Jhunjhunu",
+                "responsive website design in Jhunjhunu"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 66
+            },
+            "after": {
+                "seo": 96,
+                "read": 78,
+                "overall": 93
+            }
+        },
+        {
+            "route": "/software-development-in-kota",
+            "contentType": "seo_page",
+            "contentId": 55,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Software Development in Kota",
+            "relatedKeyphrases": [
+                "website designing company in Kota",
+                "web developer in Kota",
+                "best website designer in Kota",
+                "software development company in Kota",
+                "responsive website design in Kota"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 66
+            },
+            "after": {
+                "seo": 96,
+                "read": 78,
+                "overall": 93
+            }
+        },
+        {
+            "route": "/software-development-in-lucknow",
+            "contentType": "seo_page",
+            "contentId": 27,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Software Development in Lucknow",
+            "relatedKeyphrases": [
+                "website designing company in Lucknow",
+                "web developer in Lucknow",
+                "best website designer in Lucknow",
+                "software development company in Lucknow",
+                "responsive website design in Lucknow"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 65
+            },
+            "after": {
+                "seo": 95,
+                "read": 78,
+                "overall": 92
+            }
+        },
+        {
+            "route": "/software-development-in-nagaur",
+            "contentType": "seo_page",
+            "contentId": 71,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Software Development in Nagaur",
+            "relatedKeyphrases": [
+                "website designing company in Nagaur",
+                "web developer in Nagaur",
+                "best website designer in Nagaur",
+                "software development company in Nagaur",
+                "responsive website design in Nagaur"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 65
+            },
+            "after": {
+                "seo": 95,
+                "read": 78,
+                "overall": 92
+            }
+        },
+        {
+            "route": "/software-development-in-sri-ganganagar",
+            "contentType": "seo_page",
+            "contentId": 67,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Software Development in Sri Ganganagar",
+            "relatedKeyphrases": [
+                "website designing company in Sri Ganganagar",
+                "web developer in Sri Ganganagar",
+                "best website designer in Sri Ganganagar",
+                "software development company in Sri Ganganagar",
+                "responsive website design in Sri Ganganagar"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 65
+            },
+            "after": {
+                "seo": 93,
+                "read": 78,
+                "overall": 90
+            }
+        },
+        {
+            "route": "/technical-seo",
+            "contentType": "service",
+            "contentId": 31,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "technical SEO services",
+            "relatedKeyphrases": [
+                "technical SEO audit India",
+                "Core Web Vitals optimisation",
+                "website crawlability service",
+                "JavaScript SEO",
+                "indexing issue fix"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 49,
+                "read": 78,
+                "overall": 49
+            },
+            "after": {
+                "seo": 49,
+                "read": 78,
+                "overall": 49
+            }
+        },
+        {
+            "route": "/tour-travel-website-design",
+            "contentType": "service",
+            "contentId": 10,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "tour and travel website design",
+            "relatedKeyphrases": [
+                "travel agency website development",
+                "tour operator website design India",
+                "tour package website",
+                "travel lead generation website",
+                "Jaisalmer travel website design"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 49,
+                "read": 78,
+                "overall": 49
+            },
+            "after": {
+                "seo": 49,
+                "read": 78,
+                "overall": 49
+            }
+        },
+        {
+            "route": "/travel-website-seo",
+            "contentType": "service",
+            "contentId": 30,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "travel website SEO services",
+            "relatedKeyphrases": [
+                "tour operator SEO India",
+                "travel agency SEO",
+                "tour package SEO",
+                "destination SEO strategy",
+                "Jaisalmer travel SEO"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 49,
+                "read": 78,
+                "overall": 49
+            },
+            "after": {
+                "seo": 49,
+                "read": 78,
+                "overall": 49
+            }
+        },
+        {
+            "route": "/web-development-company-in-alwar",
+            "contentType": "seo_page",
+            "contentId": 58,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Web Development Company in Alwar",
+            "relatedKeyphrases": [
+                "website designing company in Alwar",
+                "web developer in Alwar",
+                "best website designer in Alwar",
+                "software development company in Alwar",
+                "responsive website design in Alwar"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 65
+            },
+            "after": {
+                "seo": 93,
+                "read": 78,
+                "overall": 90
+            }
+        },
+        {
+            "route": "/web-development-company-in-barmer",
+            "contentType": "seo_page",
+            "contentId": 74,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Web Development Company in Barmer",
+            "relatedKeyphrases": [
+                "website designing company in Barmer",
+                "web developer in Barmer",
+                "best website designer in Barmer",
+                "software development company in Barmer",
+                "responsive website design in Barmer"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 66
+            },
+            "after": {
+                "seo": 93,
+                "read": 78,
+                "overall": 91
+            }
+        },
+        {
+            "route": "/web-development-company-in-bhopal",
+            "contentType": "seo_page",
+            "contentId": 26,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Web Development Company in Bhopal",
+            "relatedKeyphrases": [
+                "website designing company in Bhopal",
+                "web developer in Bhopal",
+                "best website designer in Bhopal",
+                "software development company in Bhopal",
+                "responsive website design in Bhopal"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 66
+            },
+            "after": {
+                "seo": 93,
+                "read": 78,
+                "overall": 91
+            }
+        },
+        {
+            "route": "/web-development-company-in-bundi",
+            "contentType": "seo_page",
+            "contentId": 78,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Web Development Company in Bundi",
+            "relatedKeyphrases": [
+                "website designing company in Bundi",
+                "web developer in Bundi",
+                "best website designer in Bundi",
+                "software development company in Bundi",
+                "responsive website design in Bundi"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 65
+            },
+            "after": {
+                "seo": 93,
+                "read": 78,
+                "overall": 90
+            }
+        },
+        {
+            "route": "/web-development-company-in-chittorgarh",
+            "contentType": "seo_page",
+            "contentId": 62,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Web Development Company in Chittorgarh",
+            "relatedKeyphrases": [
+                "website designing company in Chittorgarh",
+                "web developer in Chittorgarh",
+                "best website designer in Chittorgarh",
+                "software development company in Chittorgarh",
+                "responsive website design in Chittorgarh"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 65
+            },
+            "after": {
+                "seo": 93,
+                "read": 78,
+                "overall": 90
+            }
+        },
+        {
+            "route": "/web-development-company-in-delhi",
+            "contentType": "seo_page",
+            "contentId": 14,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Web Development Company in Delhi",
+            "relatedKeyphrases": [
+                "website designing company in Delhi",
+                "web developer in Delhi",
+                "best website designer in Delhi",
+                "software development company in Delhi",
+                "responsive website design in Delhi"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 65
+            },
+            "after": {
+                "seo": 93,
+                "read": 78,
+                "overall": 90
+            }
+        },
+        {
+            "route": "/web-development-company-in-dungarpur",
+            "contentType": "seo_page",
+            "contentId": 70,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Web Development Company in Dungarpur",
+            "relatedKeyphrases": [
+                "website designing company in Dungarpur",
+                "web developer in Dungarpur",
+                "best website designer in Dungarpur",
+                "software development company in Dungarpur",
+                "responsive website design in Dungarpur"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 66
+            },
+            "after": {
+                "seo": 93,
+                "read": 78,
+                "overall": 91
+            }
+        },
+        {
+            "route": "/web-development-company-in-jodhpur",
+            "contentType": "seo_page",
+            "contentId": 54,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Web Development Company in Jodhpur",
+            "relatedKeyphrases": [
+                "website designing company in Jodhpur",
+                "web developer in Jodhpur",
+                "best website designer in Jodhpur",
+                "software development company in Jodhpur",
+                "responsive website design in Jodhpur"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 66
+            },
+            "after": {
+                "seo": 93,
+                "read": 78,
+                "overall": 91
+            }
+        },
+        {
+            "route": "/web-development-company-in-kishangarh",
+            "contentType": "seo_page",
+            "contentId": 86,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Web Development Company in Kishangarh",
+            "relatedKeyphrases": [
+                "website designing company in Kishangarh",
+                "web developer in Kishangarh",
+                "best website designer in Kishangarh",
+                "software development company in Kishangarh",
+                "responsive website design in Kishangarh"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 66
+            },
+            "after": {
+                "seo": 93,
+                "read": 78,
+                "overall": 91
+            }
+        },
+        {
+            "route": "/web-development-company-in-kolkata",
+            "contentType": "seo_page",
+            "contentId": 22,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Web Development Company in Kolkata",
+            "relatedKeyphrases": [
+                "website designing company in Kolkata",
+                "web developer in Kolkata",
+                "best website designer in Kolkata",
+                "software development company in Kolkata",
+                "responsive website design in Kolkata"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 66
+            },
+            "after": {
+                "seo": 93,
+                "read": 78,
+                "overall": 91
+            }
+        },
+        {
+            "route": "/web-development-company-in-mount-abu",
+            "contentType": "seo_page",
+            "contentId": 66,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Web Development Company in Mount Abu",
+            "relatedKeyphrases": [
+                "website designing company in Mount Abu",
+                "web developer in Mount Abu",
+                "best website designer in Mount Abu",
+                "software development company in Mount Abu",
+                "responsive website design in Mount Abu"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 66
+            },
+            "after": {
+                "seo": 93,
+                "read": 78,
+                "overall": 91
+            }
+        },
+        {
+            "route": "/web-development-company-in-pune",
+            "contentType": "seo_page",
+            "contentId": 18,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Web Development Company in Pune",
+            "relatedKeyphrases": [
+                "website designing company in Pune",
+                "web developer in Pune",
+                "best website designer in Pune",
+                "software development company in Pune",
+                "responsive website design in Pune"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 65
+            },
+            "after": {
+                "seo": 93,
+                "read": 78,
+                "overall": 90
+            }
+        },
+        {
+            "route": "/web-development-company-in-sawai-madhopur",
+            "contentType": "seo_page",
+            "contentId": 82,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Web Development Company in Sawai Madhopur",
+            "relatedKeyphrases": [
+                "website designing company in Sawai Madhopur",
+                "web developer in Sawai Madhopur",
+                "best website designer in Sawai Madhopur",
+                "software development company in Sawai Madhopur",
+                "responsive website design in Sawai Madhopur"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 66
+            },
+            "after": {
+                "seo": 93,
+                "read": 78,
+                "overall": 91
+            }
+        },
+        {
+            "route": "/website-designer-in-ajmer",
+            "contentType": "seo_page",
+            "contentId": 56,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Website Designer in Ajmer",
+            "relatedKeyphrases": [
+                "website designing company in Ajmer",
+                "web developer in Ajmer",
+                "best website designer in Ajmer",
+                "software development company in Ajmer",
+                "responsive website design in Ajmer"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 66
+            },
+            "after": {
+                "seo": 96,
+                "read": 78,
+                "overall": 93
+            }
+        },
+        {
+            "route": "/website-designer-in-chandigarh",
+            "contentType": "seo_page",
+            "contentId": 28,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Website Designer in Chandigarh",
+            "relatedKeyphrases": [
+                "website designing company in Chandigarh",
+                "web developer in Chandigarh",
+                "best website designer in Chandigarh",
+                "software development company in Chandigarh",
+                "responsive website design in Chandigarh"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 65
+            },
+            "after": {
+                "seo": 95,
+                "read": 78,
+                "overall": 92
+            }
+        },
+        {
+            "route": "/website-designer-in-churu",
+            "contentType": "seo_page",
+            "contentId": 76,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Website Designer in Churu",
+            "relatedKeyphrases": [
+                "website designing company in Churu",
+                "web developer in Churu",
+                "best website designer in Churu",
+                "software development company in Churu",
+                "responsive website design in Churu"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 66
+            },
+            "after": {
+                "seo": 96,
+                "read": 78,
+                "overall": 93
+            }
+        },
+        {
+            "route": "/website-designer-in-hyderabad",
+            "contentType": "seo_page",
+            "contentId": 20,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Website Designer in Hyderabad",
+            "relatedKeyphrases": [
+                "website designing company in Hyderabad",
+                "web developer in Hyderabad",
+                "best website designer in Hyderabad",
+                "software development company in Hyderabad",
+                "responsive website design in Hyderabad"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 66
+            },
+            "after": {
+                "seo": 96,
+                "read": 78,
+                "overall": 93
+            }
+        },
+        {
+            "route": "/website-designer-in-jaisalmer",
+            "contentType": "seo_page",
+            "contentId": 68,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Website Designer in Jaisalmer",
+            "relatedKeyphrases": [
+                "website designing company in Jaisalmer",
+                "web developer in Jaisalmer",
+                "best website designer in Jaisalmer",
+                "software development company in Jaisalmer",
+                "responsive website design in Jaisalmer"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 66
+            },
+            "after": {
+                "seo": 96,
+                "read": 78,
+                "overall": 93
+            }
+        },
+        {
+            "route": "/website-designer-in-jalore",
+            "contentType": "seo_page",
+            "contentId": 84,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Website Designer in Jalore",
+            "relatedKeyphrases": [
+                "website designing company in Jalore",
+                "web developer in Jalore",
+                "best website designer in Jalore",
+                "software development company in Jalore",
+                "responsive website design in Jalore"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 66
+            },
+            "after": {
+                "seo": 96,
+                "read": 78,
+                "overall": 93
+            }
+        },
+        {
+            "route": "/website-designer-in-karauli",
+            "contentType": "seo_page",
+            "contentId": 80,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Website Designer in Karauli",
+            "relatedKeyphrases": [
+                "website designing company in Karauli",
+                "web developer in Karauli",
+                "best website designer in Karauli",
+                "software development company in Karauli",
+                "responsive website design in Karauli"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 66
+            },
+            "after": {
+                "seo": 96,
+                "read": 78,
+                "overall": 93
+            }
+        },
+        {
+            "route": "/website-designer-in-noida",
+            "contentType": "seo_page",
+            "contentId": 16,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Website Designer in Noida",
+            "relatedKeyphrases": [
+                "website designing company in Noida",
+                "web developer in Noida",
+                "best website designer in Noida",
+                "software development company in Noida",
+                "responsive website design in Noida"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 66
+            },
+            "after": {
+                "seo": 96,
+                "read": 78,
+                "overall": 93
+            }
+        },
+        {
+            "route": "/website-designer-in-rajsamand",
+            "contentType": "seo_page",
+            "contentId": 64,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Website Designer in Rajsamand",
+            "relatedKeyphrases": [
+                "website designing company in Rajsamand",
+                "web developer in Rajsamand",
+                "best website designer in Rajsamand",
+                "software development company in Rajsamand",
+                "responsive website design in Rajsamand"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 66
+            },
+            "after": {
+                "seo": 96,
+                "read": 78,
+                "overall": 93
+            }
+        },
+        {
+            "route": "/website-designer-in-sikar",
+            "contentType": "seo_page",
+            "contentId": 60,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Website Designer in Sikar",
+            "relatedKeyphrases": [
+                "website designing company in Sikar",
+                "web developer in Sikar",
+                "best website designer in Sikar",
+                "software development company in Sikar",
+                "responsive website design in Sikar"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 66
+            },
+            "after": {
+                "seo": 96,
+                "read": 78,
+                "overall": 93
+            }
+        },
+        {
+            "route": "/website-designer-in-surat",
+            "contentType": "seo_page",
+            "contentId": 24,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Website Designer in Surat",
+            "relatedKeyphrases": [
+                "website designing company in Surat",
+                "web developer in Surat",
+                "best website designer in Surat",
+                "software development company in Surat",
+                "responsive website design in Surat"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 66
+            },
+            "after": {
+                "seo": 96,
+                "read": 78,
+                "overall": 93
+            }
+        },
+        {
+            "route": "/website-designer-in-tonk",
+            "contentType": "seo_page",
+            "contentId": 72,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Website Designer in Tonk",
+            "relatedKeyphrases": [
+                "website designing company in Tonk",
+                "web developer in Tonk",
+                "best website designer in Tonk",
+                "software development company in Tonk",
+                "responsive website design in Tonk"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 66
+            },
+            "after": {
+                "seo": 96,
+                "read": 78,
+                "overall": 93
+            }
+        },
+        {
+            "route": "/website-designer-in-udaipur",
+            "contentType": "seo_page",
+            "contentId": 52,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "Website Designer in Udaipur",
+            "relatedKeyphrases": [
+                "website designing company in Udaipur",
+                "web developer in Udaipur",
+                "best website designer in Udaipur",
+                "software development company in Udaipur",
+                "responsive website design in Udaipur"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 63,
+                "read": 78,
+                "overall": 66
+            },
+            "after": {
+                "seo": 96,
+                "read": 78,
+                "overall": 93
+            }
+        },
+        {
+            "route": "/website-maintenance",
+            "contentType": "service",
+            "contentId": 16,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "website maintenance services",
+            "relatedKeyphrases": [
+                "WordPress maintenance India",
+                "website support company",
+                "website security updates",
+                "website content updates",
+                "website performance maintenance"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 49,
+                "read": 83,
+                "overall": 49
+            },
+            "after": {
+                "seo": 49,
+                "read": 83,
+                "overall": 49
+            }
+        },
+        {
+            "route": "/website-redesign",
+            "contentType": "service",
+            "contentId": 15,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "website redesign services",
+            "relatedKeyphrases": [
+                "professional website redesign India",
+                "modernise old website",
+                "SEO safe website redesign",
+                "website UX redesign",
+                "conversion website redesign"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 49,
+                "read": 78,
+                "overall": 49
+            },
+            "after": {
+                "seo": 49,
+                "read": 78,
+                "overall": 49
+            }
+        },
+        {
+            "route": "/wordpress-development",
+            "contentType": "service",
+            "contentId": 11,
+            "isIndexable": true,
+            "isPublished": true,
+            "primaryKeyphrase": "WordPress development company",
+            "relatedKeyphrases": [
+                "custom WordPress development India",
+                "WordPress website design",
+                "WordPress SEO website",
+                "WooCommerce development",
+                "WordPress maintenance"
+            ],
+            "classification": "SAFE_FILL_MISSING",
+            "before": {
+                "seo": 49,
+                "read": 78,
+                "overall": 49
+            },
+            "after": {
+                "seo": 49,
+                "read": 78,
+                "overall": 49
+            }
+        }
+    ]
+}

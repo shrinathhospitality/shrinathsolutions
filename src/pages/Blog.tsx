@@ -7,6 +7,7 @@ import Breadcrumbs from '../components/Breadcrumbs';
 import BlogThumb from '../components/BlogThumb';
 import { muted } from '../styles/theme';
 import { CATEGORIES as CATEGORY_NAMES, FEATURED_SLUG, COMPACT_SLUGS } from '../data/blogPinned';
+import { useSeoOverride } from '../hooks/useSeoOverride';
 
 const trail = [{ name: 'Home', path: '/' }, { name: 'Blog', path: '/blog' }];
 
@@ -155,12 +156,17 @@ export default function Blog() {
     ? categoryFiltered.filter((p) => p.title.toLowerCase().includes(q) || (p.excerpt ?? '').toLowerCase().includes(q))
     : categoryFiltered;
 
+  const seoOverride = useSeoOverride('/blog');
+
   return (
     <>
       <Seo
         path="/blog"
-        title="Blog | Hotel Marketing, SEO & Website Notes — Shrinath Solutions"
-        description="Practical articles on hotel marketing, local SEO, websites and online growth for hotel owners and local businesses in Jaisalmer and across Rajasthan."
+        title={seoOverride?.title ?? "Blog | Hotel Marketing, SEO & Website Notes — Shrinath Solutions"}
+        description={seoOverride?.description ?? "Practical articles on hotel marketing, local SEO, websites and online growth for hotel owners and local businesses in Jaisalmer and across Rajasthan."}
+        canonicalOverride={seoOverride?.canonical}
+        robots={seoOverride ? `${seoOverride.robotsIndex ? 'index' : 'noindex'}, ${seoOverride.robotsFollow ? 'follow' : 'nofollow'}` : undefined}
+        image={seoOverride?.ogImage ?? undefined}
         jsonLd={[orgSchema, breadcrumbSchema(trail)]}
       />
       <Breadcrumbs trail={trail} />

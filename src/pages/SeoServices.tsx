@@ -5,13 +5,13 @@ export default function SeoServices() {
   return (
     <ServicePage
       path="/seo-services"
-      title="SEO Company in Jaisalmer | SEO Services in Rajasthan — Shrinath Solutions"
-      description="SEO services in Jaisalmer and across Rajasthan: technical SEO, local SEO, hotel SEO, travel and e-commerce SEO, content and reporting. Start with a free SEO audit."
+      title="SEO Services in Jaisalmer & Rajasthan | Technical, Local & Content SEO — Shrinath Solutions"
+      description="Technical SEO, local SEO, hotel SEO, travel and e-commerce SEO for businesses in Jaisalmer and across Rajasthan — sequenced work, monthly reporting, and a free audit before any proposal."
       crumbs={[{ name: 'Services', path: '/services' }, { name: 'SEO Services', path: '/seo-services' }]}
       serviceName="SEO Services"
       kicker="SEO services"
       category="SEO Services"
-      h1="SEO company in Jaisalmer for businesses that need to be found locally."
+      h1="SEO services built around a free audit, not a sales pitch."
       intro="Technical fixes first, then structure, then content and local visibility — sequenced so the work that moves rankings soonest happens soonest. No guaranteed-rank promises, no bulk link packages."
       ctaLabel="Request a free SEO audit"
       heroNotes={['Audit before proposal', 'Monthly reporting']}
@@ -26,6 +26,7 @@ export default function SeoServices() {
       ]}
       faqs={d.faqs}
       related={[
+        { label: 'SEO Company in Jaisalmer', to: '/seo-company-jaisalmer' },
         { label: 'Website Designing', to: '/website-designing' },
         { label: 'Online Marketing', to: '/online-marketing' },
         { label: 'Hotel Digital Marketing', to: '/hotel-digital-marketing' },

@@ -1,0 +1,63 @@
+{
+  "description": "A well-optimized, complete service page — should score Good across every category that applies.",
+  "input": {
+    "contentType": "service",
+    "contentId": 1,
+    "slug": "hotel-website-design",
+    "status": "published",
+    "title": "Hotel Website Design Services in Jaisalmer | Shrinath Solutions",
+    "description": "Professional hotel website design built for direct bookings. Fast, mobile-friendly hotel websites with booking-engine integration from Shrinath Solutions in Jaisalmer.",
+    "canonical": "https://shrinathsolutions.com/services/hotel-website-design",
+    "robotsIndex": true,
+    "robotsFollow": true,
+    "ogTitle": "",
+    "ogDescription": "",
+    "ogImage": "https://shrinathsolutions.com/og-image.png",
+    "h1": "Hotel Website Design That Turns Visitors Into Direct Bookings",
+    "introText": "We design hotel websites that load fast, look professional on every device, and connect directly to your booking engine so guests can book without leaving your site.",
+    "bodyText": "We design hotel websites that load fast, look professional on every device, and connect directly to your booking engine so guests can book without leaving your site. A modern hotel website design should do more than look attractive. It needs to convert browsing visitors into confirmed direct bookings, without relying on OTA commissions. Our hotel website design process starts with your guest journey. We map how a traveller researches, compares and finally books a stay, then design every page around that journey. Therefore, the homepage highlights your rooms, rates and location immediately, instead of hiding them behind menus. Additionally, every hotel website design we deliver includes a mobile-first layout, because most travellers now book from a phone, not a desktop computer. As a result, our clients typically see stronger direct-booking numbers within the first few months of launch. For example, one heritage hotel in Jaisalmer saw a meaningful increase in direct enquiries after their new hotel website design went live. However, design alone is not enough. We also connect your hotel website design to a channel manager, so your rates and availability stay accurate across every platform. Furthermore, we optimise every hotel website design for search engines from day one, targeting the terms real guests actually type. In fact, technical SEO is built into our hotel website design process, not added afterward as a separate service. Similarly, we ensure every image has fast-loading, properly sized files so pages remain quick even on a slow hotel Wi-Fi connection. Finally, once your hotel website design is live, we provide ongoing support so it keeps working as your property grows. Ready to discuss a hotel website design project for your property? Contact our team for a free consultation and a fixed, written quote.",
+    "paragraphs": [
+      "We design hotel websites that load fast, look professional on every device, and connect directly to your booking engine so guests can book without leaving your site.",
+      "A modern hotel website design should do more than look attractive. It needs to convert browsing visitors into confirmed direct bookings, without relying on OTA commissions.",
+      "Our hotel website design process starts with your guest journey. We map how a traveller researches, compares and finally books a stay, then design every page around that journey.",
+      "Therefore, the homepage highlights your rooms, rates and location immediately, instead of hiding them behind menus.",
+      "Additionally, every hotel website design we deliver includes a mobile-first layout, because most travellers now book from a phone, not a desktop computer.",
+      "As a result, our clients typically see stronger direct-booking numbers within the first few months of launch.",
+      "For example, one heritage hotel in Jaisalmer saw a meaningful increase in direct enquiries after their new hotel website design went live.",
+      "However, design alone is not enough. We also connect your hotel website design to a channel manager, so your rates and availability stay accurate across every platform.",
+      "Furthermore, we optimise every hotel website design for search engines from day one, targeting the terms real guests actually type.",
+      "In fact, technical SEO is built into our hotel website design process, not added afterward as a separate service.",
+      "Similarly, we ensure every image has fast-loading, properly sized files so pages remain quick even on a slow hotel Wi-Fi connection.",
+      "Finally, once your hotel website design is live, we provide ongoing support so it keeps working as your property grows.",
+      "Ready to discuss a hotel website design project for your property? Contact our team for a free consultation and a fixed, written quote."
+    ],
+    "headings": [
+      { "level": 2, "text": "Why hotel website design matters for direct bookings" },
+      { "level": 2, "text": "Our hotel website design process" },
+      { "level": 3, "text": "Mobile-first hotel website design" },
+      { "level": 2, "text": "Hotel website design connected to your channel manager" }
+    ],
+    "images": [
+      { "alt": "Hotel website design homepage showing room rates on a phone screen", "src": "/uploads/hotel-website-design-1.jpg", "hasDimensions": true, "loading": "eager" },
+      { "alt": "Booking engine integrated into a hotel website design", "src": "/uploads/hotel-website-design-2.jpg", "hasDimensions": true, "loading": "lazy" }
+    ],
+    "links": [
+      { "href": "/channel-manager-hotel-software", "text": "channel manager", "target": null, "rel": null, "isInternal": true },
+      { "href": "/contact", "text": "Contact our team", "target": null, "rel": null, "isInternal": true },
+      { "href": "/portfolio/heritage-hotel-jaisalmer", "text": "heritage hotel in Jaisalmer", "target": null, "rel": null, "isInternal": true }
+    ],
+    "schemaTypes": ["Service", "BreadcrumbList"],
+    "publicUrl": "/services/hotel-website-design",
+    "pageType": "service",
+    "language": "en",
+    "primaryKeyphrase": "hotel website design",
+    "relatedKeyphrases": ["direct bookings", "channel manager"],
+    "isCornerstone": true
+  },
+  "expected": {
+    "seoScore": { "min": 75 },
+    "readabilityScore": { "min": 60 },
+    "overallScore": { "min": 75 },
+    "scoreStatus": "good"
+  }
+}

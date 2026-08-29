@@ -1,49 +1,52 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { adminFetch } from '../lib/api';
-import { adminCard, adminColors } from '../adminTheme';
+import { adminColors } from '../adminTheme';
+import PageHeader from '../components/PageHeader';
+import DataTable, { type Column } from '../components/DataTable';
 
 type Row = { id: number; email: string; status: string; source: string | null; created_at: string };
 
 export default function NewsletterSubscribers() {
   const [rows, setRows] = useState<Row[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
 
-  useEffect(() => {
-    adminFetch<{ subscribers: Row[] }>('/api/admin/newsletter-subscribers?per_page=100')
-      .then((d) => setRows(d.subscribers))
-      .catch(() => toast.error('Failed to load subscribers'))
+  const load = useCallback(() => {
+    setLoading(true);
+    return adminFetch<{ subscribers: Row[] }>('/api/admin/newsletter-subscribers?per_page=100')
+      .then((d) => { setRows(d.subscribers); setLoadError(null); })
+      .catch(() => {
+        toast.error('Failed to load subscribers');
+        setLoadError("Couldn't load subscribers.");
+      })
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <div style={{ color: adminColors.textMuted }}>Loading…</div>;
+  useEffect(() => { load(); }, [load]);
 
   return (
-    <div style={adminCard} className="overflow-x-auto max-w-[600px]">
-      {rows.length === 0 ? (
-        <div className="p-8 text-center" style={{ color: adminColors.textMuted }}>No subscribers yet.</div>
-      ) : (
-        <table className="w-full text-[14px]" style={{ borderCollapse: 'collapse' }}>
-          <thead>
-            <tr style={{ borderBottom: `1px solid ${adminColors.cardBorder}` }}>
-              <th className="text-left px-4 py-3 font-semibold" style={{ color: adminColors.textMuted }}>Email</th>
-              <th className="text-left px-4 py-3 font-semibold" style={{ color: adminColors.textMuted }}>Source</th>
-              <th className="text-left px-4 py-3 font-semibold" style={{ color: adminColors.textMuted }}>Status</th>
-              <th className="text-left px-4 py-3 font-semibold" style={{ color: adminColors.textMuted }}>Subscribed</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((r) => (
-              <tr key={r.id} style={{ borderBottom: `1px solid ${adminColors.cardBorder}` }}>
-                <td className="px-4 py-3 font-medium">{r.email}</td>
-                <td className="px-4 py-3" style={{ color: adminColors.textMuted }}>{r.source ?? '—'}</td>
-                <td className="px-4 py-3 capitalize" style={{ color: adminColors.textMuted }}>{r.status}</td>
-                <td className="px-4 py-3" style={{ color: adminColors.textMuted }}>{new Date(r.created_at).toLocaleDateString()}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+    <div className="grid gap-4 w-full">
+      <PageHeader title="Newsletter Subscribers" description="Everyone who has opted in to the newsletter." count={rows.length} />
+      <DataTable<Row>
+        columns={subscriberColumns()}
+        rows={rows}
+        rowKey={(r) => r.id}
+        loading={loading}
+        error={loadError}
+        onRetry={load}
+        emptyTitle="No subscribers yet"
+        caption="Newsletter subscribers with source, status and subscription date."
+      />
     </div>
   );
+}
+
+function subscriberColumns(): Column<Row>[] {
+  return [
+    { key: 'email', header: 'Email', render: (r) => <span className="font-medium">{r.email}</span> },
+    { key: 'source', header: 'Source', wrap: false, render: (r) => <span style={{ color: adminColors.textMuted }}>{r.source ?? '—'}</span> },
+    { key: 'status', header: 'Status', wrap: false, render: (r) => <span className="capitalize" style={{ color: adminColors.textMuted }}>{r.status}</span> },
+    { key: 'subscribed', header: 'Subscribed', wrap: false, render: (r) => <span style={{ color: adminColors.textMuted }}>{new Date(r.created_at).toLocaleDateString()}</span> },
+  ];
 }

@@ -1,4 +1,18 @@
 User-agent: *
 Allow: /
 
+# Admin CMS and auth — never public content
+Disallow: /admin
+Disallow: /admin/
+
+# Backend API — JSON endpoints and PDF reports, not pages. api/uploads/* is real uploaded
+# media served as static files (portfolio/blog images use it directly via <img src>), so it's
+# explicitly allowed rather than caught by the broader disallow below.
+Allow: /api/uploads/
+Disallow: /api/admin
+Disallow: /api/public
+Disallow: /api/seo-toolkit/audits
+Disallow: /api/index.php
+Disallow: /api/health.php
+
 Sitemap: https://shrinathsolutions.com/sitemap.xml

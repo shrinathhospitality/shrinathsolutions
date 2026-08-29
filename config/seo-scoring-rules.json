@@ -1,0 +1,76 @@
+{
+  "engine_version": "1.0.0",
+  "category_weights": {
+    "keyword": 25,
+    "metadata": 15,
+    "content": 15,
+    "readability": 15,
+    "links": 10,
+    "images": 10,
+    "technical": 10
+  },
+  "outcome_values": {
+    "passed": 1.0,
+    "improvement": 0.65,
+    "warning": 0.35,
+    "failed": 0.0
+  },
+  "status_thresholds": {
+    "good": 80,
+    "needs_improvement": 50
+  },
+  "caps": {
+    "unintentional_noindex": 49,
+    "canonical_mismatch": 49,
+    "missing_title_and_h1": 49,
+    "http_error_status": 29
+  },
+  "thresholds": {
+    "title_min_chars": 40,
+    "title_max_chars": 60,
+    "title_max_px": 580,
+    "description_min_chars": 120,
+    "description_max_chars": 156,
+    "description_max_px": 920,
+    "keyphrase_density_min_pct": 0.5,
+    "keyphrase_density_max_pct": 2.5,
+    "keyphrase_in_title_max_position_chars": 40,
+    "sentence_words_soft": 20,
+    "sentence_words_hard": 25,
+    "paragraph_words_soft": 120,
+    "paragraph_words_hard": 150,
+    "heading_distribution_words": 300,
+    "long_section_words": 400,
+    "long_heading_words": 12,
+    "consecutive_same_start_limit": 3,
+    "transition_word_target_pct": 20,
+    "generic_anchor_terms": ["click here", "read more", "here", "this page", "learn more", "link"]
+  },
+  "thin_content_words": {
+    "default": 300,
+    "homepage": 200,
+    "service": 300,
+    "location_seo_page": 350,
+    "blog_post": 500,
+    "portfolio": 150,
+    "venture": 200,
+    "contact": 80,
+    "about": 200,
+    "pricing": 150,
+    "tool_landing": 200,
+    "utility_noindex": 50
+  },
+  "page_type_profiles": {
+    "homepage": { "requires_h1": true, "expected_schema": ["Organization", "WebSite"], "default_indexable": true, "requires_faq": false, "requires_cta": true },
+    "service": { "requires_h1": true, "expected_schema": ["Service", "BreadcrumbList"], "default_indexable": true, "requires_faq": false, "requires_cta": true },
+    "location_seo_page": { "requires_h1": true, "expected_schema": ["WebPage", "BreadcrumbList"], "default_indexable": true, "requires_faq": true, "requires_cta": true },
+    "blog_post": { "requires_h1": true, "expected_schema": ["BlogPosting", "BreadcrumbList"], "default_indexable": true, "requires_faq": false, "requires_cta": false, "requires_author": true, "requires_date": true },
+    "portfolio": { "requires_h1": true, "expected_schema": ["WebPage", "BreadcrumbList"], "default_indexable": true, "requires_faq": false, "requires_cta": true, "requires_service_links": true },
+    "venture": { "requires_h1": true, "expected_schema": ["WebPage"], "default_indexable": true, "requires_faq": true, "requires_cta": true },
+    "contact": { "requires_h1": true, "expected_schema": ["ContactPage"], "default_indexable": true, "requires_faq": false, "requires_cta": false, "skip_thin_content": true },
+    "about": { "requires_h1": true, "expected_schema": ["AboutPage"], "default_indexable": true, "requires_faq": false, "requires_cta": true },
+    "pricing": { "requires_h1": true, "expected_schema": ["WebPage"], "default_indexable": true, "requires_faq": false, "requires_cta": true },
+    "tool_landing": { "requires_h1": true, "expected_schema": ["WebPage"], "default_indexable": true, "requires_faq": false, "requires_cta": false },
+    "utility_noindex": { "requires_h1": true, "expected_schema": [], "default_indexable": false, "requires_faq": false, "requires_cta": false, "skip_thin_content": true }
+  }
+}

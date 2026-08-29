@@ -1,0 +1,36 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="badge" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3b6bff" />
+      <stop offset="60%" stop-color="#7b5cff" />
+      <stop offset="100%" stop-color="#22d3ee" />
+    </linearGradient>
+    <radialGradient id="orb1" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#3157e5" stop-opacity="0.10" />
+      <stop offset="100%" stop-color="#3157e5" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="orb2" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ff7a3d" stop-opacity="0.09" />
+      <stop offset="100%" stop-color="#ff7a3d" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="#f7f9fc" />
+  <circle cx="1040" cy="90" r="260" fill="url(#orb1)" />
+  <circle cx="120" cy="560" r="240" fill="url(#orb2)" />
+
+  <rect x="1" y="1" width="1198" height="628" fill="none" stroke="#dce4ef" stroke-width="2" />
+  <rect x="0" y="0" width="1200" height="10" fill="url(#badge)" />
+
+  <rect x="100" y="120" width="92" height="92" rx="26" fill="url(#badge)" />
+  <text x="146" y="185" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="46" fill="#ffffff">S</text>
+
+  <text x="100" y="330" font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="72" fill="#0b1739" letter-spacing="-1.5">Shrinath Solutions</text>
+
+  <text x="100" y="390" font-family="Arial, Helvetica, sans-serif" font-weight="600" font-size="30" fill="#475569">Websites, Marketing &amp; Hotel Technology</text>
+
+  <rect x="100" y="440" width="10" height="46" rx="5" fill="#ff7a3d" />
+  <text x="126" y="476" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="34" fill="#2444be">We Deliver Your Needs</text>
+
+  <text x="100" y="560" font-family="Arial, Helvetica, sans-serif" font-weight="600" font-size="24" fill="#475569">shrinathsolutions.com · Jaisalmer, Rajasthan</text>
+</svg>

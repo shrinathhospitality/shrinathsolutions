@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Phone } from 'lucide-react';
 import Seo, { breadcrumbSchema, faqSchema, orgSchema } from '../components/Seo';
@@ -9,73 +8,34 @@ import RichContent from '../components/RichContent';
 import ServiceVisual from '../components/service/ServiceVisual';
 import SeoPageSidebar from '../components/SeoPageSidebar';
 import { annotateHeadings, type Heading } from '../lib/extractHeadings';
-import type { Block } from './ServicePage';
 import NotFound from './NotFound';
 import { site } from '../data/site';
 import { emberBtn, ghostBtn, glassStrong, muted } from '../styles/theme';
-
-type ApiSeoPage = {
-  title: string;
-  slug: string;
-  primary_keyword: string | null;
-  target_location: string | null;
-  h1: string;
-  hero_content: string | null;
-  content_sections: (Block | { kind: 'html'; heading: string; body: string; items?: never })[];
-  cta_heading: string | null;
-  cta_body: string | null;
-};
-
-type ApiSeo = { meta_title: string | null; meta_description: string | null } | null;
-type ApiFaq = { question: string; answer: string };
-type Response = { success: boolean; page: ApiSeoPage; seo: ApiSeo; faqs: ApiFaq[] };
+import { useRouteData } from '../loaders/useRouteData';
+import { loadSeoPage, type SeoPageDetailData } from '../loaders/seoPageLoader';
 
 /** Renders any published SEO landing page (keyword/location pages, separate from Services and
  *  the generic Pages module) at its own root-level slug — matches on any otherwise-unrouted
  *  single path segment. */
 export default function DynamicSeoPage() {
   const { slug = '' } = useParams();
-  const [data, setData] = useState<Response | null>(null);
-  const [state, setState] = useState<'loading' | 'ready' | 'error' | 'not-found'>('loading');
+  const path = `/${slug}`;
+  const result = useRouteData<SeoPageDetailData>(path, (signal) => loadSeoPage(slug, { signal }));
 
-  useEffect(() => {
-    setState('loading');
-    setData(null);
-    const controller = new AbortController();
-
-    fetch(`/api/public/seo-pages/${encodeURIComponent(slug)}`, { signal: controller.signal })
-      .then((r) => {
-        if (r.status === 404) {
-          setState('not-found');
-          return null;
-        }
-        if (!r.ok) throw new Error('Request failed');
-        return r.json();
-      })
-      .then((json) => {
-        if (json?.success) {
-          setData(json);
-          setState('ready');
-        }
-      })
-      .catch((err) => {
-        if (err.name !== 'AbortError') setState('error');
-      });
-
-    return () => controller.abort();
-  }, [slug]);
-
-  if (state === 'loading') return null;
-  if (state === 'not-found') return <NotFound />;
-  if (state === 'error' || !data) {
+  if (result === 'loading') return <Seo title="Loading… — Shrinath Solutions" description="" path={path} robots="noindex, follow" />;
+  if (result.status === 'not-found') return <NotFound />;
+  if (result.status === 'error') {
     return (
-      <div className="mx-auto max-w-shell px-[22px] py-24 text-center opacity-70">
-        Something went wrong loading this page. Please try again shortly.
-      </div>
+      <>
+        <Seo title="Something went wrong — Shrinath Solutions" description="" path={path} robots="noindex, follow" />
+        <div className="mx-auto max-w-shell px-[22px] py-24 text-center opacity-70">
+          Something went wrong loading this page. Please try again shortly.
+        </div>
+      </>
     );
   }
 
-  const { page, seo, faqs: rawFaqs } = data;
+  const { page, seo, faqs: rawFaqs } = result.data;
 
   const seenQuestions = new Set<string>();
   const faqs = rawFaqs
@@ -106,6 +66,9 @@ export default function DynamicSeoPage() {
       <Seo
         title={seo?.meta_title ?? page.h1}
         description={seo?.meta_description ?? page.hero_content ?? ''}
+        canonicalOverride={seo?.canonical_url}
+        robots={seo ? `${seo.robots_index === false ? 'noindex' : 'index'}, ${seo.robots_follow === false ? 'nofollow' : 'follow'}` : undefined}
+        image={seo?.og_image ?? undefined}
         path={`/${page.slug}`}
         jsonLd={schema}
       />

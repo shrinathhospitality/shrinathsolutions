@@ -1,11 +1,18 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { Plus, Trash2, Pencil, Search, CheckSquare, Square, Eye } from 'lucide-react';
+import { Plus, Trash2, Pencil, Search, Eye } from 'lucide-react';
 import { adminFetch, ApiError } from '../lib/api';
-import { adminCard, adminColors, adminPrimaryBtn } from '../adminTheme';
+import { adminColors, adminPrimaryBtn } from '../adminTheme';
 import StatusBadge from '../components/StatusBadge';
 import type { ContentStatus } from '../lib/contentTypes';
+import { seoStudioApi, type InventoryItem } from '../../features/seo-studio/api';
+import SeoInventoryCell from '../components/SeoInventoryCell';
+import { useConfirmDialog } from '../components/ConfirmDialog';
+import PageHeader from '../components/PageHeader';
+import Pagination from '../components/Pagination';
+import BulkActionBar from '../components/BulkActionBar';
+import DataTable, { type Column } from '../components/DataTable';
 
 type Row = { id: number; title: string; slug: string; category_name: string | null; status: ContentStatus; updated_at: string };
 type ListResponse = { posts: Row[]; meta: { total: number; page: number; total_pages: number } };
@@ -17,6 +24,9 @@ export default function Blog() {
   const [status, setStatus] = useState('');
   const [selected, setSelected] = useState<Set<number>>(new Set());
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
+  const [seoByContentId, setSeoByContentId] = useState<Record<number, InventoryItem>>({});
+  const { confirm, dialog } = useConfirmDialog();
 
   const load = useCallback((page = 1) => {
     setLoading(true);
@@ -24,12 +34,26 @@ export default function Blog() {
     if (search) params.set('search', search);
     if (status) params.set('status', status);
     return adminFetch<ListResponse>(`/api/admin/blog?${params}`)
-      .then((d) => { setRows(d.posts); setMeta(d.meta); setSelected(new Set()); })
-      .catch(() => toast.error('Failed to load posts'))
+      .then((d) => { setRows(d.posts); setMeta(d.meta); setSelected(new Set()); setLoadError(null); })
+      .catch((err) => {
+        toast.error('Failed to load posts');
+        setLoadError(err instanceof ApiError ? err.message : "Couldn't load posts.");
+      })
       .finally(() => setLoading(false));
   }, [search, status]);
 
   useEffect(() => { load(1); }, [load]);
+
+  useEffect(() => {
+    seoStudioApi
+      .content('content_type=blog_post&per_page=100')
+      .then((d) => {
+        const map: Record<number, InventoryItem> = {};
+        for (const item of d.items) map[item.content_id] = item;
+        setSeoByContentId(map);
+      })
+      .catch(() => {});
+  }, []);
 
   function toggle(id: number) {
     const next = new Set(selected);
@@ -37,33 +61,45 @@ export default function Blog() {
     setSelected(next);
   }
 
-  async function bulk(action: 'publish' | 'archive' | 'delete') {
-    if (selected.size === 0) return;
-    if (action === 'delete' && !confirm(`Delete ${selected.size} post(s)? This cannot be undone.`)) return;
-    try {
-      await adminFetch('/api/admin/blog/bulk', { method: 'POST', body: JSON.stringify({ ids: [...selected], action }) });
-      toast.success('Done');
-      load(meta.page);
-    } catch (err) {
-      toast.error(err instanceof ApiError ? err.message : 'Bulk action failed');
-    }
+  async function runBulk(action: 'publish' | 'archive' | 'delete') {
+    await adminFetch('/api/admin/blog/bulk', { method: 'POST', body: JSON.stringify({ ids: [...selected], action }) });
+    toast.success('Done');
+    await load(meta.page);
   }
 
-  async function remove(id: number, title: string) {
-    if (!confirm(`Delete "${title}"? This cannot be undone.`)) return;
-    try {
-      await adminFetch(`/api/admin/blog/${id}`, { method: 'DELETE' });
-      toast.success('Deleted');
-      load(meta.page);
-    } catch (err) {
-      toast.error(err instanceof ApiError ? err.message : 'Failed to delete');
+  function bulk(action: 'publish' | 'archive' | 'delete') {
+    if (selected.size === 0) return;
+    if (action === 'delete') {
+      confirm({
+        title: `Delete ${selected.size} post(s)?`,
+        variant: 'destructive',
+        confirmLabel: 'Delete',
+        onConfirm: () => runBulk(action),
+      });
+      return;
     }
+    runBulk(action).catch((err) => toast.error(err instanceof ApiError ? err.message : 'Bulk action failed'));
+  }
+
+  function remove(id: number, title: string) {
+    confirm({
+      title: `Delete "${title}"?`,
+      variant: 'destructive',
+      confirmLabel: 'Delete',
+      onConfirm: async () => {
+        await adminFetch(`/api/admin/blog/${id}`, { method: 'DELETE' });
+        toast.success('Deleted');
+        await load(meta.page);
+      },
+    });
   }
 
   const inputStyle: React.CSSProperties = { padding: '9px 13px', borderRadius: 10, border: `1px solid ${adminColors.cardBorder}`, fontSize: 14 };
 
   return (
     <div className="grid gap-4">
+      {dialog}
+      <PageHeader title="Blog Posts" description="Create, publish and optimize website articles." count={meta.total} />
       <div className="flex flex-wrap items-center gap-2.5">
         <div className="relative flex-1 min-w-[220px]">
           <Search size={15} style={{ position: 'absolute', left: 12, top: 11, color: adminColors.textMuted }} />
@@ -81,67 +117,65 @@ export default function Blog() {
         </Link>
       </div>
 
-      {selected.size > 0 && (
-        <div className="flex items-center gap-3 px-4 py-2.5 rounded-[10px]" style={{ background: '#eef0ff' }}>
-          <span className="text-[13.5px] font-semibold">{selected.size} selected</span>
-          <button type="button" onClick={() => bulk('publish')} className="text-[13.5px] font-semibold" style={{ color: adminColors.success }}>Publish</button>
-          <button type="button" onClick={() => bulk('archive')} className="text-[13.5px] font-semibold" style={{ color: adminColors.textMuted }}>Archive</button>
-          <button type="button" onClick={() => bulk('delete')} className="text-[13.5px] font-semibold" style={{ color: adminColors.danger }}>Delete</button>
-        </div>
-      )}
+      <BulkActionBar count={selected.size} onClear={() => setSelected(new Set())}>
+        <button type="button" onClick={() => bulk('publish')} className="text-[13.5px] font-semibold" style={{ color: adminColors.lime }}>Publish</button>
+        <button type="button" onClick={() => bulk('archive')} className="text-[13.5px] font-semibold" style={{ color: 'rgba(255,255,255,.75)' }}>Archive</button>
+        <button type="button" onClick={() => bulk('delete')} className="text-[13.5px] font-semibold" style={{ color: '#ff8f8f' }}>Delete</button>
+      </BulkActionBar>
 
-      <div style={adminCard} className="overflow-x-auto">
-        {loading ? (
-          <div className="p-6" style={{ color: adminColors.textMuted }}>Loading…</div>
-        ) : rows.length === 0 ? (
-          <div className="p-8 text-center" style={{ color: adminColors.textMuted }}>No posts found.</div>
-        ) : (
-          <table className="w-full text-[14px]" style={{ borderCollapse: 'collapse' }}>
-            <thead>
-              <tr style={{ borderBottom: `1px solid ${adminColors.cardBorder}` }}>
-                <th className="w-10 px-4 py-3"></th>
-                <th className="text-left px-4 py-3 font-semibold" style={{ color: adminColors.textMuted }}>Title</th>
-                <th className="text-left px-4 py-3 font-semibold" style={{ color: adminColors.textMuted }}>Category</th>
-                <th className="text-left px-4 py-3 font-semibold" style={{ color: adminColors.textMuted }}>Status</th>
-                <th className="text-left px-4 py-3 font-semibold" style={{ color: adminColors.textMuted }}>Updated</th>
-                <th className="text-right px-4 py-3 font-semibold" style={{ color: adminColors.textMuted }}>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((row) => (
-                <tr key={row.id} style={{ borderBottom: `1px solid ${adminColors.cardBorder}` }}>
-                  <td className="px-4 py-3">
-                    <button type="button" onClick={() => toggle(row.id)} style={{ color: adminColors.textMuted }}>
-                      {selected.has(row.id) ? <CheckSquare size={16} /> : <Square size={16} />}
-                    </button>
-                  </td>
-                  <td className="px-4 py-3 font-medium">{row.title}<div className="text-[12.5px]" style={{ color: adminColors.textMuted }}>/{row.slug}</div></td>
-                  <td className="px-4 py-3" style={{ color: adminColors.textMuted }}>{row.category_name ?? '—'}</td>
-                  <td className="px-4 py-3"><StatusBadge status={row.status} /></td>
-                  <td className="px-4 py-3" style={{ color: adminColors.textMuted }}>{new Date(row.updated_at).toLocaleDateString()}</td>
-                  <td className="px-4 py-3">
-                    <div className="flex items-center justify-end gap-2.5">
-                      <a href={`/blog/${row.slug}`} target="_blank" rel="noopener noreferrer" title="View live page" style={{ color: adminColors.textMuted }}><Eye size={15} /></a>
-                      <Link to={`/admin/blog/${row.id}/edit`} style={{ color: adminColors.accentBlue }}><Pencil size={15} /></Link>
-                      <button type="button" onClick={() => remove(row.id, row.title)} style={{ color: adminColors.danger }}><Trash2 size={15} /></button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-      </div>
+      <DataTable<Row>
+        columns={blogColumns(seoByContentId, remove)}
+        rows={rows}
+        rowKey={(r) => r.id}
+        loading={loading}
+        error={loadError}
+        onRetry={() => load(meta.page)}
+        emptyTitle="No blog posts yet"
+        emptyDescription="Write your first article to get started."
+        caption="Blog posts with category, status, SEO score, last-updated date and available actions."
+        selectable
+        selectedKeys={selected}
+        onToggleSelect={(id) => toggle(id as number)}
+        onToggleSelectAll={(checked) => setSelected(checked ? new Set(rows.map((r) => r.id)) : new Set())}
+        rowSelectLabel={(row) => `Select "${row.title}"`}
+      />
 
-      {meta.total_pages > 1 && (
-        <div className="flex items-center gap-2">
-          {Array.from({ length: meta.total_pages }, (_, i) => i + 1).map((p) => (
-            <button key={p} type="button" onClick={() => load(p)} className="w-8 h-8 rounded-full text-[13px] font-semibold" style={p === meta.page ? adminPrimaryBtn : { border: `1px solid ${adminColors.cardBorder}`, color: adminColors.textMuted }}>
-              {p}
-            </button>
-          ))}
-        </div>
-      )}
+      <Pagination page={meta.page} totalPages={meta.total_pages} onChange={load} />
     </div>
   );
+}
+
+function blogColumns(
+  seoByContentId: Record<number, InventoryItem>,
+  remove: (id: number, title: string) => void,
+): Column<Row>[] {
+  return [
+    {
+      key: 'title',
+      header: 'Title',
+      render: (row) => (
+        <>
+          <span className="font-medium">{row.title}</span>
+          <div className="text-[12.5px]" style={{ color: adminColors.textMuted }}>/{row.slug}</div>
+        </>
+      ),
+    },
+    { key: 'category', header: 'Category', wrap: false, render: (row) => <span style={{ color: adminColors.textMuted }}>{row.category_name ?? '—'}</span> },
+    { key: 'status', header: 'Status', wrap: false, render: (row) => <StatusBadge status={row.status} /> },
+    { key: 'seo', header: 'SEO', wrap: false, render: (row) => <SeoInventoryCell item={seoByContentId[row.id]} /> },
+    { key: 'updated', header: 'Updated', wrap: false, render: (row) => <span style={{ color: adminColors.textMuted }}>{new Date(row.updated_at).toLocaleDateString()}</span> },
+    {
+      key: 'actions',
+      header: 'Actions',
+      align: 'right',
+      wrap: false,
+      render: (row) => (
+        <div className="flex items-center justify-end gap-2.5">
+          <a href={`/blog/${row.slug}`} target="_blank" rel="noopener noreferrer" title="View live page" style={{ color: adminColors.textMuted }}><Eye size={15} /></a>
+          <Link to={`/admin/blog/${row.id}/edit`} title="Edit" style={{ color: adminColors.accentBlue }}><Pencil size={15} /></Link>
+          <button type="button" onClick={() => remove(row.id, row.title)} aria-label={`Delete "${row.title}"`} style={{ color: adminColors.danger }}><Trash2 size={15} /></button>
+        </div>
+      ),
+    },
+  ];
 }

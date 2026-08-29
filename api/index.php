@@ -21,6 +21,7 @@ require __DIR__ . '/models/SeoMeta.php';
 require __DIR__ . '/models/Faq.php';
 require __DIR__ . '/models/Page.php';
 require __DIR__ . '/models/Service.php';
+require __DIR__ . '/models/Venture.php';
 require __DIR__ . '/models/SeoPage.php';
 require __DIR__ . '/models/Blog.php';
 require __DIR__ . '/models/Portfolio.php';
@@ -28,24 +29,48 @@ require __DIR__ . '/models/Media.php';
 require __DIR__ . '/models/Enquiry.php';
 require __DIR__ . '/models/Redirect.php';
 require __DIR__ . '/models/Testimonial.php';
+require __DIR__ . '/models/SeoAudit.php';
 require __DIR__ . '/lib/upload.php';
+require __DIR__ . '/lib/dashboard.php';
+require __DIR__ . '/lib/seo/rules.php';
+require __DIR__ . '/lib/seo/keyphrase.php';
+require __DIR__ . '/lib/seo/extract.php';
+require __DIR__ . '/lib/seo/input.php';
+require __DIR__ . '/lib/seo/checks.php';
+require __DIR__ . '/lib/seo/scorer.php';
+require __DIR__ . '/lib/seo/link_index.php';
+require __DIR__ . '/lib/seo/dashboard.php';
+require __DIR__ . '/lib/seo/documents.php';
+require __DIR__ . '/lib/seo/analyze.php';
+require __DIR__ . '/lib/seo/settings.php';
+require __DIR__ . '/lib/seo/permissions.php';
+require __DIR__ . '/lib/ventures_permissions.php';
+require __DIR__ . '/lib/seo/public_resolve.php';
 require __DIR__ . '/controllers/AuthController.php';
+require __DIR__ . '/controllers/DashboardController.php';
 require __DIR__ . '/controllers/SettingsController.php';
 require __DIR__ . '/controllers/SocialLinkController.php';
 require __DIR__ . '/controllers/MenuController.php';
 require __DIR__ . '/controllers/FooterController.php';
 require __DIR__ . '/controllers/PageController.php';
 require __DIR__ . '/controllers/ServiceController.php';
+require __DIR__ . '/controllers/VentureController.php';
 require __DIR__ . '/controllers/SeoPageController.php';
 require __DIR__ . '/controllers/BlogController.php';
 require __DIR__ . '/controllers/PortfolioController.php';
 require __DIR__ . '/controllers/MediaController.php';
 require __DIR__ . '/controllers/LeadController.php';
 require __DIR__ . '/controllers/RedirectController.php';
+require __DIR__ . '/controllers/SeoAuditController.php';
 require __DIR__ . '/controllers/AuditLogController.php';
 require __DIR__ . '/controllers/TestimonialController.php';
+require __DIR__ . '/controllers/SeoStudioController.php';
 
 header('Content-Type: application/json; charset=utf-8');
+// Every response through this front controller is dynamic and many are session/CSRF-bearing
+// (admin endpoints) — never let a browser or intermediary cache any of it (spec: "Do not cache
+// authenticated admin pages publicly. Do not cache personalized or CSRF-bearing responses.").
+header('Cache-Control: no-store');
 
 // --- CORS: same-origin allowlist only, credentials enabled ---
 $allowedOrigins = [

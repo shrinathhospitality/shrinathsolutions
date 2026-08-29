@@ -5,15 +5,14 @@ import {
   ArrowLeft, ArrowRight, ArrowUpRight, CheckCircle2, Globe2, MapPinned,
   MessageCircle, ShieldCheck, Sparkles, Star, Clock, Headset, Smartphone, SearchCheck,
 } from 'lucide-react';
-import Seo, { orgSchema } from '../components/Seo';
+import Seo, { orgSchema, websiteSchema } from '../components/Seo';
+import { useSeoOverride } from '../hooks/useSeoOverride';
 import EnquiryForm from '../components/EnquiryForm';
 import { Section } from '../components/Sections';
 import BlogThumb from '../components/BlogThumb';
 import * as h from '../data/home';
-import { site, wa } from '../data/site';
+import { wa } from '../data/site';
 import { emberBtn, ghostBtn, glass, muted } from '../styles/theme';
-
-const websiteSchema = { '@context': 'https://schema.org', '@type': 'WebSite', name: site.name, url: site.url };
 
 const WHY_ICONS = [MapPinned, Sparkles, SearchCheck, Smartphone, MessageCircle, Headset];
 
@@ -502,13 +501,17 @@ function InsightsSection() {
 
 export default function Home() {
   const auditRef = useRef<HTMLDivElement | null>(null);
+  const seoOverride = useSeoOverride('/');
 
   return (
     <>
       <Seo
         path="/"
-        title="Shrinath Solutions | Website Designing, Digital Marketing & Hotel Technology in Jaisalmer"
-        description="Shrinath Solutions helps hotels, travel companies and local businesses in Jaisalmer and across Rajasthan build powerful websites, improve Google visibility and generate more direct enquiries."
+        title={seoOverride?.title ?? "Shrinath Solutions | Website Designing, Digital Marketing & Hotel Technology in Jaisalmer"}
+        description={seoOverride?.description ?? "Shrinath Solutions helps hotels, travel companies and local businesses in Jaisalmer and across Rajasthan build powerful websites, improve Google visibility and generate more direct enquiries."}
+        canonicalOverride={seoOverride?.canonical}
+        robots={seoOverride ? `${seoOverride.robotsIndex ? 'index' : 'noindex'}, ${seoOverride.robotsFollow ? 'follow' : 'nofollow'}` : undefined}
+        image={seoOverride?.ogImage ?? undefined}
         jsonLd={[orgSchema, websiteSchema]}
       />
 

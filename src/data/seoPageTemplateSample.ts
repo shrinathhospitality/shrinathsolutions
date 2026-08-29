@@ -8,6 +8,7 @@ import type { SeoPageData } from '../components/seo-template/types';
  */
 export const seoCompanyJaisalmerSample: SeoPageData = {
   path: '/seo-preview/seo-company-jaisalmer',
+  noindex: true,
   metaTitle: 'SEO Company in Jaisalmer | Shrinath Solutions',
   metaDescription: 'Shrinath Solutions is an SEO company in Jaisalmer helping hotels, resorts and local businesses rank higher on Google and get more direct enquiries.',
   breadcrumb: [

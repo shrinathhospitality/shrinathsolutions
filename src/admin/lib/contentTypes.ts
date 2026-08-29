@@ -2,11 +2,13 @@ export type ContentStatus = 'draft' | 'published' | 'scheduled' | 'archived';
 
 export const STATUS_OPTIONS: ContentStatus[] = ['draft', 'published', 'scheduled', 'archived'];
 
+// Matches src/admin/adminTheme.ts's palette — kept as a separate literal map (not importing
+// adminColors) so this file, used by the shared StatusBadge, has no dependency direction issue.
 export const STATUS_COLORS: Record<ContentStatus, { bg: string; text: string }> = {
-  draft: { bg: '#f1f3f9', text: '#5b6478' },
-  published: { bg: '#e6f7ef', text: '#1fa971' },
-  scheduled: { bg: '#eef0ff', text: '#3b6bff' },
-  archived: { bg: '#fdecea', text: '#e0473e' },
+  draft: { bg: '#F5F6F7', text: '#66716E' },
+  published: { bg: '#E4F1EE', text: '#37A866' },
+  scheduled: { bg: '#EAF0FB', text: '#4778E8' },
+  archived: { bg: '#FBEAEA', text: '#DC4545' },
 };
 
 export type SeoFields = {

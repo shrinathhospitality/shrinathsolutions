@@ -4,16 +4,21 @@ import Breadcrumbs from '../components/Breadcrumbs';
 import { Section } from '../components/Sections';
 import { columns } from '../data/megaMenu';
 import { glass } from '../styles/theme';
+import { useSeoOverride } from '../hooks/useSeoOverride';
 
 const trail = [{ name: 'Home', path: '/' }, { name: 'All Services', path: '/services' }];
 
 export default function Services() {
+  const seoOverride = useSeoOverride('/services');
   return (
     <>
       <Seo
         path="/services"
-        title="All Services | Websites, Marketing, SEO & Hotel Technology — Shrinath Solutions"
-        description="Every service from Shrinath Solutions: website design and development, digital marketing, SEO and hotel technology for businesses in Jaisalmer and across Rajasthan."
+        title={seoOverride?.title ?? "All Services | Websites, Marketing, SEO & Hotel Technology — Shrinath Solutions"}
+        description={seoOverride?.description ?? "Every service from Shrinath Solutions: website design and development, digital marketing, SEO and hotel technology for businesses in Jaisalmer and across Rajasthan."}
+        canonicalOverride={seoOverride?.canonical}
+        robots={seoOverride ? `${seoOverride.robotsIndex ? 'index' : 'noindex'}, ${seoOverride.robotsFollow ? 'follow' : 'nofollow'}` : undefined}
+        image={seoOverride?.ogImage ?? undefined}
         jsonLd={[orgSchema, breadcrumbSchema(trail)]}
       />
       <Breadcrumbs trail={trail} />

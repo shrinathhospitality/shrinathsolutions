@@ -1,4 +1,5 @@
 import Seo, { breadcrumbSchema, faqSchema } from '../components/Seo';
+import { useSeoOverride } from '../hooks/useSeoOverride';
 import Breadcrumbs from '../components/Breadcrumbs';
 import Faq from '../components/Faq';
 import EnquiryForm from '../components/EnquiryForm';
@@ -22,12 +23,16 @@ const localBusiness = {
 };
 
 export default function Contact() {
+  const seoOverride = useSeoOverride('/contact');
   return (
     <>
       <Seo
         path="/contact"
-        title="Contact Shrinath Solutions | Website & Digital Marketing Company in Jaisalmer"
-        description="Contact Shrinath Solutions in Jaisalmer, Rajasthan for website designing, digital marketing, SEO and hotel technology. Call +91 94615 31536, WhatsApp or email."
+        title={seoOverride?.title ?? "Contact Shrinath Solutions | Website & Digital Marketing Company in Jaisalmer"}
+        description={seoOverride?.description ?? "Contact Shrinath Solutions in Jaisalmer, Rajasthan for website designing, digital marketing, SEO and hotel technology. Call +91 94615 31536, WhatsApp or email."}
+        canonicalOverride={seoOverride?.canonical}
+        robots={seoOverride ? `${seoOverride.robotsIndex ? 'index' : 'noindex'}, ${seoOverride.robotsFollow ? 'follow' : 'nofollow'}` : undefined}
+        image={seoOverride?.ogImage ?? undefined}
         jsonLd={[localBusiness, breadcrumbSchema(trail), faqSchema(d.faqs)]}
       />
       <Breadcrumbs trail={trail} />

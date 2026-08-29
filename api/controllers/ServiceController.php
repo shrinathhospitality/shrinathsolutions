@@ -145,6 +145,7 @@ function services_admin_delete(PDO $pdo, array $params): void
     }
 
     delete_service($pdo, $id);
+    seo_cleanup_deleted_content($pdo, 'service', $id);
     audit_log($pdo, $ctx['user']['id'], 'content_deleted', 'service', (string) $id);
     json_success();
 }

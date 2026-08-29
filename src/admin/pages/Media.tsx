@@ -1,8 +1,13 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
-import { Upload, Trash2, Copy, Search, X } from 'lucide-react';
+import { Upload, Trash2, Copy, X } from 'lucide-react';
 import { adminFetch, ApiError } from '../lib/api';
 import { adminCard, adminColors, adminPrimaryBtn } from '../adminTheme';
+import { useConfirmDialog } from '../components/ConfirmDialog';
+import PageHeader from '../components/PageHeader';
+import { SearchInput } from '../components/TableToolbar';
+import PaginationBar from '../components/Pagination';
+import { EmptyState } from '../components/ListStates';
 
 type MediaItem = {
   id: number; filename: string; original_filename: string; relative_path: string; mime_type: string;
@@ -24,6 +29,8 @@ export default function Media() {
   const [uploading, setUploading] = useState(false);
   const [selected, setSelected] = useState<MediaItem | null>(null);
   const fileInput = useRef<HTMLInputElement>(null);
+  const { confirm, dialog } = useConfirmDialog();
+  const { confirm: confirmForce, dialog: forceDialog } = useConfirmDialog();
 
   const load = useCallback((page = 1) => {
     setLoading(true);
@@ -69,28 +76,37 @@ export default function Media() {
     }
   }
 
-  async function remove(item: MediaItem) {
-    try {
-      await adminFetch(`/api/admin/media/${item.id}`, { method: 'DELETE' });
-      toast.success('Deleted');
-      setSelected(null);
-      load(meta.page);
-    } catch (err) {
-      if (err instanceof ApiError && err.status === 409) {
-        if (confirm('This file is used by published content. Delete it anyway?')) {
-          try {
-            await adminFetch(`/api/admin/media/${item.id}?force=1`, { method: 'DELETE' });
-            toast.success('Deleted');
-            setSelected(null);
-            load(meta.page);
-          } catch {
-            toast.error('Failed to delete');
+  function remove(item: MediaItem) {
+    confirm({
+      title: `Delete "${item.original_filename}"?`,
+      variant: 'destructive',
+      confirmLabel: 'Delete',
+      onConfirm: async () => {
+        try {
+          await adminFetch(`/api/admin/media/${item.id}`, { method: 'DELETE' });
+          toast.success('Deleted');
+          setSelected(null);
+          await load(meta.page);
+        } catch (err) {
+          if (err instanceof ApiError && err.status === 409) {
+            setTimeout(() => confirmForce({
+              title: 'This file is used by published content.',
+              description: 'Delete it anyway? Content referencing this file may show a broken image.',
+              variant: 'destructive',
+              confirmLabel: 'Delete anyway',
+              onConfirm: async () => {
+                await adminFetch(`/api/admin/media/${item.id}?force=1`, { method: 'DELETE' });
+                toast.success('Deleted');
+                setSelected(null);
+                await load(meta.page);
+              },
+            }), 0);
+            return;
           }
+          throw err;
         }
-      } else {
-        toast.error(err instanceof ApiError ? err.message : 'Failed to delete');
-      }
-    }
+      },
+    });
   }
 
   function copyUrl(item: MediaItem) {
@@ -101,11 +117,11 @@ export default function Media() {
 
   return (
     <div className="grid gap-4">
+      {dialog}
+      {forceDialog}
+      <PageHeader title="Media Library" description="Images and files used across the site." count={meta.total} />
       <div className="flex flex-wrap items-center gap-2.5">
-        <div className="relative flex-1 min-w-[220px]">
-          <Search size={15} style={{ position: 'absolute', left: 12, top: 11, color: adminColors.textMuted }} />
-          <input style={{ ...inputStyle, paddingLeft: 34, width: '100%' }} placeholder="Search media…" value={search} onChange={(e) => setSearch(e.target.value)} />
-        </div>
+        <SearchInput value={search} onChange={setSearch} placeholder="Search media…" />
         <input ref={fileInput} type="file" multiple accept="image/jpeg,image/png,image/webp,image/gif,application/pdf" className="hidden" onChange={(e) => onFilesSelected(e.target.files)} />
         <button type="button" disabled={uploading} onClick={() => fileInput.current?.click()} className="ml-auto flex items-center gap-1.5 px-4 py-2.5 rounded-full text-[14px] disabled:opacity-60" style={adminPrimaryBtn}>
           <Upload size={15} /> {uploading ? 'Uploading…' : 'Upload files'}
@@ -115,9 +131,7 @@ export default function Media() {
       {loading ? (
         <div style={{ color: adminColors.textMuted }}>Loading…</div>
       ) : items.length === 0 ? (
-        <div style={adminCard} className="p-10 text-center" >
-          <p style={{ color: adminColors.textMuted }}>No files yet. Upload JPEG, PNG, WebP, GIF or PDF — up to 10 MB each.</p>
-        </div>
+        <EmptyState title="No files yet" description="Upload JPEG, PNG, WebP, GIF or PDF — up to 10 MB each." />
       ) : (
         <div className="grid gap-3.5" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))' }}>
           {items.map((item) => (
@@ -136,15 +150,7 @@ export default function Media() {
         </div>
       )}
 
-      {meta.total_pages > 1 && (
-        <div className="flex items-center gap-2">
-          {Array.from({ length: meta.total_pages }, (_, i) => i + 1).map((p) => (
-            <button key={p} type="button" onClick={() => load(p)} className="w-8 h-8 rounded-full text-[13px] font-semibold" style={p === meta.page ? adminPrimaryBtn : { border: `1px solid ${adminColors.cardBorder}`, color: adminColors.textMuted }}>
-              {p}
-            </button>
-          ))}
-        </div>
-      )}
+      <PaginationBar page={meta.page} totalPages={meta.total_pages} onChange={load} />
 
       {selected && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-5" style={{ background: 'rgba(10,14,28,.5)' }} onClick={() => setSelected(null)}>

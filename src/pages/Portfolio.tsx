@@ -5,6 +5,7 @@ import Breadcrumbs from '../components/Breadcrumbs';
 import { ImageSlot } from '../components/Sections';
 import { projects as staticProjects, filters as staticFilters } from '../data/portfolio';
 import { emberBtn, glass } from '../styles/theme';
+import { useSeoOverride } from '../hooks/useSeoOverride';
 
 const trail = [{ name: 'Home', path: '/' }, { name: 'Portfolio', path: '/portfolio' }];
 
@@ -39,13 +40,17 @@ export default function Portfolio() {
 
   const list = projects ?? fallbackProjects;
   const visible = list.filter((p) => filter === 'All' || p.category === filter);
+  const seoOverride = useSeoOverride('/portfolio');
 
   return (
     <>
       <Seo
         path="/portfolio"
-        title="Portfolio | Hotel, Travel & Local Business Websites — Shrinath Solutions"
-        description="Website, SEO and marketing work for hotels, desert camps, tour operators, taxi services, restaurants and e-commerce brands in Jaisalmer and across Rajasthan."
+        title={seoOverride?.title ?? "Portfolio | Hotel, Travel & Local Business Websites — Shrinath Solutions"}
+        description={seoOverride?.description ?? "Website, SEO and marketing work for hotels, desert camps, tour operators, taxi services, restaurants and e-commerce brands in Jaisalmer and across Rajasthan."}
+        canonicalOverride={seoOverride?.canonical}
+        robots={seoOverride ? `${seoOverride.robotsIndex ? 'index' : 'noindex'}, ${seoOverride.robotsFollow ? 'follow' : 'nofollow'}` : undefined}
+        image={seoOverride?.ogImage ?? undefined}
         jsonLd={[orgSchema, breadcrumbSchema(trail)]}
       />
       <Breadcrumbs trail={trail} />

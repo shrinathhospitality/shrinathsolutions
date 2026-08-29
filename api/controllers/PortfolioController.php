@@ -155,6 +155,7 @@ function portfolio_admin_delete(PDO $pdo, array $params): void
     }
 
     delete_portfolio_project($pdo, $id);
+    seo_cleanup_deleted_content($pdo, 'portfolio_project', $id);
     audit_log($pdo, $ctx['user']['id'], 'content_deleted', 'portfolio_project', (string) $id);
     json_success();
 }

@@ -1,0 +1,22 @@
+{
+  "description": "Two images, both missing alt text — images.missing_alt must be 'failed'.",
+  "input": {
+    "contentType": "portfolio_project", "contentId": 7, "slug": "handicraft-store", "status": "published",
+    "title": "Handicraft Store E-commerce Website | Shrinath Solutions Portfolio",
+    "description": "A case study on the e-commerce website we built for a Jaisalmer handicraft store.",
+    "canonical": "https://shrinathsolutions.com/portfolio/handicraft-store",
+    "robotsIndex": true, "robotsFollow": true, "ogTitle": "", "ogDescription": "", "ogImage": "",
+    "h1": "Handicraft Store E-commerce Website",
+    "introText": "A modern e-commerce build for a Jaisalmer handicraft retailer.",
+    "bodyText": "A modern e-commerce build for a Jaisalmer handicraft retailer. The store needed an online catalogue with secure checkout and fast product photography loading, so we built a lightweight storefront tuned for mobile shoppers browsing on a slow connection while travelling.",
+    "paragraphs": ["A modern e-commerce build for a Jaisalmer handicraft retailer.", "The store needed an online catalogue with secure checkout and fast product photography loading."],
+    "headings": [{ "level": 2, "text": "The brief" }],
+    "images": [
+      { "alt": "", "src": "/uploads/handicraft-1.jpg", "hasDimensions": false, "loading": "lazy" },
+      { "alt": "", "src": "/uploads/handicraft-2.jpg", "hasDimensions": false, "loading": "lazy" }
+    ],
+    "links": [], "schemaTypes": ["WebPage"], "publicUrl": "/portfolio/handicraft-store", "pageType": "portfolio", "language": "en",
+    "primaryKeyphrase": "handicraft store website", "relatedKeyphrases": [], "isCornerstone": false
+  },
+  "expected": { "imagesMissingAltOutcome": "failed", "imagesMissingDimensionsOutcome": "improvement" }
+}

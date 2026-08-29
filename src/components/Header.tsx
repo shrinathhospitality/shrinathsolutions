@@ -5,6 +5,7 @@ import { primaryNav as staticPrimaryNav, site, wa } from '../data/site';
 import { columns as staticColumns } from '../data/megaMenu';
 import { emberBtn } from '../styles/theme';
 import { useSiteData } from '../context/SiteDataContext';
+import { trackWhatsappClick } from '../lib/analytics';
 
 const COLUMN_TINTS = ['rgba(59,107,255,.12)', 'rgba(123,92,255,.14)', 'rgba(34,211,238,.14)', 'rgba(255,122,47,.14)'];
 const COLUMN_ICON_COLORS = ['#3b6bff', '#7b5cff', '#0891b2', '#ff7a2f'];
@@ -116,7 +117,7 @@ export default function Header() {
             <Link to="/seo-audit-tool" className="inline-flex items-center gap-1.5 font-semibold !text-[#7dd3fc]">
               <Gauge size={14} aria-hidden="true" /> Check Your SEO Score
             </Link>
-            <a href={wa()} target="_blank" rel="noopener noreferrer" className="!text-[#8fd6ff] font-semibold">WhatsApp {phone}</a>
+            <a href={wa()} target="_blank" rel="noopener noreferrer" onClick={() => trackWhatsappClick('header_topbar')} className="!text-[#8fd6ff] font-semibold">WhatsApp {phone}</a>
             <Link to={ctaUrl} className="font-semibold" style={{ color: '#ffb182' }}>{topbarCtaText}</Link>
           </span>
         </div>

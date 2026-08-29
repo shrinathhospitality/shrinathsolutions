@@ -2,10 +2,16 @@ import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { Plus, Trash2, Pencil, Search, Eye } from 'lucide-react';
-import { adminFetch, ApiError } from '../lib/api';
-import { adminCard, adminColors, adminPrimaryBtn } from '../adminTheme';
+import { adminFetch } from '../lib/api';
+import { adminColors, adminPrimaryBtn } from '../adminTheme';
 import StatusBadge from '../components/StatusBadge';
 import type { ContentStatus } from '../lib/contentTypes';
+import { seoStudioApi, type InventoryItem } from '../../features/seo-studio/api';
+import SeoInventoryCell from '../components/SeoInventoryCell';
+import { useConfirmDialog } from '../components/ConfirmDialog';
+import PageHeader from '../components/PageHeader';
+import Pagination from '../components/Pagination';
+import DataTable, { type Column } from '../components/DataTable';
 
 type Row = { id: number; title: string; slug: string; primary_keyword: string | null; target_location: string | null; status: ContentStatus; updated_at: string };
 type ListResponse = { seo_pages: Row[]; meta: { total: number; page: number; total_pages: number } };
@@ -15,34 +21,55 @@ export default function SeoPages() {
   const [meta, setMeta] = useState({ total: 0, page: 1, total_pages: 1 });
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
+  const [seoByContentId, setSeoByContentId] = useState<Record<number, InventoryItem>>({});
+  const { confirm, dialog } = useConfirmDialog();
 
   const load = useCallback((page = 1) => {
     setLoading(true);
     const params = new URLSearchParams({ page: String(page), per_page: '20' });
     if (search) params.set('search', search);
     return adminFetch<ListResponse>(`/api/admin/seo-pages?${params}`)
-      .then((d) => { setRows(d.seo_pages); setMeta(d.meta); })
-      .catch(() => toast.error('Failed to load SEO pages'))
+      .then((d) => { setRows(d.seo_pages); setMeta(d.meta); setLoadError(null); })
+      .catch(() => {
+        toast.error('Failed to load SEO pages');
+        setLoadError("Couldn't load SEO pages.");
+      })
       .finally(() => setLoading(false));
   }, [search]);
 
   useEffect(() => { load(1); }, [load]);
 
-  async function remove(id: number, title: string) {
-    if (!confirm(`Delete "${title}"? This cannot be undone.`)) return;
-    try {
-      await adminFetch(`/api/admin/seo-pages/${id}`, { method: 'DELETE' });
-      toast.success('Deleted');
-      load(meta.page);
-    } catch (err) {
-      toast.error(err instanceof ApiError ? err.message : 'Failed to delete');
-    }
+  useEffect(() => {
+    seoStudioApi
+      .content('content_type=seo_page&per_page=100')
+      .then((d) => {
+        const map: Record<number, InventoryItem> = {};
+        for (const item of d.items) map[item.content_id] = item;
+        setSeoByContentId(map);
+      })
+      .catch(() => {});
+  }, []);
+
+  function remove(id: number, title: string) {
+    confirm({
+      title: `Delete "${title}"?`,
+      variant: 'destructive',
+      confirmLabel: 'Delete',
+      onConfirm: async () => {
+        await adminFetch(`/api/admin/seo-pages/${id}`, { method: 'DELETE' });
+        toast.success('Deleted');
+        await load(meta.page);
+      },
+    });
   }
 
   const inputStyle: React.CSSProperties = { padding: '9px 13px', borderRadius: 10, border: `1px solid ${adminColors.cardBorder}`, fontSize: 14 };
 
   return (
     <div className="grid gap-4">
+      {dialog}
+      <PageHeader title="SEO Pages" description="Manage location and keyword-targeted landing pages." count={meta.total} />
       <div className="flex flex-wrap items-center gap-2.5">
         <div className="relative flex-1 min-w-[220px]">
           <Search size={15} style={{ position: 'absolute', left: 12, top: 11, color: adminColors.textMuted }} />
@@ -53,52 +80,56 @@ export default function SeoPages() {
         </Link>
       </div>
 
-      <div style={adminCard} className="overflow-x-auto">
-        {loading ? (
-          <div className="p-6" style={{ color: adminColors.textMuted }}>Loading…</div>
-        ) : rows.length === 0 ? (
-          <div className="p-8 text-center" style={{ color: adminColors.textMuted }}>No SEO pages found.</div>
-        ) : (
-          <table className="w-full text-[14px]" style={{ borderCollapse: 'collapse' }}>
-            <thead>
-              <tr style={{ borderBottom: `1px solid ${adminColors.cardBorder}` }}>
-                <th className="text-left px-4 py-3 font-semibold" style={{ color: adminColors.textMuted }}>Title</th>
-                <th className="text-left px-4 py-3 font-semibold" style={{ color: adminColors.textMuted }}>Keyword</th>
-                <th className="text-left px-4 py-3 font-semibold" style={{ color: adminColors.textMuted }}>Location</th>
-                <th className="text-left px-4 py-3 font-semibold" style={{ color: adminColors.textMuted }}>Status</th>
-                <th className="text-right px-4 py-3 font-semibold" style={{ color: adminColors.textMuted }}>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((row) => (
-                <tr key={row.id} style={{ borderBottom: `1px solid ${adminColors.cardBorder}` }}>
-                  <td className="px-4 py-3 font-medium">{row.title}<div className="text-[12.5px]" style={{ color: adminColors.textMuted }}>/{row.slug}</div></td>
-                  <td className="px-4 py-3" style={{ color: adminColors.textMuted }}>{row.primary_keyword ?? '—'}</td>
-                  <td className="px-4 py-3" style={{ color: adminColors.textMuted }}>{row.target_location ?? '—'}</td>
-                  <td className="px-4 py-3"><StatusBadge status={row.status} /></td>
-                  <td className="px-4 py-3">
-                    <div className="flex items-center justify-end gap-2.5">
-                      <a href={`/${row.slug}`} target="_blank" rel="noopener noreferrer" title="View live page" style={{ color: adminColors.textMuted }}><Eye size={15} /></a>
-                      <Link to={`/admin/seo-pages/${row.id}/edit`} style={{ color: adminColors.accentBlue }}><Pencil size={15} /></Link>
-                      <button type="button" onClick={() => remove(row.id, row.title)} style={{ color: adminColors.danger }}><Trash2 size={15} /></button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-      </div>
+      <DataTable<Row>
+        columns={seoPagesColumns(seoByContentId, remove)}
+        rows={rows}
+        rowKey={(r) => r.id}
+        loading={loading}
+        error={loadError}
+        onRetry={() => load(meta.page)}
+        emptyTitle="No SEO pages yet"
+        emptyDescription="Create your first location or keyword-targeted landing page."
+        caption="SEO pages with target keyword, location, status, SEO score and available actions."
+      />
 
-      {meta.total_pages > 1 && (
-        <div className="flex items-center gap-2">
-          {Array.from({ length: meta.total_pages }, (_, i) => i + 1).map((p) => (
-            <button key={p} type="button" onClick={() => load(p)} className="w-8 h-8 rounded-full text-[13px] font-semibold" style={p === meta.page ? adminPrimaryBtn : { border: `1px solid ${adminColors.cardBorder}`, color: adminColors.textMuted }}>
-              {p}
-            </button>
-          ))}
-        </div>
-      )}
+      <Pagination page={meta.page} totalPages={meta.total_pages} onChange={load} />
     </div>
   );
+}
+
+function seoPagesColumns(
+  seoByContentId: Record<number, InventoryItem>,
+  remove: (id: number, title: string) => void,
+): Column<Row>[] {
+  return [
+    {
+      key: 'title',
+      header: 'Title',
+      render: (row) => (
+        <>
+          <span className="font-medium">{row.title}</span>
+          <div className="text-[12.5px]" style={{ color: adminColors.textMuted }}>/{row.slug}</div>
+        </>
+      ),
+    },
+    { key: 'keyword', header: 'Keyword', wrap: false, render: (row) => <span style={{ color: adminColors.textMuted }}>{row.primary_keyword ?? '—'}</span> },
+    { key: 'location', header: 'Location', wrap: false, render: (row) => <span style={{ color: adminColors.textMuted }}>{row.target_location ?? '—'}</span> },
+    { key: 'status', header: 'Status', wrap: false, render: (row) => <StatusBadge status={row.status} /> },
+    { key: 'seo', header: 'SEO score', wrap: false, render: (row) => <SeoInventoryCell item={seoByContentId[row.id]} hideKeyword /> },
+    {
+      key: 'actions',
+      header: 'Actions',
+      align: 'right',
+      wrap: false,
+      // Only 3 actions exist (View/Edit/Delete) — a flat inline layout stays clear here, so
+      // RowActionMenu isn't used; see the DataTable migration report for the fit rationale.
+      render: (row) => (
+        <div className="flex items-center justify-end gap-2.5">
+          <a href={`/${row.slug}`} target="_blank" rel="noopener noreferrer" title="View live page" style={{ color: adminColors.textMuted }}><Eye size={15} /></a>
+          <Link to={`/admin/seo-pages/${row.id}/edit`} title="Edit" style={{ color: adminColors.accentBlue }}><Pencil size={15} /></Link>
+          <button type="button" onClick={() => remove(row.id, row.title)} aria-label={`Delete "${row.title}"`} style={{ color: adminColors.danger }}><Trash2 size={15} /></button>
+        </div>
+      ),
+    },
+  ];
 }

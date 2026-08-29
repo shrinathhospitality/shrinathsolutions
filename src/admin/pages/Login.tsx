@@ -51,7 +51,7 @@ export default function AdminLogin() {
         <div className="flex items-center gap-3 mb-6">
           <span
             className="grid place-items-center font-heading font-extrabold text-[19px]"
-            style={{ width: 42, height: 42, borderRadius: 14, background: 'linear-gradient(140deg,#3b6bff,#7b5cff 60%,#22d3ee)' }}
+            style={{ width: 42, height: 42, borderRadius: 14, background: 'linear-gradient(140deg,#14665B,#0F5148 65%,#B7F56A)' }}
           >
             S
           </span>

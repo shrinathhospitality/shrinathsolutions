@@ -1,6 +1,7 @@
 import Seo, { breadcrumbSchema, orgSchema } from '../components/Seo';
 import Breadcrumbs from '../components/Breadcrumbs';
 import { Paras, Section } from '../components/Sections';
+import { useSeoOverride } from '../hooks/useSeoOverride';
 
 type Block = { heading: string; paras: string[] };
 
@@ -37,15 +38,22 @@ export default function Legal({ kind }: { kind: 'privacy' | 'terms' }) {
   const name = privacy ? 'Privacy Policy' : 'Terms & Conditions';
   const trail = [{ name: 'Home', path: '/' }, { name, path }];
   const blocks = privacy ? PRIVACY : TERMS;
+  // Keyed by the exact active route (`/privacy-policy` vs `/terms-conditions`), never by this
+  // shared component's filename — each has its own seo_documents registry row and must never
+  // receive the other's saved override (see docs/SEO_STUDIO_ARCHITECTURE.md Part 3 §23a).
+  const seoOverride = useSeoOverride(path);
 
   return (
     <>
       <Seo
         path={path}
-        title={`${name} — Shrinath Solutions`}
-        description={privacy
+        title={seoOverride?.title ?? `${name} — Shrinath Solutions`}
+        description={seoOverride?.description ?? (privacy
           ? 'How Shrinath Solutions handles information sent through this website.'
-          : 'Terms covering use of this website and engagements with Shrinath Solutions.'}
+          : 'Terms covering use of this website and engagements with Shrinath Solutions.')}
+        canonicalOverride={seoOverride?.canonical}
+        robots={seoOverride ? `${seoOverride.robotsIndex ? 'index' : 'noindex'}, ${seoOverride.robotsFollow ? 'follow' : 'nofollow'}` : undefined}
+        image={seoOverride?.ogImage ?? undefined}
         jsonLd={[orgSchema, breadcrumbSchema(trail)]}
       />
       <Breadcrumbs trail={trail} />

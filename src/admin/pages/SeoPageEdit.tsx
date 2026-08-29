@@ -5,16 +5,26 @@ import { adminFetch, ApiError } from '../lib/api';
 import { adminCard, adminColors, adminPrimaryBtn } from '../adminTheme';
 import type { ContentSection, FaqItem, SectionKind, SeoFields } from '../lib/contentTypes';
 import { SECTION_KIND_LABELS } from '../lib/contentTypes';
+import SeoStudioPanel from '../../features/seo-studio/components/SeoStudioPanel';
+import { seoStudioApi, type StoredAnalysis } from '../../features/seo-studio/api';
 
 type Form = {
   title: string; slug: string; primary_keyword: string; target_location: string; search_intent: string;
-  h1: string; hero_content: string; cta_heading: string; cta_body: string; status: string;
+  h1: string; hero_content: string; cta_heading: string; cta_body: string; status: string; featured_image: string;
 };
 
-const empty: Form = { title: '', slug: '', primary_keyword: '', target_location: '', search_intent: '', h1: '', hero_content: '', cta_heading: '', cta_body: '', status: 'draft' };
+const empty: Form = { title: '', slug: '', primary_keyword: '', target_location: '', search_intent: '', h1: '', hero_content: '', cta_heading: '', cta_body: '', status: 'draft', featured_image: '' };
 
 const input: React.CSSProperties = { padding: '11px 14px', borderRadius: 10, border: `1px solid ${adminColors.cardBorder}`, fontSize: 14.5, width: '100%' };
 const label: React.CSSProperties = { color: adminColors.textMuted, fontSize: 13.5, fontWeight: 600 };
+
+type PageTab = 'details' | 'content' | 'seo' | 'faqs';
+const PAGE_TABS: { key: PageTab; label: string }[] = [
+  { key: 'details', label: 'Details' },
+  { key: 'content', label: 'Content' },
+  { key: 'seo', label: 'SEO' },
+  { key: 'faqs', label: 'FAQs' },
+];
 
 function emptyItemFor(kind: SectionKind): any {
   if (kind === 'steps') return { num: '', title: '', body: '' };
@@ -110,6 +120,13 @@ export default function SeoPageEdit() {
   const [preserved, setPreserved] = useState<{ internal_links: any[]; related_services: any[]; breadcrumb: any[] }>({ internal_links: [], related_services: [], breadcrumb: [] });
   const [loading, setLoading] = useState(!isNew);
   const [submitting, setSubmitting] = useState(false);
+  const [keyphrase, setKeyphrase] = useState('');
+  const [relatedKeyphrases, setRelatedKeyphrases] = useState<string[]>([]);
+  const [language, setLanguage] = useState<'en' | 'hi'>('en');
+  const [isCornerstone, setIsCornerstone] = useState(false);
+  const [storedAnalysis, setStoredAnalysis] = useState<StoredAnalysis>(null);
+  const [contentId, setContentId] = useState<number | null>(isNew ? null : Number(id));
+  const [pageTab, setPageTab] = useState<PageTab>('details');
 
   useEffect(() => {
     if (isNew) return;
@@ -119,7 +136,7 @@ export default function SeoPageEdit() {
           title: d.page.title, slug: d.page.slug, primary_keyword: d.page.primary_keyword ?? '',
           target_location: d.page.target_location ?? '', search_intent: d.page.search_intent ?? '',
           h1: d.page.h1, hero_content: d.page.hero_content ?? '', cta_heading: d.page.cta_heading ?? '',
-          cta_body: d.page.cta_body ?? '', status: d.page.status,
+          cta_body: d.page.cta_body ?? '', status: d.page.status, featured_image: d.page.featured_image ?? '',
         });
         setSeo(d.seo ?? { robots_index: true, robots_follow: true });
         setFaqs(d.faqs ?? []);
@@ -132,6 +149,16 @@ export default function SeoPageEdit() {
       })
       .catch(() => toast.error('Failed to load page'))
       .finally(() => setLoading(false));
+
+    seoStudioApi.contentDetail('seo_page', Number(id)).then((d) => {
+      setStoredAnalysis(d.analysis);
+      if (d.analysis) {
+        setKeyphrase(d.analysis.primary_keyphrase ?? '');
+        setRelatedKeyphrases(d.analysis.related_keyphrases ?? []);
+        setLanguage((d.analysis.language as 'en' | 'hi') ?? 'en');
+        setIsCornerstone(d.analysis.is_cornerstone);
+      }
+    }).catch(() => {});
   }, [id, isNew]);
 
   async function onSubmit(e: FormEvent) {
@@ -140,13 +167,23 @@ export default function SeoPageEdit() {
     const payload = { ...form, primary_keyword: form.primary_keyword || null, target_location: form.target_location || null, search_intent: form.search_intent || null, hero_content: form.hero_content || null, cta_heading: form.cta_heading || null, cta_body: form.cta_body || null, seo, faqs, content_sections: sections, ...preserved };
 
     try {
+      let savedId = contentId;
       if (isNew) {
         const res = await adminFetch<{ id: number }>('/api/admin/seo-pages', { method: 'POST', body: JSON.stringify(payload) });
+        savedId = res.id;
+        setContentId(res.id);
         toast.success('Page created');
         navigate(`/admin/seo-pages/${res.id}/edit`, { replace: true });
       } else {
         await adminFetch(`/api/admin/seo-pages/${id}`, { method: 'PUT', body: JSON.stringify(payload) });
         toast.success('Saved');
+      }
+
+      if (savedId) {
+        const seoStudioResult = await seoStudioApi.saveContent('seo_page', savedId, {
+          seo, primary_keyphrase: keyphrase, related_keyphrases: relatedKeyphrases, language, is_cornerstone: isCornerstone,
+        });
+        setStoredAnalysis(seoStudioResult.analysis);
       }
     } catch (err) {
       toast.error(err instanceof ApiError ? err.message : 'Failed to save');
@@ -158,7 +195,22 @@ export default function SeoPageEdit() {
   if (loading) return <div style={{ color: adminColors.textMuted }}>Loading…</div>;
 
   return (
-    <form onSubmit={onSubmit} className="grid gap-5 max-w-[720px]">
+    <form onSubmit={onSubmit} className="grid gap-5 w-full">
+      <div className="flex gap-1 border-b sticky top-0 z-10" style={{ borderColor: adminColors.cardBorder, background: adminColors.contentBg }}>
+        {PAGE_TABS.map((t) => (
+          <button
+            key={t.key} type="button" onClick={() => setPageTab(t.key)}
+            className="px-4 py-2.5 text-[13.5px] font-semibold -mb-px"
+            style={{ borderBottom: pageTab === t.key ? `2px solid ${adminColors.accentBlue}` : '2px solid transparent', color: pageTab === t.key ? adminColors.accentBlue : adminColors.textMuted }}
+          >
+            {t.label}
+            {t.key === 'faqs' && faqs.length > 0 ? ` (${faqs.length})` : ''}
+          </button>
+        ))}
+      </div>
+
+      {pageTab === 'details' && (
+      <>
       <div style={adminCard} className="p-6 grid gap-4">
         <div className="grid gap-4" style={{ gridTemplateColumns: '1fr 1fr' }}>
           <label className="grid gap-1.5" style={label}>Title<input style={input} value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} required /></label>
@@ -177,6 +229,16 @@ export default function SeoPageEdit() {
         </div>
         <label className="grid gap-1.5" style={label}>H1<input style={input} value={form.h1} onChange={(e) => setForm({ ...form, h1: e.target.value })} required /></label>
         <label className="grid gap-1.5" style={label}>Hero content<textarea style={{ ...input, resize: 'vertical' }} rows={4} value={form.hero_content} onChange={(e) => setForm({ ...form, hero_content: e.target.value })} /></label>
+        <label className="grid gap-1.5" style={label}>
+          Featured image
+          <input style={input} placeholder="uploads/2026/.../file.jpg or https://…" value={form.featured_image} onChange={(e) => setForm({ ...form, featured_image: e.target.value })} />
+        </label>
+        {form.featured_image && (
+          <img src={form.featured_image.startsWith('http') ? form.featured_image : `/api/${form.featured_image.replace(/^\//, '')}`} alt="Featured" className="rounded-[10px] max-h-[160px] object-cover justify-self-start" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+        )}
+        <p className="text-[12.5px] m-0 -mt-2" style={{ color: adminColors.textMuted }}>
+          Copy an image path from the <a href="/admin/media" target="_blank" rel="noreferrer" style={{ color: adminColors.accentBlue }}>Media Library</a>.
+        </p>
       </div>
 
       <div style={adminCard} className="p-6 grid gap-4">
@@ -184,18 +246,11 @@ export default function SeoPageEdit() {
         <label className="grid gap-1.5" style={label}>Heading<input style={input} value={form.cta_heading} onChange={(e) => setForm({ ...form, cta_heading: e.target.value })} /></label>
         <label className="grid gap-1.5" style={label}>Body<input style={input} value={form.cta_body} onChange={(e) => setForm({ ...form, cta_body: e.target.value })} /></label>
       </div>
+      </>
+      )}
 
-      <div style={adminCard} className="p-6 grid gap-4">
-        <div className="font-heading font-bold text-[15px]">SEO</div>
-        <label className="grid gap-1.5" style={label}>Meta title<input style={input} value={seo.meta_title ?? ''} onChange={(e) => setSeo({ ...seo, meta_title: e.target.value })} /></label>
-        <label className="grid gap-1.5" style={label}>Meta description<textarea style={{ ...input, resize: 'vertical' }} rows={2} value={seo.meta_description ?? ''} onChange={(e) => setSeo({ ...seo, meta_description: e.target.value })} /></label>
-        <label className="grid gap-1.5" style={label}>Canonical URL<input style={input} value={seo.canonical_url ?? ''} onChange={(e) => setSeo({ ...seo, canonical_url: e.target.value })} /></label>
-        <div className="flex gap-5">
-          <label className="flex items-center gap-2 text-[14px]"><input type="checkbox" checked={seo.robots_index ?? true} onChange={(e) => setSeo({ ...seo, robots_index: e.target.checked })} /> Index</label>
-          <label className="flex items-center gap-2 text-[14px]"><input type="checkbox" checked={seo.robots_follow ?? true} onChange={(e) => setSeo({ ...seo, robots_follow: e.target.checked })} /> Follow</label>
-        </div>
-      </div>
-
+      {pageTab === 'content' && (
+      <>
       <div style={adminCard} className="p-6 grid gap-4">
         <div className="font-heading font-bold text-[15px]">Content sections</div>
         {sections.map((s, i) => (
@@ -217,7 +272,36 @@ export default function SeoPageEdit() {
           + Add section
         </button>
       </div>
+      </>
+      )}
 
+      {pageTab === 'seo' && (
+      <>
+      <div style={adminCard} className="p-6 grid gap-4">
+        <div className="font-heading font-bold text-[15px]">SEO</div>
+        <label className="grid gap-1.5" style={label}>Meta title<input style={input} value={seo.meta_title ?? ''} onChange={(e) => setSeo({ ...seo, meta_title: e.target.value })} /></label>
+        <label className="grid gap-1.5" style={label}>Meta description<textarea style={{ ...input, resize: 'vertical' }} rows={2} value={seo.meta_description ?? ''} onChange={(e) => setSeo({ ...seo, meta_description: e.target.value })} /></label>
+        <label className="grid gap-1.5" style={label}>Canonical URL<input style={input} value={seo.canonical_url ?? ''} onChange={(e) => setSeo({ ...seo, canonical_url: e.target.value })} /></label>
+        <div className="flex gap-5">
+          <label className="flex items-center gap-2 text-[14px]"><input type="checkbox" checked={seo.robots_index ?? true} onChange={(e) => setSeo({ ...seo, robots_index: e.target.checked })} /> Index</label>
+          <label className="flex items-center gap-2 text-[14px]"><input type="checkbox" checked={seo.robots_follow ?? true} onChange={(e) => setSeo({ ...seo, robots_follow: e.target.checked })} /> Follow</label>
+        </div>
+      </div>
+
+      <SeoStudioPanel
+        contentType="seo_page" contentId={contentId} seo={seo} slug={form.slug} h1={form.h1}
+        introText={form.hero_content} blocks={sections}
+        pageType="location_seo_page" publicUrl={`/${form.slug}`}
+        keyphrase={keyphrase} onKeyphraseChange={setKeyphrase}
+        relatedKeyphrases={relatedKeyphrases} onRelatedKeyphrasesChange={setRelatedKeyphrases}
+        language={language} onLanguageChange={setLanguage}
+        isCornerstone={isCornerstone} onCornerstoneChange={setIsCornerstone}
+        storedAnalysis={storedAnalysis}
+      />
+      </>
+      )}
+
+      {pageTab === 'faqs' && (
       <div style={adminCard} className="p-6 grid gap-3">
         <div className="font-heading font-bold text-[15px]">FAQs</div>
         {faqs.map((f, i) => (
@@ -231,6 +315,7 @@ export default function SeoPageEdit() {
           + Add FAQ
         </button>
       </div>
+      )}
 
       <button type="submit" disabled={submitting} className="justify-self-start px-6 py-3 rounded-full text-[15px] disabled:opacity-60" style={adminPrimaryBtn}>
         {submitting ? 'Saving…' : isNew ? 'Create page' : 'Save changes'}

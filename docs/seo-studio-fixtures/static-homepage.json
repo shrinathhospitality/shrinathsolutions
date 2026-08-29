@@ -1,0 +1,28 @@
+{
+  "description": "A well-optimized static route document (pageType: homepage) — exercises the homepage page-type profile for the first time in the fixture suite.",
+  "input": {
+    "contentType": "static_page", "contentId": 1, "slug": "", "status": "published",
+    "title": "Shrinath Solutions | Website Designing, Digital Marketing & Hotel Technology in Jaisalmer",
+    "description": "Shrinath Solutions builds websites, runs digital marketing and installs hotel technology for businesses and properties across Jaisalmer and Rajasthan.",
+    "canonical": "https://shrinathsolutions.com/",
+    "robotsIndex": true, "robotsFollow": true, "ogTitle": "", "ogDescription": "", "ogImage": "https://shrinathsolutions.com/og-image.png",
+    "h1": "Websites, Marketing and Hotel Technology Built to Grow Your Business",
+    "introText": "We design websites, run digital marketing campaigns and install hotel technology for businesses across Jaisalmer and Rajasthan.",
+    "bodyText": "We design websites, run digital marketing campaigns and install hotel technology for businesses across Jaisalmer and Rajasthan. Whether you need a new website, better search visibility or a channel manager for your hotel, our team builds solutions around your actual goals. We start every project with a conversation about what you are trying to achieve, not a fixed package. Therefore, every website we design, every marketing campaign we run and every piece of hotel technology we install is shaped by your specific business. Additionally, we keep our process transparent, with fixed written quotes and clear timelines from the very first call. As a result, clients know exactly what they are paying for and when it will be delivered. Get in touch today for a free consultation and a fixed, written quote for your project.",
+    "paragraphs": ["We design websites, run digital marketing campaigns and install hotel technology for businesses across Jaisalmer and Rajasthan.", "Whether you need a new website, better search visibility or a channel manager for your hotel, our team builds solutions around your actual goals.", "We start every project with a conversation about what you are trying to achieve, not a fixed package.", "Therefore, every website we design, every marketing campaign we run and every piece of hotel technology we install is shaped by your specific business.", "Additionally, we keep our process transparent, with fixed written quotes and clear timelines from the very first call.", "As a result, clients know exactly what they are paying for and when it will be delivered.", "Get in touch today for a free consultation and a fixed, written quote for your project."],
+    "headings": [
+      { "level": 2, "text": "Websites built for growth" },
+      { "level": 2, "text": "Digital marketing that targets real customers" },
+      { "level": 2, "text": "Hotel technology that fills more rooms" }
+    ],
+    "images": [{ "alt": "Shrinath Solutions team working on a client website in Jaisalmer", "src": "/uploads/homepage-hero.jpg", "hasDimensions": true, "loading": "eager" }],
+    "links": [
+      { "href": "/services", "text": "our services", "target": null, "rel": null, "isInternal": true },
+      { "href": "/portfolio", "text": "recent client work", "target": null, "rel": null, "isInternal": true },
+      { "href": "/contact", "text": "Get in touch", "target": null, "rel": null, "isInternal": true }
+    ],
+    "schemaTypes": ["Organization", "WebSite"], "publicUrl": "/", "pageType": "homepage", "language": "en",
+    "primaryKeyphrase": "website designing digital marketing hotel technology jaisalmer", "relatedKeyphrases": ["digital marketing jaisalmer", "hotel technology"], "isCornerstone": true
+  },
+  "expected": { "seoScore": { "min": 60 }, "overallScore": { "min": 60 } }
+}

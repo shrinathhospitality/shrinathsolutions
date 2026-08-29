@@ -1,104 +1,56 @@
-import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Clock3, CalendarDays, ArrowRight } from 'lucide-react';
-import Seo, { breadcrumbSchema, faqSchema, orgSchema } from '../components/Seo';
+import Seo, { articleSchema, breadcrumbSchema, faqSchema, orgSchema } from '../components/Seo';
 import Breadcrumbs from '../components/Breadcrumbs';
 import RichContent from '../components/RichContent';
 import Faq from '../components/Faq';
 import BlogThumb from '../components/BlogThumb';
 import BlogSidebar from '../components/BlogSidebar';
-import { site } from '../data/site';
 import { muted } from '../styles/theme';
 import NotFound from './NotFound';
-
-type Post = {
-  id: number;
-  title: string; slug: string; excerpt: string | null; content: string | null;
-  category_name: string | null; category_slug: string | null;
-  reading_time_minutes: number | null; published_at: string | null;
-};
-type Seo_ = { meta_title: string | null; meta_description: string | null } | null;
-type FaqItem = { question: string; answer: string };
-type RelatedPost = { title: string; slug: string; category_name: string | null; reading_time_minutes: number | null };
+import { useRouteData } from '../loaders/useRouteData';
+import { loadBlogPost, type BlogDetailData } from '../loaders/blogLoader';
 
 const formatDate = (iso: string) =>
   new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 
 export default function BlogDetail() {
   const { slug = '' } = useParams();
-  const [post, setPost] = useState<Post | null>(null);
-  const [seo, setSeo] = useState<Seo_>(null);
-  const [faqs, setFaqs] = useState<FaqItem[]>([]);
-  const [related, setRelated] = useState<RelatedPost[]>([]);
-  const [state, setState] = useState<'loading' | 'ready' | 'error' | 'not-found'>('loading');
+  const path = `/blog/${slug}`;
+  const result = useRouteData<BlogDetailData>(path, (signal) => loadBlogPost(slug, { signal }));
 
-  useEffect(() => {
-    setState('loading');
-    setPost(null);
-    setRelated([]);
-    const controller = new AbortController();
-
-    fetch(`/api/public/blog/${encodeURIComponent(slug)}`, { signal: controller.signal })
-      .then((r) => {
-        if (r.status === 404) {
-          setState('not-found');
-          return null;
-        }
-        if (!r.ok) throw new Error('Request failed');
-        return r.json();
-      })
-      .then((json) => {
-        if (json?.success) {
-          setPost(json.post);
-          setSeo(json.seo);
-          setFaqs(json.faqs ?? []);
-          setState('ready');
-        }
-      })
-      .catch((err) => {
-        if (err.name !== 'AbortError') setState('error');
-      });
-
-    return () => controller.abort();
-  }, [slug]);
-
-  useEffect(() => {
-    if (!post?.category_slug) return;
-    const controller = new AbortController();
-    fetch(`/api/public/blog?category=${encodeURIComponent(post.category_slug)}&per_page=6`, { signal: controller.signal })
-      .then((r) => (r.ok ? r.json() : null))
-      .then((data) => {
-        if (data?.success && Array.isArray(data.posts)) {
-          setRelated(data.posts.filter((p: RelatedPost) => p.slug !== post.slug).slice(0, 3));
-        }
-      })
-      .catch(() => {});
-    return () => controller.abort();
-  }, [post?.category_slug, post?.slug]);
-
-  if (state === 'loading') {
-    return <div className="mx-auto max-w-shell px-[22px] py-24 text-center opacity-60">Loading…</div>;
+  if (result === 'loading') {
+    return (
+      <>
+        <Seo title="Loading… — Shrinath Solutions" description="" path={path} robots="noindex, follow" />
+        <div className="mx-auto max-w-shell px-[22px] py-24 text-center opacity-60">Loading…</div>
+      </>
+    );
   }
-  if (state === 'not-found') return <NotFound />;
-  if (state === 'error' || !post) {
-    return <div className="mx-auto max-w-shell px-[22px] py-24 text-center opacity-70">Something went wrong loading this article. Please try again shortly.</div>;
+  if (result.status === 'not-found') return <NotFound />;
+  if (result.status === 'error') {
+    return (
+      <>
+        <Seo title="Something went wrong — Shrinath Solutions" description="" path={path} robots="noindex, follow" />
+        <div className="mx-auto max-w-shell px-[22px] py-24 text-center opacity-70">Something went wrong loading this article. Please try again shortly.</div>
+      </>
+    );
   }
+
+  const { post, seo, faqs, related } = result.data;
 
   const faqPairs: [string, string][] = faqs.map((f) => [f.question, f.answer]);
   const crumbs = [{ name: 'Home', path: '/' }, { name: 'Blog', path: '/blog' }, { name: post.title, path: `/blog/${post.slug}` }];
   const schema: object[] = [
     orgSchema,
     breadcrumbSchema(crumbs),
-    {
-      '@context': 'https://schema.org',
-      '@type': 'BlogPosting',
+    articleSchema({
       headline: post.title,
-      description: post.excerpt,
-      author: { '@type': 'Organization', name: site.name },
-      publisher: { '@type': 'Organization', name: site.name },
-      datePublished: post.published_at ?? undefined,
-    },
+      description: post.excerpt ?? '',
+      path: `/blog/${post.slug}`,
+      datePublished: post.published_at,
+    }),
   ];
   if (faqPairs.length) schema.push(faqSchema(faqPairs));
 
@@ -109,6 +61,8 @@ export default function BlogDetail() {
         title={seo?.meta_title ?? `${post.title} — Shrinath Solutions`}
         description={seo?.meta_description ?? post.excerpt ?? ''}
         jsonLd={schema}
+        type="article"
+        publishedTime={post.published_at ?? undefined}
       />
       <Breadcrumbs trail={crumbs} />
 

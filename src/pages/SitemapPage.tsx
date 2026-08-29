@@ -3,6 +3,7 @@ import Seo, { breadcrumbSchema, orgSchema } from '../components/Seo';
 import Breadcrumbs from '../components/Breadcrumbs';
 import { Section } from '../components/Sections';
 import { glass } from '../styles/theme';
+import { useSeoOverride } from '../hooks/useSeoOverride';
 
 const trail = [{ name: 'Home', path: '/' }, { name: 'Sitemap', path: '/sitemap' }];
 
@@ -46,12 +47,16 @@ const groups = [
 ];
 
 export default function SitemapPage() {
+  const seoOverride = useSeoOverride('/sitemap');
   return (
     <>
       <Seo
         path="/sitemap"
-        title="Sitemap — Shrinath Solutions"
-        description="Every page on the Shrinath Solutions website, listed for people. The XML sitemap lives at /sitemap.xml."
+        title={seoOverride?.title ?? "Sitemap — Shrinath Solutions"}
+        description={seoOverride?.description ?? "Every page on the Shrinath Solutions website, listed for people. The XML sitemap lives at /sitemap.xml."}
+        canonicalOverride={seoOverride?.canonical}
+        robots={seoOverride ? `${seoOverride.robotsIndex ? 'index' : 'noindex'}, ${seoOverride.robotsFollow ? 'follow' : 'nofollow'}` : undefined}
+        image={seoOverride?.ogImage ?? undefined}
         jsonLd={[orgSchema, breadcrumbSchema(trail)]}
       />
       <Breadcrumbs trail={trail} />
